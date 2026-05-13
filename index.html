@@ -7,183 +7,206 @@
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
   <style>
     [data-theme="dark"] {
-      --bg: #08080f; --surface: #111118; --surface2: #18181f; --surface3: #1f1f28;
-      --border: #252535; --border2: #2e2e42; --text: #e2e2f0; --text2: #a0a0bc; --muted: #65657a;
-      --accent: #5b6af8; --accent2: #f85b8a; --accent3: #38e8a0; --accent4: #fbbf24;
-      --shadow: rgba(0,0,0,0.5); --glow: rgba(91,106,248,0.12);
+      --bg:#08080f;--surface:#111118;--surface2:#18181f;--surface3:#1f1f28;
+      --border:#252535;--border2:#2e2e42;--text:#e2e2f0;--muted:#65657a;
+      --accent:#5b6af8;--accent2:#f85b8a;--accent3:#38e8a0;--accent4:#fbbf24;
+      --shadow:rgba(0,0,0,0.5);--glow:rgba(91,106,248,0.12);
     }
     [data-theme="light"] {
-      --bg: #f0f0f8; --surface: #ffffff; --surface2: #f5f5fc; --surface3: #ebebf8;
-      --border: #ddddf0; --border2: #c8c8e8; --text: #1a1a2e; --text2: #4a4a6a; --muted: #8888aa;
-      --accent: #4455f5; --accent2: #e83870; --accent3: #16a85a; --accent4: #d97706;
-      --shadow: rgba(0,0,0,0.1); --glow: rgba(68,85,245,0.08);
+      --bg:#f0f0f8;--surface:#ffffff;--surface2:#f5f5fc;--surface3:#ebebf8;
+      --border:#ddddf0;--border2:#c8c8e8;--text:#1a1a2e;--muted:#8888aa;
+      --accent:#4455f5;--accent2:#e83870;--accent3:#16a85a;--accent4:#d97706;
+      --shadow:rgba(0,0,0,0.1);--glow:rgba(68,85,245,0.08);
     }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'DM Mono', monospace; background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; overflow: hidden; transition: background 0.3s, color 0.3s; }
-    [data-theme="dark"] body::before { content: ''; position: fixed; inset: 0; background: radial-gradient(ellipse 55% 45% at 15% 15%, rgba(91,106,248,0.1) 0%, transparent 65%), radial-gradient(ellipse 45% 55% at 85% 85%, rgba(56,232,160,0.06) 0%, transparent 65%); pointer-events: none; z-index: 0; }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'DM Mono',monospace;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column;overflow:hidden;transition:background .3s,color .3s}
+    [data-theme="dark"] body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 55% 45% at 15% 15%,rgba(91,106,248,.1) 0%,transparent 65%),radial-gradient(ellipse 45% 55% at 85% 85%,rgba(56,232,160,.06) 0%,transparent 65%);pointer-events:none;z-index:0}
 
     /* LOGIN */
-    #login-screen { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 100; padding: 1.5rem; }
-    .login-card { background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 2.5rem 2rem; width: 100%; max-width: 400px; position: relative; overflow: hidden; box-shadow: 0 20px 60px var(--shadow); animation: popIn 0.4s cubic-bezier(0.34,1.56,0.64,1); }
-    @keyframes popIn { from { opacity: 0; transform: scale(0.92) translateY(20px); } to { opacity: 1; transform: scale(1) translateY(0); } }
-    .login-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent3)); }
-    .brand { display: flex; align-items: center; gap: 12px; margin-bottom: 2rem; }
-    .brand-icon { width: 48px; height: 48px; background: linear-gradient(135deg, var(--accent), var(--accent2)); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 24px; }
-    .brand-name { font-family: 'Syne', sans-serif; font-size: 26px; font-weight: 800; letter-spacing: -0.5px; }
-    .brand-name span { color: var(--accent); }
-    .login-headline { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 700; margin-bottom: 8px; }
-    .login-sub { font-size: 12px; color: var(--muted); line-height: 1.7; margin-bottom: 2rem; }
-    .features { display: flex; flex-direction: column; gap: 10px; margin-bottom: 2rem; }
-    .feature { display: flex; align-items: center; gap: 10px; font-size: 12px; color: var(--muted); }
-    .feature-icon { width: 28px; height: 28px; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
-    .btn-google { width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px; background: var(--surface); border: 1.5px solid var(--border2); border-radius: 12px; padding: 13px 20px; font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; color: var(--text); cursor: pointer; transition: transform 0.15s, box-shadow 0.15s, border-color 0.2s; box-shadow: 0 2px 12px var(--shadow); }
-    .btn-google:hover { transform: translateY(-2px); box-shadow: 0 6px 24px var(--shadow); border-color: var(--accent); }
-    .btn-google svg { width: 20px; height: 20px; flex-shrink: 0; }
-    .login-note { font-size: 10px; color: var(--muted); text-align: center; margin-top: 1rem; line-height: 1.6; }
+    #login-screen{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;z-index:100;padding:1.5rem}
+    .login-card{background:var(--surface);border:1px solid var(--border);border-radius:24px;padding:2.5rem 2rem;width:100%;max-width:400px;position:relative;overflow:hidden;box-shadow:0 20px 60px var(--shadow);animation:popIn .4s cubic-bezier(.34,1.56,.64,1)}
+    @keyframes popIn{from{opacity:0;transform:scale(.92) translateY(20px)}to{opacity:1;transform:scale(1) translateY(0)}}
+    .login-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2),var(--accent3))}
+    .brand{display:flex;align-items:center;gap:12px;margin-bottom:2rem}
+    .brand-icon{width:48px;height:48px;background:linear-gradient(135deg,var(--accent),var(--accent2));border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px}
+    .brand-name{font-family:'Syne',sans-serif;font-size:26px;font-weight:800;letter-spacing:-.5px}
+    .brand-name span{color:var(--accent)}
+    .login-headline{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;margin-bottom:8px}
+    .login-sub{font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:2rem}
+    .features{display:flex;flex-direction:column;gap:10px;margin-bottom:2rem}
+    .feature{display:flex;align-items:center;gap:10px;font-size:12px;color:var(--muted)}
+    .feature-icon{width:28px;height:28px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+    .btn-google{width:100%;display:flex;align-items:center;justify-content:center;gap:10px;background:var(--surface);border:1.5px solid var(--border2);border-radius:12px;padding:13px 20px;font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--text);cursor:pointer;transition:transform .15s,box-shadow .15s,border-color .2s;box-shadow:0 2px 12px var(--shadow)}
+    .btn-google:hover{transform:translateY(-2px);box-shadow:0 6px 24px var(--shadow);border-color:var(--accent)}
+    .btn-google svg{width:20px;height:20px;flex-shrink:0}
+    .login-note{font-size:10px;color:var(--muted);text-align:center;margin-top:1rem;line-height:1.6}
 
     /* CLIENT ID */
-    #clientid-screen { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; z-index: 99; padding: 1.5rem; }
-    .clientid-card { background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 2rem; width: 100%; max-width: 440px; position: relative; overflow: hidden; box-shadow: 0 20px 60px var(--shadow); }
-    .clientid-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--accent3), var(--accent)); }
-    .step-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--glow); border: 1px solid rgba(91,106,248,0.25); border-radius: 20px; padding: 4px 12px; font-size: 11px; color: var(--accent); margin-bottom: 1rem; }
-    .clientid-title { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 700; margin-bottom: 8px; }
-    .clientid-desc { font-size: 12px; color: var(--muted); line-height: 1.7; margin-bottom: 1.5rem; }
-    .steps-list { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-bottom: 1.5rem; }
-    .steps-list li { display: flex; gap: 10px; align-items: flex-start; font-size: 12px; color: var(--muted); line-height: 1.6; }
-    .step-num { width: 20px; height: 20px; background: var(--glow); border: 1px solid rgba(91,106,248,0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; color: var(--accent); flex-shrink: 0; margin-top: 1px; }
-    .steps-list a { color: var(--accent); }
-    .field-label { font-size: 11px; font-weight: 500; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
-    input[type="text"] { width: 100%; background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 11px 14px; font-family: 'DM Mono', monospace; font-size: 12px; color: var(--text); outline: none; transition: border-color 0.2s; margin-bottom: 1rem; }
-    input[type="text"]:focus { border-color: var(--accent); }
-    .origin-box { background: var(--bg); border: 1px dashed var(--border); border-radius: 10px; padding: 10px 14px; font-size: 12px; color: var(--accent3); margin-bottom: 1rem; word-break: break-all; }
-    .btn-primary { width: 100%; background: linear-gradient(135deg, var(--accent), #8b5cf6); border: none; border-radius: 12px; padding: 13px; font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; color: #fff; cursor: pointer; transition: opacity 0.2s, transform 0.1s; }
-    .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+    #clientid-screen{position:fixed;inset:0;display:none;align-items:center;justify-content:center;z-index:99;padding:1.5rem}
+    .clientid-card{background:var(--surface);border:1px solid var(--border);border-radius:24px;padding:2rem;width:100%;max-width:440px;position:relative;overflow:hidden;box-shadow:0 20px 60px var(--shadow)}
+    .clientid-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent3),var(--accent))}
+    .step-badge{display:inline-flex;align-items:center;gap:6px;background:var(--glow);border:1px solid rgba(91,106,248,.25);border-radius:20px;padding:4px 12px;font-size:11px;color:var(--accent);margin-bottom:1rem}
+    .clientid-title{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;margin-bottom:8px}
+    .clientid-desc{font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:1.5rem}
+    .steps-list{list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:1.5rem}
+    .steps-list li{display:flex;gap:10px;align-items:flex-start;font-size:12px;color:var(--muted);line-height:1.6}
+    .step-num{width:20px;height:20px;background:var(--glow);border:1px solid rgba(91,106,248,.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--accent);flex-shrink:0;margin-top:1px}
+    .steps-list a{color:var(--accent)}
+    .field-label{font-size:11px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
+    input[type="text"]{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:11px 14px;font-family:'DM Mono',monospace;font-size:12px;color:var(--text);outline:none;transition:border-color .2s;margin-bottom:1rem}
+    input[type="text"]:focus{border-color:var(--accent)}
+    .origin-box{background:var(--bg);border:1px dashed var(--border);border-radius:10px;padding:10px 14px;font-size:12px;color:var(--accent3);margin-bottom:1rem;word-break:break-all}
+    .btn-primary{width:100%;background:linear-gradient(135deg,var(--accent),#8b5cf6);border:none;border-radius:12px;padding:13px;font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:#fff;cursor:pointer;transition:opacity .2s,transform .1s}
+    .btn-primary:hover{opacity:.9;transform:translateY(-1px)}
 
-    /* MAIN APP */
-    #app { display: none; flex-direction: column; height: 100vh; position: relative; z-index: 1; }
+    /* APP */
+    #app{display:none;flex-direction:column;height:100vh;position:relative;z-index:1}
+    .app-header{display:flex;align-items:center;justify-content:space-between;padding:.8rem 1.5rem;border-bottom:1px solid var(--border);background:var(--surface);flex-shrink:0;z-index:10;box-shadow:0 1px 12px var(--shadow)}
+    .header-left{display:flex;align-items:center;gap:10px}
+    .h-icon{width:32px;height:32px;background:linear-gradient(135deg,var(--accent),var(--accent2));border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:15px}
+    .h-title{font-family:'Syne',sans-serif;font-size:16px;font-weight:800}
+    .h-title span{color:var(--accent)}
+    .nav-tabs{display:flex;gap:4px;background:var(--surface2);border-radius:10px;padding:3px}
+    .nav-tab{padding:6px 14px;border-radius:8px;border:none;font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);cursor:pointer;background:none;transition:all .2s}
+    .nav-tab.active{background:var(--accent);color:#fff}
+    .nav-tab:not(.active):hover{color:var(--text);background:var(--surface3)}
+    .header-right{display:flex;align-items:center;gap:8px}
+    .theme-toggle{width:36px;height:36px;border-radius:10px;background:var(--surface2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;transition:all .2s}
+    .theme-toggle:hover{border-color:var(--accent);background:var(--glow)}
+    .user-pill{display:flex;align-items:center;gap:7px;background:var(--surface2);border:1px solid var(--border);border-radius:20px;padding:4px 12px 4px 6px;font-size:12px;color:var(--muted)}
+    .user-pill img{width:22px;height:22px;border-radius:50%;object-fit:cover}
+    .user-pill .dot{width:6px;height:6px;border-radius:50%;background:var(--accent3)}
+    .btn-logout{background:none;border:1px solid var(--border);border-radius:8px;padding:5px 10px;color:var(--muted);font-family:'DM Mono',monospace;font-size:11px;cursor:pointer;transition:all .2s}
+    .btn-logout:hover{border-color:var(--accent2);color:var(--accent2)}
 
-    /* HEADER */
-    .app-header { display: flex; align-items: center; justify-content: space-between; padding: 0.8rem 1.5rem; border-bottom: 1px solid var(--border); background: var(--surface); flex-shrink: 0; z-index: 10; box-shadow: 0 1px 12px var(--shadow); }
-    .header-left { display: flex; align-items: center; gap: 10px; }
-    .h-icon { width: 32px; height: 32px; background: linear-gradient(135deg, var(--accent), var(--accent2)); border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 15px; }
-    .h-title { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 800; }
-    .h-title span { color: var(--accent); }
-    .nav-tabs { display: flex; gap: 4px; background: var(--surface2); border-radius: 10px; padding: 3px; }
-    .nav-tab { padding: 6px 14px; border-radius: 8px; border: none; font-family: 'DM Mono', monospace; font-size: 12px; color: var(--muted); cursor: pointer; background: none; transition: all 0.2s; }
-    .nav-tab.active { background: var(--accent); color: #fff; }
-    .nav-tab:not(.active):hover { color: var(--text); background: var(--surface3); }
-    .header-right { display: flex; align-items: center; gap: 8px; }
-    .theme-toggle { width: 36px; height: 36px; border-radius: 10px; background: var(--surface2); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 16px; transition: all 0.2s; }
-    .theme-toggle:hover { border-color: var(--accent); background: var(--glow); }
-    .user-pill { display: flex; align-items: center; gap: 7px; background: var(--surface2); border: 1px solid var(--border); border-radius: 20px; padding: 4px 12px 4px 6px; font-size: 12px; color: var(--muted); }
-    .user-pill img { width: 22px; height: 22px; border-radius: 50%; object-fit: cover; }
-    .user-pill .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent3); }
-    .btn-logout { background: none; border: 1px solid var(--border); border-radius: 8px; padding: 5px 10px; color: var(--muted); font-family: 'DM Mono', monospace; font-size: 11px; cursor: pointer; transition: all 0.2s; }
-    .btn-logout:hover { border-color: var(--accent2); color: var(--accent2); }
-
-    /* VIEWS */
-    .view { display: none; flex: 1; overflow: hidden; flex-direction: column; }
-    .view.active { display: flex; }
+    .view{display:none;flex:1;overflow:hidden;flex-direction:column}
+    .view.active{display:flex}
 
     /* DASHBOARD */
-    .dashboard-area { flex: 1; overflow-y: auto; padding: 1.5rem; }
-    .dashboard-area::-webkit-scrollbar { width: 3px; }
-    .dashboard-area::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
-    .dash-greeting { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; margin-bottom: 4px; }
-    .dash-greeting span { color: var(--accent); }
-    .dash-sub { font-size: 12px; color: var(--muted); margin-bottom: 1.5rem; }
-    .stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 1.5rem; }
-    @media (max-width: 768px) { .stat-grid { grid-template-columns: repeat(2, 1fr); } }
-    .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 1.2rem; position: relative; overflow: hidden; transition: transform 0.2s, border-color 0.2s; animation: fadeUp 0.4s ease both; }
-    .stat-card:hover { transform: translateY(-2px); border-color: var(--border2); }
-    .stat-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
-    .stat-card:nth-child(1)::before { background: var(--accent); }
-    .stat-card:nth-child(2)::before { background: var(--accent3); }
-    .stat-card:nth-child(3)::before { background: var(--accent2); }
-    .stat-card:nth-child(4)::before { background: var(--accent4); }
-    .stat-card:nth-child(1){animation-delay:0.05s} .stat-card:nth-child(2){animation-delay:0.1s} .stat-card:nth-child(3){animation-delay:0.15s} .stat-card:nth-child(4){animation-delay:0.2s}
-    .stat-icon { font-size: 22px; margin-bottom: 10px; }
-    .stat-val { font-family: 'Syne', sans-serif; font-size: 28px; font-weight: 800; line-height: 1; margin-bottom: 4px; }
-    .stat-label { font-size: 11px; color: var(--muted); }
-    .section-title { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
-    .section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-    .type-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 1.5rem; }
-    @media (max-width: 768px) { .type-grid { grid-template-columns: repeat(2, 1fr); } }
-    .type-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1rem; display: flex; align-items: center; gap: 10px; transition: transform 0.2s, border-color 0.2s; animation: fadeUp 0.4s ease both; cursor: pointer; }
-    .type-card:hover { transform: translateY(-2px); border-color: var(--border2); }
-    .type-card:nth-child(1){animation-delay:0.1s} .type-card:nth-child(2){animation-delay:0.15s} .type-card:nth-child(3){animation-delay:0.2s} .type-card:nth-child(4){animation-delay:0.25s}
-    .type-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
-    .type-info { flex: 1; min-width: 0; }
-    .type-name { font-size: 12px; font-weight: 500; color: var(--text); }
-    .type-count { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 700; }
-    .recent-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 1.5rem; }
-    .recent-item { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px; display: flex; align-items: center; gap: 12px; transition: border-color 0.2s, transform 0.15s; animation: fadeUp 0.4s ease both; text-decoration: none; color: var(--text); }
-    .recent-item:hover { border-color: var(--accent); transform: translateX(4px); }
-    .recent-icon { font-size: 20px; flex-shrink: 0; }
-    .recent-info { flex: 1; min-width: 0; }
-    .recent-name { font-size: 13px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .recent-meta { font-size: 11px; color: var(--muted); margin-top: 2px; }
-    .recent-badge { font-size: 10px; padding: 2px 8px; border-radius: 20px; flex-shrink: 0; }
-    .dash-search { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 1.2rem; margin-bottom: 1.5rem; animation: fadeUp 0.4s ease 0.05s both; }
-    .dash-search-title { font-size: 12px; color: var(--muted); margin-bottom: 10px; }
-    .dash-search-row { display: flex; gap: 8px; }
-    .dash-search-input { flex: 1; background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 10px 14px; font-family: 'DM Mono', monospace; font-size: 13px; color: var(--text); outline: none; transition: border-color 0.2s; }
-    .dash-search-input:focus { border-color: var(--accent); }
-    .dash-search-input::placeholder { color: var(--muted); }
-    .dash-search-btn { background: linear-gradient(135deg, var(--accent), #8b5cf6); border: none; border-radius: 10px; padding: 10px 18px; font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700; color: #fff; cursor: pointer; transition: opacity 0.2s; white-space: nowrap; }
-    .dash-search-btn:hover { opacity: 0.9; }
-    .dash-loading { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 3rem; gap: 12px; }
-    .dash-loading .spinner { width: 36px; height: 36px; border-radius: 50%; border: 3px solid var(--border); border-top-color: var(--accent); animation: spin 0.8s linear infinite; }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    .dash-loading p { font-size: 12px; color: var(--muted); }
+    .dashboard-area{flex:1;overflow-y:auto;padding:1.5rem}
+    .dashboard-area::-webkit-scrollbar{width:3px}
+    .dashboard-area::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
+    .dash-greeting{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;margin-bottom:4px}
+    .dash-greeting span{color:var(--accent)}
+    .dash-sub{font-size:12px;color:var(--muted);margin-bottom:1.5rem}
+    .stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:1.5rem}
+    @media(max-width:768px){.stat-grid{grid-template-columns:repeat(2,1fr)}}
+    .stat-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.2rem;position:relative;overflow:hidden;transition:transform .2s,border-color .2s;animation:fadeUp .4s ease both}
+    .stat-card:hover{transform:translateY(-2px);border-color:var(--border2)}
+    .stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+    .stat-card:nth-child(1)::before{background:var(--accent)}
+    .stat-card:nth-child(2)::before{background:var(--accent3)}
+    .stat-card:nth-child(3)::before{background:var(--accent2)}
+    .stat-card:nth-child(4)::before{background:var(--accent4)}
+    .stat-card:nth-child(1){animation-delay:.05s}.stat-card:nth-child(2){animation-delay:.1s}.stat-card:nth-child(3){animation-delay:.15s}.stat-card:nth-child(4){animation-delay:.2s}
+    .stat-icon{font-size:22px;margin-bottom:10px}
+    .stat-val{font-family:'Syne',sans-serif;font-size:28px;font-weight:800;line-height:1;margin-bottom:4px}
+    .stat-label{font-size:11px;color:var(--muted)}
+    .section-title{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+    .section-title::after{content:'';flex:1;height:1px;background:var(--border)}
+    .type-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:1.5rem}
+    @media(max-width:768px){.type-grid{grid-template-columns:repeat(2,1fr)}}
+    .type-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1rem;display:flex;align-items:center;gap:10px;transition:transform .2s,border-color .2s,box-shadow .2s;animation:fadeUp .4s ease both;cursor:pointer}
+    .type-card:hover{transform:translateY(-3px);border-color:var(--accent);box-shadow:0 8px 24px var(--shadow)}
+    .type-card:nth-child(1){animation-delay:.1s}.type-card:nth-child(2){animation-delay:.15s}.type-card:nth-child(3){animation-delay:.2s}.type-card:nth-child(4){animation-delay:.25s}
+    .type-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+    .type-info{flex:1;min-width:0}
+    .type-name{font-size:12px;font-weight:500;color:var(--text)}
+    .type-count{font-family:'Syne',sans-serif;font-size:18px;font-weight:700}
+    .type-arrow{font-size:14px;color:var(--muted)}
+    .recent-list{display:flex;flex-direction:column;gap:8px;margin-bottom:1.5rem}
+    .recent-item{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:12px;transition:border-color .2s,transform .15s;animation:fadeUp .4s ease both;text-decoration:none;color:var(--text)}
+    .recent-item:hover{border-color:var(--accent);transform:translateX(4px)}
+    .recent-icon{font-size:20px;flex-shrink:0}
+    .recent-info{flex:1;min-width:0}
+    .recent-name{font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .recent-meta{font-size:11px;color:var(--muted);margin-top:2px}
+    .recent-badge{font-size:10px;padding:2px 8px;border-radius:20px;flex-shrink:0}
+    .dash-search{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.2rem;margin-bottom:1.5rem;animation:fadeUp .4s ease .05s both}
+    .dash-search-title{font-size:12px;color:var(--muted);margin-bottom:10px}
+    .dash-search-row{display:flex;gap:8px}
+    .dash-search-input{flex:1;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:10px 14px;font-family:'DM Mono',monospace;font-size:13px;color:var(--text);outline:none;transition:border-color .2s}
+    .dash-search-input:focus{border-color:var(--accent)}
+    .dash-search-input::placeholder{color:var(--muted)}
+    .dash-search-btn{background:linear-gradient(135deg,var(--accent),#8b5cf6);border:none;border-radius:10px;padding:10px 18px;font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:#fff;cursor:pointer;transition:opacity .2s;white-space:nowrap}
+    .dash-search-btn:hover{opacity:.9}
+    .dash-loading{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem;gap:12px}
+    .spinner{width:36px;height:36px;border-radius:50%;border:3px solid var(--border);border-top-color:var(--accent);animation:spin .8s linear infinite}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .dash-loading p{font-size:12px;color:var(--muted)}
+
+    /* FILE LIST MODAL */
+    .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);z-index:200;display:none;align-items:center;justify-content:center;padding:1.5rem}
+    .modal-overlay.open{display:flex}
+    .modal{background:var(--surface);border:1px solid var(--border);border-radius:20px;width:100%;max-width:600px;max-height:80vh;display:flex;flex-direction:column;box-shadow:0 24px 80px var(--shadow);animation:popIn .3s cubic-bezier(.34,1.56,.64,1)}
+    .modal-header{display:flex;align-items:center;justify-content:space-between;padding:1.2rem 1.5rem;border-bottom:1px solid var(--border);flex-shrink:0}
+    .modal-title{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;display:flex;align-items:center;gap:8px}
+    .modal-close{background:none;border:1px solid var(--border);border-radius:8px;width:30px;height:30px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--muted);font-size:16px;transition:all .2s}
+    .modal-close:hover{border-color:var(--accent2);color:var(--accent2)}
+    .modal-body{flex:1;overflow-y:auto;padding:1rem 1.5rem}
+    .modal-body::-webkit-scrollbar{width:3px}
+    .modal-body::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
+    .modal-count{font-size:11px;color:var(--muted);padding:.5rem 1.5rem;border-bottom:1px solid var(--border);flex-shrink:0}
+    .modal-footer{padding:.8rem 1.5rem;border-top:1px solid var(--border);display:flex;justify-content:center;flex-shrink:0}
+    .btn-load-more{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:8px 20px;font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);cursor:pointer;transition:all .2s}
+    .btn-load-more:hover{border-color:var(--accent);color:var(--accent)}
+    .btn-load-more:disabled{opacity:.4;cursor:not-allowed}
+    .mfile{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);text-decoration:none;color:var(--text);transition:color .2s}
+    .mfile:last-child{border-bottom:none}
+    .mfile:hover .mfile-name{color:var(--accent)}
+    .mfile-icon{font-size:18px;flex-shrink:0}
+    .mfile-info{flex:1;min-width:0}
+    .mfile-name{font-size:12px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:color .2s}
+    .mfile-meta{font-size:11px;color:var(--muted);margin-top:2px}
+    .mfile-badge{font-size:10px;padding:2px 7px;border-radius:20px;flex-shrink:0}
 
     /* SEARCH VIEW */
-    .chat-area { flex: 1; overflow-y: auto; padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; scroll-behavior: smooth; }
-    .chat-area::-webkit-scrollbar { width: 3px; }
-    .chat-area::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
-    .msg { display: flex; gap: 10px; align-items: flex-start; animation: fadeUp 0.3s ease; }
-    .msg.user { flex-direction: row-reverse; }
-    @keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-    .av { width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
-    .av.bot { background: linear-gradient(135deg, var(--accent), #8b5cf6); }
-    .av.user-av { background: var(--surface2); border: 1px solid var(--border); overflow: hidden; }
-    .av.user-av img { width: 100%; height: 100%; object-fit: cover; }
-    .bubble { max-width: 80%; padding: 12px 16px; border-radius: 14px; font-size: 13px; line-height: 1.7; }
-    .msg.bot .bubble { background: var(--surface); border: 1px solid var(--border); border-radius: 4px 14px 14px 14px; }
-    .msg.user .bubble { background: var(--glow); border: 1px solid rgba(91,106,248,0.25); border-radius: 14px 4px 14px 14px; color: var(--text); }
-    .results-wrap { padding-left: 40px; display: flex; flex-direction: column; gap: 8px; }
-    .rcard { background: var(--surface2); border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px; transition: border-color 0.2s, transform 0.15s; animation: fadeUp 0.3s ease; }
-    .rcard:hover { border-color: var(--accent); transform: translateX(3px); }
-    .rcard-top { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
-    .fbadge { font-size: 10px; padding: 2px 8px; border-radius: 20px; font-weight: 500; letter-spacing: 0.4px; flex-shrink: 0; }
-    .b-sheet { background: rgba(56,232,160,0.12); color: var(--accent3); border: 1px solid rgba(56,232,160,0.25); }
-    .b-doc   { background: rgba(91,106,248,0.12); color: var(--accent);  border: 1px solid rgba(91,106,248,0.25); }
-    .b-slide { background: rgba(248,91,138,0.12); color: var(--accent2); border: 1px solid rgba(248,91,138,0.25); }
-    .b-pdf   { background: rgba(251,191,36,0.12); color: var(--accent4); border: 1px solid rgba(251,191,36,0.25); }
-    .b-zip   { background: rgba(150,150,150,0.12);color: var(--muted);   border: 1px solid rgba(150,150,150,0.25); }
-    .b-file  { background: rgba(150,150,150,0.12);color: var(--muted);   border: 1px solid rgba(150,150,150,0.25); }
-    .rcard-name { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 600; flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .rcard-meta { font-size: 11px; color: var(--muted); margin-bottom: 6px; }
-    .rcard-link { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; color: var(--accent); text-decoration: none; }
-    .rcard-link:hover { text-decoration: underline; }
-    .thinking { display: flex; gap: 5px; align-items: center; padding: 6px 0; }
-    .thinking span { width: 7px; height: 7px; border-radius: 50%; opacity: 0.3; animation: pulse 1.2s ease-in-out infinite; }
-    .thinking span:nth-child(1){background:var(--accent)} .thinking span:nth-child(2){background:var(--accent2);animation-delay:0.2s} .thinking span:nth-child(3){background:var(--accent3);animation-delay:0.4s}
-    @keyframes pulse { 0%,80%,100%{opacity:0.2;transform:scale(0.8)} 40%{opacity:1;transform:scale(1.1)} }
-    .chips { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 1.5rem 0.6rem; }
-    .chip { font-size: 11px; padding: 5px 13px; border-radius: 20px; border: 1px solid var(--border); background: var(--surface); color: var(--muted); cursor: pointer; font-family: 'DM Mono', monospace; transition: all 0.2s; }
-    .chip:hover { border-color: var(--accent); color: var(--accent); background: var(--glow); }
-    .input-area { padding: 0.9rem 1.5rem 1.3rem; border-top: 1px solid var(--border); background: var(--surface); flex-shrink: 0; }
-    .input-row { display: flex; gap: 8px; }
-    #query { flex: 1; background: var(--surface2); border: 1px solid var(--border); border-radius: 12px; padding: 11px 16px; font-family: 'DM Mono', monospace; font-size: 13px; color: var(--text); outline: none; transition: border-color 0.2s; }
-    #query:focus { border-color: var(--accent); }
-    #query::placeholder { color: var(--muted); }
-    #send-btn { background: linear-gradient(135deg, var(--accent), #8b5cf6); border: none; border-radius: 12px; padding: 11px 20px; font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700; color: #fff; cursor: pointer; transition: opacity 0.2s, transform 0.1s; white-space: nowrap; }
-    #send-btn:hover { opacity: 0.9; transform: translateY(-1px); }
-    #send-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
-    .footer-note { font-size: 10px; color: var(--muted); text-align: center; margin-top: 7px; }
-    .footer-note span { color: var(--accent3); }
-    .err-box { background: rgba(248,91,138,0.08); border: 1px solid rgba(248,91,138,0.25); border-radius: 10px; padding: 10px 14px; font-size: 12px; color: var(--accent2); }
+    .chat-area{flex:1;overflow-y:auto;padding:1.5rem;display:flex;flex-direction:column;gap:1rem;scroll-behavior:smooth}
+    .chat-area::-webkit-scrollbar{width:3px}
+    .chat-area::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
+    .msg{display:flex;gap:10px;align-items:flex-start;animation:fadeUp .3s ease}
+    .msg.user{flex-direction:row-reverse}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+    .av{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+    .av.bot{background:linear-gradient(135deg,var(--accent),#8b5cf6)}
+    .av.user-av{background:var(--surface2);border:1px solid var(--border);overflow:hidden}
+    .av.user-av img{width:100%;height:100%;object-fit:cover}
+    .bubble{max-width:80%;padding:12px 16px;border-radius:14px;font-size:13px;line-height:1.7}
+    .msg.bot .bubble{background:var(--surface);border:1px solid var(--border);border-radius:4px 14px 14px 14px}
+    .msg.user .bubble{background:var(--glow);border:1px solid rgba(91,106,248,.25);border-radius:14px 4px 14px 14px;color:var(--text)}
+    .results-wrap{padding-left:40px;display:flex;flex-direction:column;gap:8px}
+    .rcard{background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:12px 14px;transition:border-color .2s,transform .15s;animation:fadeUp .3s ease}
+    .rcard:hover{border-color:var(--accent);transform:translateX(3px)}
+    .rcard-top{display:flex;align-items:center;gap:8px;margin-bottom:4px}
+    .fbadge{font-size:10px;padding:2px 8px;border-radius:20px;font-weight:500;letter-spacing:.4px;flex-shrink:0}
+    .b-sheet{background:rgba(56,232,160,.12);color:var(--accent3);border:1px solid rgba(56,232,160,.25)}
+    .b-doc{background:rgba(91,106,248,.12);color:var(--accent);border:1px solid rgba(91,106,248,.25)}
+    .b-slide{background:rgba(248,91,138,.12);color:var(--accent2);border:1px solid rgba(248,91,138,.25)}
+    .b-pdf{background:rgba(251,191,36,.12);color:var(--accent4);border:1px solid rgba(251,191,36,.25)}
+    .b-zip{background:rgba(150,150,150,.12);color:var(--muted);border:1px solid rgba(150,150,150,.25)}
+    .b-file{background:rgba(150,150,150,.12);color:var(--muted);border:1px solid rgba(150,150,150,.25)}
+    .rcard-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:600;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .rcard-meta{font-size:11px;color:var(--muted);margin-bottom:6px}
+    .rcard-link{display:inline-flex;align-items:center;gap:4px;font-size:11px;color:var(--accent);text-decoration:none}
+    .rcard-link:hover{text-decoration:underline}
+    .thinking{display:flex;gap:5px;align-items:center;padding:6px 0}
+    .thinking span{width:7px;height:7px;border-radius:50%;opacity:.3;animation:pulse 1.2s ease-in-out infinite}
+    .thinking span:nth-child(1){background:var(--accent)}.thinking span:nth-child(2){background:var(--accent2);animation-delay:.2s}.thinking span:nth-child(3){background:var(--accent3);animation-delay:.4s}
+    @keyframes pulse{0%,80%,100%{opacity:.2;transform:scale(.8)}40%{opacity:1;transform:scale(1.1)}}
+    .chips{display:flex;flex-wrap:wrap;gap:6px;padding:0 1.5rem .6rem}
+    .chip{font-size:11px;padding:5px 13px;border-radius:20px;border:1px solid var(--border);background:var(--surface);color:var(--muted);cursor:pointer;font-family:'DM Mono',monospace;transition:all .2s}
+    .chip:hover{border-color:var(--accent);color:var(--accent);background:var(--glow)}
+    .input-area{padding:.9rem 1.5rem 1.3rem;border-top:1px solid var(--border);background:var(--surface);flex-shrink:0}
+    .input-row{display:flex;gap:8px}
+    #query{flex:1;background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:11px 16px;font-family:'DM Mono',monospace;font-size:13px;color:var(--text);outline:none;transition:border-color .2s}
+    #query:focus{border-color:var(--accent)}
+    #query::placeholder{color:var(--muted)}
+    #send-btn{background:linear-gradient(135deg,var(--accent),#8b5cf6);border:none;border-radius:12px;padding:11px 20px;font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:#fff;cursor:pointer;transition:opacity .2s,transform .1s;white-space:nowrap}
+    #send-btn:hover{opacity:.9;transform:translateY(-1px)}
+    #send-btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
+    .footer-note{font-size:10px;color:var(--muted);text-align:center;margin-top:7px}
+    .footer-note span{color:var(--accent3)}
+    .err-box{background:rgba(248,91,138,.08);border:1px solid rgba(248,91,138,.25);border-radius:10px;padding:10px 14px;font-size:12px;color:var(--accent2)}
   </style>
 </head>
 <body>
@@ -208,7 +231,7 @@
   </div>
 </div>
 
-<!-- CLIENT ID SETUP -->
+<!-- CLIENT ID -->
 <div id="clientid-screen">
   <div class="clientid-card">
     <div class="step-badge">⚙️ One-time setup</div>
@@ -223,6 +246,21 @@
     <div class="field-label">Your Client ID</div>
     <input type="text" id="client-id-input" placeholder="xxxxxxxx.apps.googleusercontent.com"/>
     <button class="btn-primary" onclick="saveClientId()">✓ Save & Sign In with Google</button>
+  </div>
+</div>
+
+<!-- FILE LIST MODAL -->
+<div class="modal-overlay" id="modal" onclick="closeModal(event)">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modal-title">📄 Files</div>
+      <button class="modal-close" onclick="closeModalDirect()">✕</button>
+    </div>
+    <div class="modal-count" id="modal-count"></div>
+    <div class="modal-body" id="modal-body"></div>
+    <div class="modal-footer" id="modal-footer" style="display:none">
+      <button class="btn-load-more" id="load-more-btn" onclick="loadMoreFiles()">Load more files ↓</button>
+    </div>
   </div>
 </div>
 
@@ -248,14 +286,14 @@
     </div>
   </header>
 
-  <!-- DASHBOARD VIEW -->
+  <!-- DASHBOARD -->
   <div class="view active" id="view-dashboard">
     <div class="dashboard-area" id="dash-content">
       <div class="dash-loading"><div class="spinner"></div><p>Loading your Drive stats...</p></div>
     </div>
   </div>
 
-  <!-- SEARCH VIEW -->
+  <!-- SEARCH -->
   <div class="view" id="view-search">
     <div class="chat-area" id="chat">
       <div class="msg bot">
@@ -267,12 +305,12 @@
       <span class="chip" onclick="fillQ('Find handover documents')">📋 Handover docs</span>
       <span class="chip" onclick="fillQ('Search budget report')">💰 Budget reports</span>
       <span class="chip" onclick="fillQ('Show meeting notes')">📝 Meeting notes</span>
-      <span class="chip" onclick="fillQ('Find project proposal')">🗂 Project proposals</span>
+      <span class="chip" onclick="fillQ('Find project proposal')">🗂 Proposals</span>
       <span class="chip" onclick="fillQ('spreadsheet')">📊 Spreadsheets</span>
     </div>
     <div class="input-area">
       <div class="input-row">
-        <input id="query" type="text" placeholder="Search your Drive... e.g. 'Find VCB handover doc'" onkeydown="if(event.key==='Enter')send()"/>
+        <input id="query" type="text" placeholder="Search your Drive..." onkeydown="if(event.key==='Enter')send()"/>
         <button id="send-btn" onclick="send()">Search ↗</button>
       </div>
       <div class="footer-note">Searching your <span>Google Drive</span> in real-time · Results open directly in Drive</div>
@@ -282,131 +320,143 @@
 
 <script src="https://accounts.google.com/gsi/client" async></script>
 <script>
-  let accessToken=null, tokenClient=null, userProfile=null, isDark=true;
+  let accessToken=null,tokenClient=null,userProfile=null,isDark=true;
+  let modalFiles=[],modalPageToken=null,modalMimeFilter='',modalTitle='';
 
-  function toggleTheme() {
+  /* THEME */
+  function toggleTheme(){
     isDark=!isDark;
-    document.documentElement.setAttribute('data-theme', isDark?'dark':'light');
-    document.getElementById('theme-btn').textContent = isDark?'🌙':'☀️';
-    localStorage.setItem('drivebot_theme', isDark?'dark':'light');
+    document.documentElement.setAttribute('data-theme',isDark?'dark':'light');
+    document.getElementById('theme-btn').textContent=isDark?'🌙':'☀️';
+    localStorage.setItem('drivebot_theme',isDark?'dark':'light');
   }
 
-  window.addEventListener('load', () => {
-    document.getElementById('origin-display').textContent = window.location.origin;
-    const saved = localStorage.getItem('drivebot_theme');
-    if (saved==='light') { isDark=false; document.documentElement.setAttribute('data-theme','light'); document.getElementById('theme-btn').textContent='☀️'; }
-    const cid = localStorage.getItem('drivebot_cid');
-    if (cid) initGoogleAuth(cid);
+  /* INIT */
+  window.addEventListener('load',()=>{
+    document.getElementById('origin-display').textContent=window.location.origin;
+    const saved=localStorage.getItem('drivebot_theme');
+    if(saved==='light'){isDark=false;document.documentElement.setAttribute('data-theme','light');document.getElementById('theme-btn').textContent='☀️';}
+    const cid=localStorage.getItem('drivebot_cid');
+    if(cid) initGoogleAuth(cid);
   });
 
-  function startSetup() {
-    const cid = localStorage.getItem('drivebot_cid');
-    if (cid) { signIn(); return; }
+  function startSetup(){
+    const cid=localStorage.getItem('drivebot_cid');
+    if(cid){signIn();return;}
     document.getElementById('login-screen').style.display='none';
     document.getElementById('clientid-screen').style.display='flex';
   }
-
-  function saveClientId() {
-    const cid = document.getElementById('client-id-input').value.trim();
-    if (!cid||!cid.includes('.apps.googleusercontent.com')) { alert('Please enter a valid Client ID'); return; }
-    localStorage.setItem('drivebot_cid', cid);
+  function saveClientId(){
+    const cid=document.getElementById('client-id-input').value.trim();
+    if(!cid||!cid.includes('.apps.googleusercontent.com')){alert('Please enter a valid Client ID');return;}
+    localStorage.setItem('drivebot_cid',cid);
     document.getElementById('clientid-screen').style.display='none';
     document.getElementById('login-screen').style.display='flex';
-    initGoogleAuth(cid); signIn();
+    initGoogleAuth(cid);signIn();
   }
-
-  function initGoogleAuth(clientId) {
-    const tryInit = () => {
-      if (typeof google==='undefined') { setTimeout(tryInit, 200); return; }
-      tokenClient = google.accounts.oauth2.initTokenClient({
-        client_id: clientId,
-        scope: 'https://www.googleapis.com/auth/drive.readonly https://www.googleapis.com/auth/userinfo.profile',
-        callback: handleToken
+  function initGoogleAuth(clientId){
+    const tryInit=()=>{
+      if(typeof google==='undefined'){setTimeout(tryInit,200);return;}
+      tokenClient=google.accounts.oauth2.initTokenClient({
+        client_id:clientId,
+        scope:'https://www.googleapis.com/auth/drive.readonly https://www.googleapis.com/auth/userinfo.profile',
+        callback:handleToken
       });
     };
     tryInit();
   }
-
-  function signIn() { if (!tokenClient) { setTimeout(signIn,300); return; } tokenClient.requestAccessToken(); }
-
-  async function handleToken(resp) {
-    if (!resp.access_token) { alert('Sign-in failed.'); return; }
-    accessToken = resp.access_token;
-    try {
-      const r = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', { headers: { Authorization: 'Bearer '+accessToken } });
-      userProfile = await r.json();
-      document.getElementById('user-name').textContent = userProfile.given_name||userProfile.name||'You';
-      if (userProfile.picture) document.getElementById('user-avatar').src = userProfile.picture;
-    } catch(e) {}
+  function signIn(){if(!tokenClient){setTimeout(signIn,300);return;}tokenClient.requestAccessToken();}
+  async function handleToken(resp){
+    if(!resp.access_token){alert('Sign-in failed.');return;}
+    accessToken=resp.access_token;
+    try{
+      const r=await fetch('https://www.googleapis.com/oauth2/v3/userinfo',{headers:{Authorization:'Bearer '+accessToken}});
+      userProfile=await r.json();
+      document.getElementById('user-name').textContent=userProfile.given_name||userProfile.name||'You';
+      if(userProfile.picture) document.getElementById('user-avatar').src=userProfile.picture;
+    }catch(e){}
     document.getElementById('login-screen').style.display='none';
     document.getElementById('clientid-screen').style.display='none';
     document.getElementById('app').style.display='flex';
     loadDashboard();
   }
+  function logout(){accessToken=null;document.getElementById('app').style.display='none';document.getElementById('login-screen').style.display='flex';}
 
-  function logout() { accessToken=null; document.getElementById('app').style.display='none'; document.getElementById('login-screen').style.display='flex'; }
-
-  function switchView(name, btn) {
+  /* VIEW */
+  function switchView(name,btn){
     document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
     document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
     document.getElementById('view-'+name).classList.add('active');
-    if (btn) btn.classList.add('active');
+    if(btn) btn.classList.add('active');
   }
 
-  async function driveList(q, n=50) {
-    const url = `https://www.googleapis.com/drive/v3/files?q=${encodeURIComponent(q)}&pageSize=${n}&fields=files(id,name,mimeType,modifiedTime,size,webViewLink)&orderBy=modifiedTime desc`;
-    const r = await fetch(url, { headers: { Authorization: 'Bearer '+accessToken } });
-    if (!r.ok) return [];
-    return (await r.json()).files||[];
+  /* DRIVE API with pagination */
+  async function driveListPage(q,pageToken=null,pageSize=50){
+    let url=`https://www.googleapis.com/drive/v3/files?q=${encodeURIComponent(q)}&pageSize=${pageSize}&fields=nextPageToken,files(id,name,mimeType,modifiedTime,size,webViewLink)&orderBy=modifiedTime desc`;
+    if(pageToken) url+=`&pageToken=${encodeURIComponent(pageToken)}`;
+    const r=await fetch(url,{headers:{Authorization:'Bearer '+accessToken}});
+    if(!r.ok) return {files:[],nextPageToken:null};
+    const d=await r.json();
+    return {files:d.files||[],nextPageToken:d.nextPageToken||null};
   }
 
-  async function driveSearch(query) {
-    const q = `(fullText contains '${query.replace(/'/g,"\\'")}' or name contains '${query.replace(/'/g,"\\'")}') and trashed = false`;
-    const url = `https://www.googleapis.com/drive/v3/files?q=${encodeURIComponent(q)}&pageSize=10&fields=files(id,name,mimeType,modifiedTime,size,webViewLink)&orderBy=modifiedTime desc`;
-    const r = await fetch(url, { headers: { Authorization: 'Bearer '+accessToken } });
-    if (r.status===401) { logout(); return []; }
-    if (!r.ok) throw new Error('Drive search failed ('+r.status+')');
-    return (await r.json()).files||[];
+  async function driveListAll(q,maxPages=5){
+    let all=[],token=null,page=0;
+    do{
+      const res=await driveListPage(q,token,100);
+      all=all.concat(res.files);
+      token=res.nextPageToken;
+      page++;
+    }while(token&&page<maxPages);
+    return {files:all,hasMore:!!token};
   }
 
-  function mimeInfo(mime) {
-    if (!mime) return {label:'FILE',cls:'b-file',icon:'📄'};
-    if (mime.includes('spreadsheet')||mime.includes('xlsx')||mime.includes('csv')) return {label:'SHEET',cls:'b-sheet',icon:'📊'};
-    if (mime.includes('presentation')||mime.includes('pptx')) return {label:'SLIDES',cls:'b-slide',icon:'📑'};
-    if (mime.includes('pdf')) return {label:'PDF',cls:'b-pdf',icon:'📕'};
-    if (mime.includes('zip')||mime.includes('compressed')) return {label:'ZIP',cls:'b-zip',icon:'🗜'};
-    if (mime.includes('document')||mime.includes('docx')||mime.includes('msword')) return {label:'DOC',cls:'b-doc',icon:'📄'};
-    return {label:'FILE',cls:'b-file',icon:'📄'};
+  async function driveSearch(query){
+    const q=`(fullText contains '${query.replace(/'/g,"\\'")}' or name contains '${query.replace(/'/g,"\\'")}') and trashed=false`;
+    const url=`https://www.googleapis.com/drive/v3/files?q=${encodeURIComponent(q)}&pageSize=10&fields=files(id,name,mimeType,modifiedTime,size,webViewLink)&orderBy=modifiedTime desc`;
+    const r=await fetch(url,{headers:{Authorization:'Bearer '+accessToken}});
+    if(r.status===401){logout();return[];}
+    if(!r.ok) throw new Error('Drive search failed ('+r.status+')');
+    return(await r.json()).files||[];
   }
 
-  function fmtDate(iso) { if (!iso) return ''; return new Date(iso).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'}); }
-  function fmtSize(b) { if (!b) return ''; const k=Math.round(b/1024); return k>1024?(k/1024).toFixed(1)+' MB':k+' KB'; }
+  /* HELPERS */
+  function mimeInfo(mime){
+    if(!mime) return{label:'FILE',cls:'b-file',icon:'📄'};
+    if(mime.includes('spreadsheet')||mime.includes('xlsx')||mime.includes('csv')) return{label:'SHEET',cls:'b-sheet',icon:'📊'};
+    if(mime.includes('presentation')||mime.includes('pptx')) return{label:'SLIDES',cls:'b-slide',icon:'📑'};
+    if(mime.includes('pdf')) return{label:'PDF',cls:'b-pdf',icon:'📕'};
+    if(mime.includes('zip')||mime.includes('compressed')) return{label:'ZIP',cls:'b-zip',icon:'🗜'};
+    if(mime.includes('document')||mime.includes('docx')||mime.includes('msword')) return{label:'DOC',cls:'b-doc',icon:'📄'};
+    return{label:'FILE',cls:'b-file',icon:'📄'};
+  }
+  function fmtDate(iso){if(!iso)return'';return new Date(iso).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'});}
+  function fmtSize(b){if(!b)return'';const k=Math.round(b/1024);return k>1024?(k/1024).toFixed(1)+' MB':k+' KB';}
 
-  async function loadDashboard() {
-    const dash = document.getElementById('dash-content');
-    dash.innerHTML = `<div class="dash-loading"><div class="spinner"></div><p>Loading your Drive stats...</p></div>`;
-    try {
-      const [allFiles, recentFiles] = await Promise.all([
-        driveList("trashed = false", 100),
-        driveList("trashed = false", 8)
-      ]);
+  /* DASHBOARD */
+  async function loadDashboard(){
+    const dash=document.getElementById('dash-content');
+    dash.innerHTML=`<div class="dash-loading"><div class="spinner"></div><p>Loading your Drive stats...</p></div>`;
+    try{
+      const {files:allFiles,hasMore}=await driveListAll("trashed=false",5);
+      const recentFiles=allFiles.slice(0,8);
       let docs=0,sheets=0,slides=0,pdfs=0,zips=0;
-      allFiles.forEach(f => {
+      allFiles.forEach(f=>{
         const m=f.mimeType||'';
-        if (m.includes('document')||m.includes('docx')||m.includes('msword')) docs++;
-        else if (m.includes('spreadsheet')||m.includes('xlsx')||m.includes('csv')) sheets++;
-        else if (m.includes('presentation')||m.includes('pptx')) slides++;
-        else if (m.includes('pdf')) pdfs++;
-        else if (m.includes('zip')||m.includes('compressed')) zips++;
+        if(m.includes('document')||m.includes('docx')||m.includes('msword')) docs++;
+        else if(m.includes('spreadsheet')||m.includes('xlsx')||m.includes('csv')) sheets++;
+        else if(m.includes('presentation')||m.includes('pptx')) slides++;
+        else if(m.includes('pdf')) pdfs++;
+        else if(m.includes('zip')||m.includes('compressed')) zips++;
       });
       const total=allFiles.length;
       const name=userProfile?.given_name||'there';
       const hour=new Date().getHours();
       const greeting=hour<12?'Good morning':hour<17?'Good afternoon':'Good evening';
 
-      dash.innerHTML = `
+      dash.innerHTML=`
         <div class="dash-greeting">${greeting}, <span>${name}</span> 👋</div>
-        <div class="dash-sub">Here's a live overview of your Google Drive</div>
+        <div class="dash-sub">Live overview of your Google Drive${hasMore?' (500+ files found)':' · '+total+' files total'}</div>
 
         <div class="dash-search">
           <div class="dash-search-title">🔍 Quick Search</div>
@@ -418,98 +468,188 @@
 
         <div class="section-title">📊 Overview</div>
         <div class="stat-grid">
-          <div class="stat-card"><div class="stat-icon">📁</div><div class="stat-val">${total}${total===100?'+':''}</div><div class="stat-label">Total Files</div></div>
-          <div class="stat-card"><div class="stat-icon">📄</div><div class="stat-val">${docs+sheets+slides}</div><div class="stat-label">Documents</div></div>
-          <div class="stat-card"><div class="stat-icon">🗜</div><div class="stat-val">${zips}</div><div class="stat-label">ZIP Archives</div></div>
-          <div class="stat-card"><div class="stat-icon">📕</div><div class="stat-val">${pdfs}</div><div class="stat-label">PDFs</div></div>
+          <div class="stat-card" style="cursor:pointer" onclick="openAllFiles()">
+            <div class="stat-icon">📁</div>
+            <div class="stat-val">${total}${hasMore?'+':''}</div>
+            <div class="stat-label">Total Files · click to view</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">📄</div>
+            <div class="stat-val">${docs+sheets+slides}</div>
+            <div class="stat-label">Documents</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">🗜</div>
+            <div class="stat-val">${zips}</div>
+            <div class="stat-label">ZIP Archives</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">📕</div>
+            <div class="stat-val">${pdfs}</div>
+            <div class="stat-label">PDFs</div>
+          </div>
         </div>
 
-        <div class="section-title">🗂 Browse by Type</div>
+        <div class="section-title">🗂 Browse by Type <span style="font-size:11px;font-weight:400;color:var(--muted)">(click to view files)</span></div>
         <div class="type-grid">
-          <div class="type-card" onclick="quickSearch('document')"><div class="type-dot" style="background:var(--accent)"></div><div class="type-info"><div class="type-name">Docs</div><div class="type-count" style="color:var(--accent)">${docs}</div></div></div>
-          <div class="type-card" onclick="quickSearch('spreadsheet')"><div class="type-dot" style="background:var(--accent3)"></div><div class="type-info"><div class="type-name">Sheets</div><div class="type-count" style="color:var(--accent3)">${sheets}</div></div></div>
-          <div class="type-card" onclick="quickSearch('presentation')"><div class="type-dot" style="background:var(--accent2)"></div><div class="type-info"><div class="type-name">Slides</div><div class="type-count" style="color:var(--accent2)">${slides}</div></div></div>
-          <div class="type-card" onclick="quickSearch('pdf')"><div class="type-dot" style="background:var(--accent4)"></div><div class="type-info"><div class="type-name">PDFs</div><div class="type-count" style="color:var(--accent4)">${pdfs}</div></div></div>
+          <div class="type-card" onclick="openTypeModal('document','📄 Documents',docs)">
+            <div class="type-dot" style="background:var(--accent)"></div>
+            <div class="type-info"><div class="type-name">Docs</div><div class="type-count" style="color:var(--accent)">${docs}</div></div>
+            <div class="type-arrow">→</div>
+          </div>
+          <div class="type-card" onclick="openTypeModal('spreadsheet','📊 Spreadsheets',sheets)">
+            <div class="type-dot" style="background:var(--accent3)"></div>
+            <div class="type-info"><div class="type-name">Sheets</div><div class="type-count" style="color:var(--accent3)">${sheets}</div></div>
+            <div class="type-arrow">→</div>
+          </div>
+          <div class="type-card" onclick="openTypeModal('presentation','📑 Presentations',slides)">
+            <div class="type-dot" style="background:var(--accent2)"></div>
+            <div class="type-info"><div class="type-name">Slides</div><div class="type-count" style="color:var(--accent2)">${slides}</div></div>
+            <div class="type-arrow">→</div>
+          </div>
+          <div class="type-card" onclick="openTypeModal('pdf','📕 PDFs',pdfs)">
+            <div class="type-dot" style="background:var(--accent4)"></div>
+            <div class="type-info"><div class="type-name">PDFs</div><div class="type-count" style="color:var(--accent4)">${pdfs}</div></div>
+            <div class="type-arrow">→</div>
+          </div>
         </div>
 
         <div class="section-title">🕐 Recently Modified</div>
         <div class="recent-list">
-          ${recentFiles.map((f,i)=>{ const {icon,cls,label}=mimeInfo(f.mimeType); return `
-            <a class="recent-item" href="${f.webViewLink||'#'}" target="_blank" style="animation-delay:${0.05*i}s">
+          ${recentFiles.map((f,i)=>{const{icon,cls,label}=mimeInfo(f.mimeType);return`
+            <a class="recent-item" href="${f.webViewLink||'#'}" target="_blank" style="animation-delay:${.05*i}s">
               <div class="recent-icon">${icon}</div>
               <div class="recent-info"><div class="recent-name">${f.name}</div><div class="recent-meta">📅 ${fmtDate(f.modifiedTime)}</div></div>
               <span class="recent-badge fbadge ${cls}">${label}</span>
-            </a>`; }).join('')}
+            </a>`;}).join('')}
         </div>`;
-    } catch(e) {
-      dash.innerHTML = `<div style="padding:2rem;color:var(--accent2);font-size:13px">⚠️ Failed to load: ${e.message}</div>`;
+    }catch(e){
+      dash.innerHTML=`<div style="padding:2rem;color:var(--accent2);font-size:13px">⚠️ Failed to load: ${e.message}</div>`;
     }
   }
 
-  function dashSearch() {
+  /* MODAL */
+  async function openTypeModal(mimeFilter,title,expectedCount){
+    modalFiles=[];modalPageToken=null;modalMimeFilter=mimeFilter;modalTitle=title;
+    document.getElementById('modal-title').textContent=title;
+    document.getElementById('modal-count').textContent=`Loading files...`;
+    document.getElementById('modal-body').innerHTML=`<div class="dash-loading"><div class="spinner"></div><p>Fetching files...</p></div>`;
+    document.getElementById('modal-footer').style.display='none';
+    document.getElementById('modal').classList.add('open');
+    await fetchModalPage();
+  }
+
+  async function openAllFiles(){
+    modalFiles=[];modalPageToken=null;modalMimeFilter='';modalTitle='📁 All Files';
+    document.getElementById('modal-title').textContent='📁 All Files';
+    document.getElementById('modal-count').textContent='Loading files...';
+    document.getElementById('modal-body').innerHTML=`<div class="dash-loading"><div class="spinner"></div><p>Fetching files...</p></div>`;
+    document.getElementById('modal-footer').style.display='none';
+    document.getElementById('modal').classList.add('open');
+    await fetchModalPage();
+  }
+
+  async function fetchModalPage(){
+    const q=modalMimeFilter
+      ? `mimeType contains '${modalMimeFilter}' and trashed=false`
+      : `trashed=false`;
+    const {files,nextPageToken}=await driveListPage(q,modalPageToken,50);
+    modalPageToken=nextPageToken;
+    modalFiles=modalFiles.concat(files);
+    renderModalFiles();
+  }
+
+  function renderModalFiles(){
+    const body=document.getElementById('modal-body');
+    if(!modalFiles.length){body.innerHTML=`<p style="padding:1rem;color:var(--muted);font-size:12px">No files found.</p>`;return;}
+    document.getElementById('modal-count').textContent=`Showing ${modalFiles.length} files${modalPageToken?' · more available':''}`;
+    body.innerHTML=modalFiles.map(f=>{
+      const{label,cls,icon}=mimeInfo(f.mimeType);
+      return`<a class="mfile" href="${f.webViewLink||'#'}" target="_blank">
+        <div class="mfile-icon">${icon}</div>
+        <div class="mfile-info">
+          <div class="mfile-name">${f.name}</div>
+          <div class="mfile-meta">📅 ${fmtDate(f.modifiedTime)}${f.size?' · '+fmtSize(f.size):''}</div>
+        </div>
+        <span class="mfile-badge fbadge ${cls}">${label}</span>
+      </a>`;
+    }).join('');
+    const footer=document.getElementById('modal-footer');
+    if(modalPageToken){
+      footer.style.display='flex';
+      document.getElementById('load-more-btn').disabled=false;
+    } else {
+      footer.style.display='none';
+    }
+  }
+
+  async function loadMoreFiles(){
+    const btn=document.getElementById('load-more-btn');
+    btn.disabled=true;btn.textContent='Loading...';
+    await fetchModalPage();
+    btn.textContent='Load more files ↓';
+  }
+
+  function closeModal(e){if(e.target===document.getElementById('modal')) closeModalDirect();}
+  function closeModalDirect(){document.getElementById('modal').classList.remove('open');}
+
+  /* DASHBOARD SEARCH */
+  function dashSearch(){
     const q=document.getElementById('dash-query')?.value?.trim();
-    if (!q) return;
-    switchView('search', document.querySelectorAll('.nav-tab')[1]);
+    if(!q) return;
+    switchView('search',document.querySelectorAll('.nav-tab')[1]);
     document.getElementById('query').value=q;
     send();
   }
 
-  function quickSearch(type) {
-    switchView('search', document.querySelectorAll('.nav-tab')[1]);
-    document.getElementById('query').value=type;
-    send();
-  }
-
-  function fillQ(t) { document.getElementById('query').value=t; document.getElementById('query').focus(); }
-
-  function addMsg(role, html) {
+  /* SEARCH */
+  function fillQ(t){document.getElementById('query').value=t;document.getElementById('query').focus();}
+  function addMsg(role,html){
     const chat=document.getElementById('chat');
-    const wrap=document.createElement('div'); wrap.className='msg '+role;
-    const av=document.createElement('div'); av.className='av '+(role==='bot'?'bot':'user-av');
-    if (role==='user'&&userProfile?.picture) av.innerHTML=`<img src="${userProfile.picture}" alt=""/>`;
-    else if (role==='bot') av.textContent='🤖'; else av.textContent='👤';
-    const bub=document.createElement('div'); bub.className='bubble'; bub.innerHTML=html;
-    wrap.appendChild(av); wrap.appendChild(bub); chat.appendChild(wrap);
+    const wrap=document.createElement('div');wrap.className='msg '+role;
+    const av=document.createElement('div');av.className='av '+(role==='bot'?'bot':'user-av');
+    if(role==='user'&&userProfile?.picture) av.innerHTML=`<img src="${userProfile.picture}" alt=""/>`;
+    else if(role==='bot') av.textContent='🤖'; else av.textContent='👤';
+    const bub=document.createElement('div');bub.className='bubble';bub.innerHTML=html;
+    wrap.appendChild(av);wrap.appendChild(bub);chat.appendChild(wrap);
     chat.scrollTop=chat.scrollHeight;
   }
-
-  function addThinking() {
+  function addThinking(){
     const chat=document.getElementById('chat');
-    const wrap=document.createElement('div'); wrap.className='msg bot'; wrap.id='thinking';
+    const wrap=document.createElement('div');wrap.className='msg bot';wrap.id='thinking';
     wrap.innerHTML=`<div class="av bot">🤖</div><div class="bubble"><div class="thinking"><span></span><span></span><span></span></div></div>`;
-    chat.appendChild(wrap); chat.scrollTop=chat.scrollHeight;
+    chat.appendChild(wrap);chat.scrollTop=chat.scrollHeight;
   }
+  function removeThinking(){document.getElementById('thinking')?.remove();}
 
-  function removeThinking() { document.getElementById('thinking')?.remove(); }
-
-  async function send() {
-    const input=document.getElementById('query'), btn=document.getElementById('send-btn');
+  async function send(){
+    const input=document.getElementById('query'),btn=document.getElementById('send-btn');
     const q=input.value.trim();
-    if (!q||btn.disabled) return;
+    if(!q||btn.disabled) return;
     document.getElementById('chips').style.display='none';
-    input.value=''; btn.disabled=true;
-    addMsg('user',q); addThinking();
-    try {
-      const files=await driveSearch(q); removeThinking();
-      if (files.length) {
+    input.value='';btn.disabled=true;
+    addMsg('user',q);addThinking();
+    try{
+      const files=await driveSearch(q);removeThinking();
+      if(files.length){
         addMsg('bot',`Found <strong>${files.length} file${files.length>1?'s':''}</strong> matching "<em>${q}</em>":`);
-        const chat=document.getElementById('chat'), d=document.createElement('div');
+        const chat=document.getElementById('chat'),d=document.createElement('div');
         d.innerHTML=`<div class="results-wrap">${files.map(f=>{
-          const {label,cls,icon}=mimeInfo(f.mimeType);
-          return `<div class="rcard"><div class="rcard-top"><span class="fbadge ${cls}">${label}</span><div class="rcard-name" title="${f.name}">${icon} ${f.name}</div></div><div class="rcard-meta">📅 ${fmtDate(f.modifiedTime)}${f.size?' · '+fmtSize(f.size):''}</div>${f.webViewLink?`<a class="rcard-link" href="${f.webViewLink}" target="_blank">🔗 Open in Google Drive ↗</a>`:''}</div>`;
+          const{label,cls,icon}=mimeInfo(f.mimeType);
+          return`<div class="rcard"><div class="rcard-top"><span class="fbadge ${cls}">${label}</span><div class="rcard-name" title="${f.name}">${icon} ${f.name}</div></div><div class="rcard-meta">📅 ${fmtDate(f.modifiedTime)}${f.size?' · '+fmtSize(f.size):''}</div>${f.webViewLink?`<a class="rcard-link" href="${f.webViewLink}" target="_blank">🔗 Open in Google Drive ↗</a>`:''}</div>`;
         }).join('')}</div>`;
-        chat.appendChild(d); chat.scrollTop=chat.scrollHeight;
-      } else {
+        chat.appendChild(d);chat.scrollTop=chat.scrollHeight;
+      }else{
         addMsg('bot',`😕 No files found for "<em>${q}</em>". Try different keywords.`);
       }
-    } catch(e) {
+    }catch(e){
       removeThinking();
-      const chat=document.getElementById('chat'), d=document.createElement('div');
+      const chat=document.getElementById('chat'),d=document.createElement('div');
       d.style.paddingLeft='40px';
       d.innerHTML=`<div class="err-box">⚠️ ${e.message}. Try signing out and back in.</div>`;
-      chat.appendChild(d); chat.scrollTop=chat.scrollHeight;
+      chat.appendChild(d);chat.scrollTop=chat.scrollHeight;
     }
-    btn.disabled=false; input.focus();
+    btn.disabled=false;input.focus();
   }
 </script>
 </body>
