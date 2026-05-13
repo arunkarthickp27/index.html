@@ -43,8 +43,9 @@
     .step-num{width:20px;height:20px;background:var(--glow);border:1px solid rgba(91,106,248,.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--accent);flex-shrink:0;margin-top:1px}
     .steps-list a{color:var(--accent)}
     .field-label{font-size:11px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
-    input[type="text"]{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:11px 14px;font-family:'DM Mono',monospace;font-size:12px;color:var(--text);outline:none;transition:border-color .2s;margin-bottom:1rem}
-    input[type="text"]:focus{border-color:var(--accent)}
+    input[type="text"],input[type="date"]{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:11px 14px;font-family:'DM Mono',monospace;font-size:12px;color:var(--text);outline:none;transition:border-color .2s;margin-bottom:1rem}
+    input[type="text"]:focus,input[type="date"]:focus{border-color:var(--accent)}
+    input[type="date"]{color-scheme:dark}
     .origin-box{background:var(--bg);border:1px dashed var(--border);border-radius:10px;padding:10px 14px;font-size:12px;color:var(--accent3);margin-bottom:1rem;word-break:break-all}
     .btn-primary{width:100%;background:linear-gradient(135deg,var(--accent),#8b5cf6);border:none;border-radius:12px;padding:13px;font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:#fff;cursor:pointer;transition:opacity .2s,transform .1s}
     .btn-primary:hover{opacity:.9;transform:translateY(-1px)}
@@ -57,11 +58,11 @@
     .h-title{font-family:'Syne',sans-serif;font-size:16px;font-weight:800}
     .h-title span{color:var(--accent)}
     .nav-tabs{display:flex;gap:4px;background:var(--surface2);border-radius:10px;padding:3px}
-    .nav-tab{padding:6px 14px;border-radius:8px;border:none;font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);cursor:pointer;background:none;transition:all .2s}
+    .nav-tab{padding:6px 12px;border-radius:8px;border:none;font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);cursor:pointer;background:none;transition:all .2s;white-space:nowrap}
     .nav-tab.active{background:var(--accent);color:#fff}
     .nav-tab:not(.active):hover{color:var(--text);background:var(--surface3)}
     .header-right{display:flex;align-items:center;gap:8px}
-    .theme-toggle{width:36px;height:36px;border-radius:10px;background:var(--surface2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;transition:all .2s}
+    .theme-toggle{width:34px;height:34px;border-radius:9px;background:var(--surface2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:15px;transition:all .2s}
     .theme-toggle:hover{border-color:var(--accent);background:var(--glow)}
     .user-pill{display:flex;align-items:center;gap:7px;background:var(--surface2);border:1px solid var(--border);border-radius:20px;padding:4px 12px 4px 6px;font-size:12px;color:var(--muted)}
     .user-pill img{width:22px;height:22px;border-radius:50%;object-fit:cover}
@@ -81,23 +82,16 @@
     .dash-sub{font-size:12px;color:var(--muted);margin-bottom:1.5rem}
     .stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:1.5rem}
     @media(max-width:768px){.stat-grid{grid-template-columns:repeat(2,1fr)}}
-
-    /* ALL stat cards clickable */
     .stat-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.2rem;position:relative;overflow:hidden;transition:transform .2s,border-color .2s,box-shadow .2s;animation:fadeUp .4s ease both;cursor:pointer}
     .stat-card:hover{transform:translateY(-4px);border-color:var(--accent);box-shadow:0 8px 28px var(--shadow)}
-    .stat-card:active{transform:translateY(-1px)}
     .stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
-    .stat-card:nth-child(1)::before{background:var(--accent)}
-    .stat-card:nth-child(2)::before{background:var(--accent3)}
-    .stat-card:nth-child(3)::before{background:var(--accent2)}
-    .stat-card:nth-child(4)::before{background:var(--accent4)}
+    .stat-card:nth-child(1)::before{background:var(--accent)}.stat-card:nth-child(2)::before{background:var(--accent3)}.stat-card:nth-child(3)::before{background:var(--accent2)}.stat-card:nth-child(4)::before{background:var(--accent4)}
     .stat-card:nth-child(1){animation-delay:.05s}.stat-card:nth-child(2){animation-delay:.1s}.stat-card:nth-child(3){animation-delay:.15s}.stat-card:nth-child(4){animation-delay:.2s}
     .stat-icon{font-size:22px;margin-bottom:10px}
     .stat-val{font-family:'Syne',sans-serif;font-size:28px;font-weight:800;line-height:1;margin-bottom:4px}
     .stat-label{font-size:11px;color:var(--muted)}
     .stat-click-hint{font-size:10px;color:var(--accent);margin-top:6px;opacity:0;transition:opacity .2s}
     .stat-card:hover .stat-click-hint{opacity:1}
-
     .section-title{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px}
     .section-title::after{content:'';flex:1;height:1px;background:var(--border)}
     .type-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:1.5rem}
@@ -121,7 +115,7 @@
     .dash-search{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.2rem;margin-bottom:1.5rem;animation:fadeUp .4s ease .05s both}
     .dash-search-title{font-size:12px;color:var(--muted);margin-bottom:10px}
     .dash-search-row{display:flex;gap:8px}
-    .dash-search-input{flex:1;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:10px 14px;font-family:'DM Mono',monospace;font-size:13px;color:var(--text);outline:none;transition:border-color .2s}
+    .dash-search-input{flex:1;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:10px 14px;font-family:'DM Mono',monospace;font-size:13px;color:var(--text);outline:none;transition:border-color .2s;margin-bottom:0}
     .dash-search-input:focus{border-color:var(--accent)}
     .dash-search-input::placeholder{color:var(--muted)}
     .dash-search-btn{background:linear-gradient(135deg,var(--accent),#8b5cf6);border:none;border-radius:10px;padding:10px 18px;font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:#fff;cursor:pointer;transition:opacity .2s;white-space:nowrap}
@@ -131,18 +125,47 @@
     @keyframes spin{to{transform:rotate(360deg)}}
     .dash-loading p{font-size:12px;color:var(--muted)}
 
-    /* MODAL */
+    /* BOOKMARKS VIEW */
+    .bookmarks-area{flex:1;overflow-y:auto;padding:1.5rem}
+    .bookmarks-area::-webkit-scrollbar{width:3px}
+    .bookmarks-area::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
+    .bm-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:4rem;gap:12px;color:var(--muted)}
+    .bm-empty .bm-icon{font-size:48px;opacity:.4}
+    .bm-empty p{font-size:13px;text-align:center;line-height:1.6}
+    .bm-list{display:flex;flex-direction:column;gap:8px}
+    .bm-item{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:12px;animation:fadeUp .3s ease}
+    .bm-item:hover{border-color:var(--accent)}
+    .bm-info{flex:1;min-width:0}
+    .bm-name{font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .bm-meta{font-size:11px;color:var(--muted);margin-top:2px}
+    .bm-actions{display:flex;gap:6px;flex-shrink:0}
+    .bm-btn{background:none;border:1px solid var(--border);border-radius:8px;padding:4px 10px;font-size:11px;cursor:pointer;color:var(--muted);font-family:'DM Mono',monospace;transition:all .2s;white-space:nowrap}
+    .bm-btn:hover{border-color:var(--accent);color:var(--accent)}
+    .bm-btn.del:hover{border-color:var(--accent2);color:var(--accent2)}
+
+    /* FILE MODAL */
     .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);backdrop-filter:blur(6px);z-index:200;display:none;align-items:center;justify-content:center;padding:1.5rem}
     .modal-overlay.open{display:flex}
-    .modal{background:var(--surface);border:1px solid var(--border);border-radius:20px;width:100%;max-width:620px;max-height:82vh;display:flex;flex-direction:column;box-shadow:0 24px 80px var(--shadow);animation:popIn .3s cubic-bezier(.34,1.56,.64,1)}
-    .modal-header{display:flex;align-items:center;justify-content:space-between;padding:1.2rem 1.5rem;border-bottom:1px solid var(--border);flex-shrink:0}
-    .modal-title{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;display:flex;align-items:center;gap:8px}
+    .modal{background:var(--surface);border:1px solid var(--border);border-radius:20px;width:100%;max-width:660px;max-height:85vh;display:flex;flex-direction:column;box-shadow:0 24px 80px var(--shadow);animation:popIn .3s cubic-bezier(.34,1.56,.64,1)}
+    .modal-header{display:flex;align-items:center;justify-content:space-between;padding:1.1rem 1.5rem;border-bottom:1px solid var(--border);flex-shrink:0}
+    .modal-title{font-family:'Syne',sans-serif;font-size:15px;font-weight:700}
+    .modal-header-actions{display:flex;align-items:center;gap:8px}
     .modal-close{background:none;border:1px solid var(--border);border-radius:8px;width:30px;height:30px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--muted);font-size:16px;transition:all .2s}
     .modal-close:hover{border-color:var(--accent2);color:var(--accent2)}
-    .modal-count{font-size:11px;color:var(--muted);padding:.6rem 1.5rem;border-bottom:1px solid var(--border);flex-shrink:0;display:flex;align-items:center;gap:8px}
-    .modal-search{flex:1;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:6px 12px;font-family:'DM Mono',monospace;font-size:12px;color:var(--text);outline:none;transition:border-color .2s}
+
+    /* date filter bar */
+    .date-filter-bar{padding:.8rem 1.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;flex-shrink:0;flex-wrap:wrap}
+    .date-filter-bar label{font-size:11px;color:var(--muted)}
+    .date-input{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:5px 10px;font-family:'DM Mono',monospace;font-size:11px;color:var(--text);outline:none;margin-bottom:0;width:auto}
+    .date-input:focus{border-color:var(--accent)}
+    .date-preset{font-size:10px;padding:4px 10px;border-radius:16px;border:1px solid var(--border);background:none;color:var(--muted);cursor:pointer;font-family:'DM Mono',monospace;transition:all .2s}
+    .date-preset:hover,.date-preset.active{border-color:var(--accent);color:var(--accent);background:var(--glow)}
+
+    .modal-toolbar{padding:.6rem 1.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;flex-shrink:0}
+    .modal-search{flex:1;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:7px 12px;font-family:'DM Mono',monospace;font-size:12px;color:var(--text);outline:none;transition:border-color .2s;margin-bottom:0}
     .modal-search:focus{border-color:var(--accent)}
     .modal-search::placeholder{color:var(--muted)}
+    .modal-count-text{font-size:11px;color:var(--muted);white-space:nowrap}
     .modal-body{flex:1;overflow-y:auto;padding:0 1.5rem}
     .modal-body::-webkit-scrollbar{width:3px}
     .modal-body::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
@@ -150,14 +173,47 @@
     .btn-load-more{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:8px 20px;font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);cursor:pointer;transition:all .2s}
     .btn-load-more:hover{border-color:var(--accent);color:var(--accent)}
     .btn-load-more:disabled{opacity:.4;cursor:not-allowed}
-    .mfile{display:flex;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid var(--border);text-decoration:none;color:var(--text);transition:color .2s}
+
+    /* FILE ROW */
+    .mfile{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
     .mfile:last-child{border-bottom:none}
-    .mfile:hover .mfile-name{color:var(--accent)}
     .mfile-icon{font-size:18px;flex-shrink:0}
     .mfile-info{flex:1;min-width:0}
-    .mfile-name{font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:color .2s}
+    .mfile-name{font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--text)}
     .mfile-meta{font-size:11px;color:var(--muted);margin-top:2px}
     .mfile-badge{font-size:10px;padding:2px 7px;border-radius:20px;flex-shrink:0}
+    .mfile-actions{display:flex;gap:5px;flex-shrink:0}
+    .mfile-btn{background:none;border:1px solid var(--border);border-radius:7px;padding:3px 8px;font-size:11px;cursor:pointer;color:var(--muted);font-family:'DM Mono',monospace;transition:all .2s;white-space:nowrap}
+    .mfile-btn:hover{border-color:var(--accent);color:var(--accent)}
+    .mfile-btn.bm-active{border-color:var(--accent4);color:var(--accent4)}
+    .mfile-btn.open{border-color:var(--accent3);color:var(--accent3)}
+
+    /* PREVIEW PANEL */
+    .preview-panel{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(8px);z-index:300;display:none;align-items:center;justify-content:center;padding:1.5rem}
+    .preview-panel.open{display:flex}
+    .preview-box{background:var(--surface);border:1px solid var(--border);border-radius:20px;width:100%;max-width:700px;max-height:88vh;display:flex;flex-direction:column;box-shadow:0 24px 80px var(--shadow);animation:popIn .3s ease}
+    .preview-header{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.5rem;border-bottom:1px solid var(--border);flex-shrink:0}
+    .preview-title{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-right:12px}
+    .preview-header-btns{display:flex;gap:6px;flex-shrink:0}
+    .preview-btn{background:none;border:1px solid var(--border);border-radius:8px;padding:5px 12px;font-size:11px;cursor:pointer;color:var(--muted);font-family:'DM Mono',monospace;transition:all .2s;white-space:nowrap}
+    .preview-btn:hover{border-color:var(--accent);color:var(--accent)}
+    .preview-btn.ai{border-color:rgba(91,106,248,.4);color:var(--accent);background:var(--glow)}
+    .preview-btn.ai:hover{background:rgba(91,106,248,.2)}
+    .preview-btn.share{border-color:rgba(56,232,160,.4);color:var(--accent3)}
+    .preview-btn.close-btn:hover{border-color:var(--accent2);color:var(--accent2)}
+    .preview-body{flex:1;overflow-y:auto;padding:1.5rem}
+    .preview-body::-webkit-scrollbar{width:3px}
+    .preview-body::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
+    .preview-content{font-size:13px;line-height:1.8;color:var(--text);white-space:pre-wrap;word-break:break-word}
+    .preview-loading{display:flex;flex-direction:column;align-items:center;gap:12px;padding:3rem;color:var(--muted);font-size:12px}
+    .ai-summary{background:var(--glow);border:1px solid rgba(91,106,248,.25);border-radius:12px;padding:1rem;margin-bottom:1rem;font-size:13px;line-height:1.7}
+    .ai-summary-title{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;color:var(--accent);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+    .share-box{background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:1rem;margin-bottom:1rem}
+    .share-box-title{font-size:12px;color:var(--muted);margin-bottom:8px}
+    .share-link{display:flex;gap:8px;align-items:center}
+    .share-link input{flex:1;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:8px 12px;font-family:'DM Mono',monospace;font-size:11px;color:var(--accent3);outline:none;margin-bottom:0}
+    .copy-btn{background:var(--accent);border:none;border-radius:8px;padding:8px 14px;font-family:'Syne',sans-serif;font-size:11px;font-weight:700;color:#fff;cursor:pointer;white-space:nowrap;transition:opacity .2s}
+    .copy-btn:hover{opacity:.85}
 
     /* SEARCH VIEW */
     .chat-area{flex:1;overflow-y:auto;padding:1.5rem;display:flex;flex-direction:column;gap:1rem;scroll-behavior:smooth}
@@ -186,8 +242,11 @@
     .b-file{background:rgba(150,150,150,.12);color:var(--muted);border:1px solid rgba(150,150,150,.25)}
     .rcard-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:600;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
     .rcard-meta{font-size:11px;color:var(--muted);margin-bottom:6px}
-    .rcard-link{display:inline-flex;align-items:center;gap:4px;font-size:11px;color:var(--accent);text-decoration:none}
-    .rcard-link:hover{text-decoration:underline}
+    .rcard-actions{display:flex;gap:6px;flex-wrap:wrap}
+    .rcard-btn{background:none;border:1px solid var(--border);border-radius:7px;padding:4px 10px;font-size:11px;cursor:pointer;color:var(--muted);font-family:'DM Mono',monospace;transition:all .2s}
+    .rcard-btn:hover{border-color:var(--accent);color:var(--accent)}
+    .rcard-btn.bm{border-color:rgba(251,191,36,.4);color:var(--accent4)}
+    .rcard-btn.share{border-color:rgba(56,232,160,.4);color:var(--accent3)}
     .thinking{display:flex;gap:5px;align-items:center;padding:6px 0}
     .thinking span{width:7px;height:7px;border-radius:50%;opacity:.3;animation:pulse 1.2s ease-in-out infinite}
     .thinking span:nth-child(1){background:var(--accent)}.thinking span:nth-child(2){background:var(--accent2);animation-delay:.2s}.thinking span:nth-child(3){background:var(--accent3);animation-delay:.4s}
@@ -206,6 +265,7 @@
     .footer-note{font-size:10px;color:var(--muted);text-align:center;margin-top:7px}
     .footer-note span{color:var(--accent3)}
     .err-box{background:rgba(248,91,138,.08);border:1px solid rgba(248,91,138,.25);border-radius:10px;padding:10px 14px;font-size:12px;color:var(--accent2)}
+    .toast{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%);background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 20px;font-size:12px;color:var(--text);box-shadow:0 8px 32px var(--shadow);z-index:999;animation:fadeUp .3s ease;white-space:nowrap}
   </style>
 </head>
 <body>
@@ -215,12 +275,12 @@
   <div class="login-card">
     <div class="brand"><div class="brand-icon">🤖</div><div class="brand-name">Drive<span>Bot</span></div></div>
     <div class="login-headline">Your Personal Document<br>Search Assistant</div>
-    <div class="login-sub">Sign in with Google to search your Drive files instantly. No API keys needed!</div>
+    <div class="login-sub">Sign in with Google to search your Drive files. All features, no API keys needed!</div>
     <div class="features">
-      <div class="feature"><div class="feature-icon">📊</div> Dashboard with file stats & breakdown</div>
-      <div class="feature"><div class="feature-icon">🔍</div> Search all your Drive files instantly</div>
-      <div class="feature"><div class="feature-icon">🌙</div> Light & Dark mode toggle</div>
-      <div class="feature"><div class="feature-icon">🔒</div> Your data never leaves your browser</div>
+      <div class="feature"><div class="feature-icon">📊</div> Dashboard with stats & file browser</div>
+      <div class="feature"><div class="feature-icon">📌</div> Bookmark favourite files</div>
+      <div class="feature"><div class="feature-icon">👁</div> Preview & AI summarize documents</div>
+      <div class="feature"><div class="feature-icon">📤</div> Share files directly from the bot</div>
     </div>
     <button class="btn-google" onclick="startSetup()">
       <svg viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
@@ -248,20 +308,50 @@
   </div>
 </div>
 
-<!-- FILE MODAL -->
+<!-- FILE LIST MODAL -->
 <div class="modal-overlay" id="modal" onclick="closeModal(event)">
   <div class="modal">
     <div class="modal-header">
       <div class="modal-title" id="modal-title">📄 Files</div>
-      <button class="modal-close" onclick="closeModalDirect()">✕</button>
+      <div class="modal-header-actions">
+        <button class="modal-close" onclick="closeModalDirect()">✕</button>
+      </div>
     </div>
-    <div class="modal-count" id="modal-count">
-      <span id="modal-count-text">Loading...</span>
+    <div class="date-filter-bar">
+      <label>📅 Date:</label>
+      <button class="date-preset active" onclick="setDatePreset('all',this)">All</button>
+      <button class="date-preset" onclick="setDatePreset('7d',this)">7 days</button>
+      <button class="date-preset" onclick="setDatePreset('30d',this)">30 days</button>
+      <button class="date-preset" onclick="setDatePreset('90d',this)">3 months</button>
+      <input class="date-input" type="date" id="date-from" onchange="applyDateFilter()" title="From date"/>
+      <span style="font-size:11px;color:var(--muted)">to</span>
+      <input class="date-input" type="date" id="date-to" onchange="applyDateFilter()" title="To date"/>
+    </div>
+    <div class="modal-toolbar">
       <input class="modal-search" type="text" placeholder="Filter by name..." oninput="filterModal(this.value)" id="modal-filter"/>
+      <span class="modal-count-text" id="modal-count-text">Loading...</span>
     </div>
     <div class="modal-body" id="modal-body"></div>
     <div class="modal-footer" id="modal-footer" style="display:none">
       <button class="btn-load-more" id="load-more-btn" onclick="loadMoreFiles()">Load more files ↓</button>
+    </div>
+  </div>
+</div>
+
+<!-- PREVIEW PANEL -->
+<div class="preview-panel" id="preview-panel" onclick="closePreview(event)">
+  <div class="preview-box">
+    <div class="preview-header">
+      <div class="preview-title" id="preview-title">Preview</div>
+      <div class="preview-header-btns">
+        <button class="preview-btn ai" id="ai-btn" onclick="getAISummary()">🤖 AI Summary</button>
+        <button class="preview-btn share" id="share-btn-preview" onclick="shareCurrentFile()">📤 Share</button>
+        <button class="preview-btn" id="bm-btn-preview" onclick="toggleBookmarkCurrent()">📌 Bookmark</button>
+        <button class="preview-btn close-btn" onclick="closePreviewDirect()">✕ Close</button>
+      </div>
+    </div>
+    <div class="preview-body" id="preview-body">
+      <div class="preview-loading"><div class="spinner"></div><p>Loading preview...</p></div>
     </div>
   </div>
 </div>
@@ -276,6 +366,7 @@
     <div class="nav-tabs">
       <button class="nav-tab active" onclick="switchView('dashboard',this)">📊 Dashboard</button>
       <button class="nav-tab" onclick="switchView('search',this)">🔍 Search</button>
+      <button class="nav-tab" onclick="switchView('bookmarks',this)">📌 Bookmarks</button>
     </div>
     <div class="header-right">
       <button class="theme-toggle" onclick="toggleTheme()" id="theme-btn" title="Toggle theme">🌙</button>
@@ -300,7 +391,7 @@
     <div class="chat-area" id="chat">
       <div class="msg bot">
         <div class="av bot">🤖</div>
-        <div class="bubble">Hey! I'm your <strong>DriveBot</strong> 👋<br><br>Ask me to find any document from your Google Drive — handover docs, reports, spreadsheets, meeting notes — anything!</div>
+        <div class="bubble">Hey! I'm your <strong>DriveBot</strong> 👋<br><br>Search your Drive — then <strong>preview</strong>, <strong>bookmark</strong>, <strong>share</strong>, or get an <strong>AI summary</strong> of any file!</div>
       </div>
     </div>
     <div class="chips" id="chips">
@@ -315,7 +406,14 @@
         <input id="query" type="text" placeholder="Search your Drive..." onkeydown="if(event.key==='Enter')send()"/>
         <button id="send-btn" onclick="send()">Search ↗</button>
       </div>
-      <div class="footer-note">Searching your <span>Google Drive</span> in real-time · Results open directly in Drive</div>
+      <div class="footer-note">Searching your <span>Google Drive</span> in real-time · Preview · Bookmark · Share · AI Summary</div>
+    </div>
+  </div>
+
+  <!-- BOOKMARKS -->
+  <div class="view" id="view-bookmarks">
+    <div class="bookmarks-area" id="bookmarks-content">
+      <div class="bm-empty"><div class="bm-icon">📌</div><p>No bookmarks yet.<br>Bookmark files from Search or Browse to see them here.</p></div>
     </div>
   </div>
 </div>
@@ -323,15 +421,16 @@
 <script src="https://accounts.google.com/gsi/client" async></script>
 <script>
   let accessToken=null,tokenClient=null,userProfile=null,isDark=true;
-  let modalFiles=[],modalPageToken=null,modalMimeFilter='',modalTitle='';
+  let modalFiles=[],modalPageToken=null,modalMimeFilter='';
+  let currentFile=null,dateFrom=null,dateTo=null;
+  let bookmarks=JSON.parse(localStorage.getItem('drivebot_bookmarks')||'[]');
+  const ANTHROPIC_KEY=localStorage.getItem('drivebot_ak')||'';
 
   /* THEME */
-  function toggleTheme(){
-    isDark=!isDark;
-    document.documentElement.setAttribute('data-theme',isDark?'dark':'light');
-    document.getElementById('theme-btn').textContent=isDark?'🌙':'☀️';
-    localStorage.setItem('drivebot_theme',isDark?'dark':'light');
-  }
+  function toggleTheme(){isDark=!isDark;document.documentElement.setAttribute('data-theme',isDark?'dark':'light');document.getElementById('theme-btn').textContent=isDark?'🌙':'☀️';localStorage.setItem('drivebot_theme',isDark?'dark':'light');}
+
+  /* TOAST */
+  function toast(msg){const t=document.createElement('div');t.className='toast';t.textContent=msg;document.body.appendChild(t);setTimeout(()=>t.remove(),2500);}
 
   /* INIT */
   window.addEventListener('load',()=>{
@@ -342,12 +441,7 @@
     if(cid) initGoogleAuth(cid);
   });
 
-  function startSetup(){
-    const cid=localStorage.getItem('drivebot_cid');
-    if(cid){signIn();return;}
-    document.getElementById('login-screen').style.display='none';
-    document.getElementById('clientid-screen').style.display='flex';
-  }
+  function startSetup(){const cid=localStorage.getItem('drivebot_cid');if(cid){signIn();return;}document.getElementById('login-screen').style.display='none';document.getElementById('clientid-screen').style.display='flex';}
   function saveClientId(){
     const cid=document.getElementById('client-id-input').value.trim();
     if(!cid||!cid.includes('.apps.googleusercontent.com')){alert('Please enter a valid Client ID');return;}
@@ -359,75 +453,255 @@
   function initGoogleAuth(clientId){
     const tryInit=()=>{
       if(typeof google==='undefined'){setTimeout(tryInit,200);return;}
-      tokenClient=google.accounts.oauth2.initTokenClient({
-        client_id:clientId,
-        scope:'https://www.googleapis.com/auth/drive.readonly https://www.googleapis.com/auth/userinfo.profile',
-        callback:handleToken
-      });
-    };
-    tryInit();
+      tokenClient=google.accounts.oauth2.initTokenClient({client_id:clientId,scope:'https://www.googleapis.com/auth/drive.readonly https://www.googleapis.com/auth/userinfo.profile',callback:handleToken});
+    };tryInit();
   }
   function signIn(){if(!tokenClient){setTimeout(signIn,300);return;}tokenClient.requestAccessToken();}
   async function handleToken(resp){
     if(!resp.access_token){alert('Sign-in failed.');return;}
     accessToken=resp.access_token;
-    try{
-      const r=await fetch('https://www.googleapis.com/oauth2/v3/userinfo',{headers:{Authorization:'Bearer '+accessToken}});
-      userProfile=await r.json();
-      document.getElementById('user-name').textContent=userProfile.given_name||userProfile.name||'You';
-      if(userProfile.picture) document.getElementById('user-avatar').src=userProfile.picture;
-    }catch(e){}
+    try{const r=await fetch('https://www.googleapis.com/oauth2/v3/userinfo',{headers:{Authorization:'Bearer '+accessToken}});userProfile=await r.json();document.getElementById('user-name').textContent=userProfile.given_name||userProfile.name||'You';if(userProfile.picture)document.getElementById('user-avatar').src=userProfile.picture;}catch(e){}
     document.getElementById('login-screen').style.display='none';
     document.getElementById('clientid-screen').style.display='none';
     document.getElementById('app').style.display='flex';
-    loadDashboard();
+    loadDashboard();renderBookmarks();
   }
   function logout(){accessToken=null;document.getElementById('app').style.display='none';document.getElementById('login-screen').style.display='flex';}
   function switchView(name,btn){
     document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
     document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
     document.getElementById('view-'+name).classList.add('active');
-    if(btn) btn.classList.add('active');
+    if(btn)btn.classList.add('active');
+    if(name==='bookmarks')renderBookmarks();
   }
 
   /* DRIVE API */
   async function driveListPage(q,pageToken=null,pageSize=50){
     let url=`https://www.googleapis.com/drive/v3/files?q=${encodeURIComponent(q)}&pageSize=${pageSize}&fields=nextPageToken,files(id,name,mimeType,modifiedTime,size,webViewLink)&orderBy=modifiedTime desc`;
-    if(pageToken) url+=`&pageToken=${encodeURIComponent(pageToken)}`;
+    if(pageToken)url+=`&pageToken=${encodeURIComponent(pageToken)}`;
     const r=await fetch(url,{headers:{Authorization:'Bearer '+accessToken}});
-    if(!r.ok) return{files:[],nextPageToken:null};
-    const d=await r.json();
-    return{files:d.files||[],nextPageToken:d.nextPageToken||null};
+    if(!r.ok)return{files:[],nextPageToken:null};
+    const d=await r.json();return{files:d.files||[],nextPageToken:d.nextPageToken||null};
   }
   async function driveListAll(q,maxPages=5){
     let all=[],token=null,page=0;
-    do{
-      const res=await driveListPage(q,token,100);
-      all=all.concat(res.files);token=res.nextPageToken;page++;
-    }while(token&&page<maxPages);
+    do{const res=await driveListPage(q,token,100);all=all.concat(res.files);token=res.nextPageToken;page++;}while(token&&page<maxPages);
     return{files:all,hasMore:!!token};
   }
   async function driveSearch(query){
     const q=`(fullText contains '${query.replace(/'/g,"\\'")}' or name contains '${query.replace(/'/g,"\\'")}') and trashed=false`;
     const url=`https://www.googleapis.com/drive/v3/files?q=${encodeURIComponent(q)}&pageSize=10&fields=files(id,name,mimeType,modifiedTime,size,webViewLink)&orderBy=modifiedTime desc`;
     const r=await fetch(url,{headers:{Authorization:'Bearer '+accessToken}});
-    if(r.status===401){logout();return[];}
-    if(!r.ok) throw new Error('Drive search failed ('+r.status+')');
+    if(r.status===401){logout();return[];}if(!r.ok)throw new Error('Drive search failed ('+r.status+')');
     return(await r.json()).files||[];
   }
 
   /* HELPERS */
   function mimeInfo(mime){
-    if(!mime) return{label:'FILE',cls:'b-file',icon:'📄'};
-    if(mime.includes('spreadsheet')||mime.includes('xlsx')||mime.includes('csv')) return{label:'SHEET',cls:'b-sheet',icon:'📊'};
-    if(mime.includes('presentation')||mime.includes('pptx')) return{label:'SLIDES',cls:'b-slide',icon:'📑'};
-    if(mime.includes('pdf')) return{label:'PDF',cls:'b-pdf',icon:'📕'};
-    if(mime.includes('zip')||mime.includes('compressed')) return{label:'ZIP',cls:'b-zip',icon:'🗜'};
-    if(mime.includes('document')||mime.includes('docx')||mime.includes('msword')) return{label:'DOC',cls:'b-doc',icon:'📄'};
+    if(!mime)return{label:'FILE',cls:'b-file',icon:'📄'};
+    if(mime.includes('spreadsheet')||mime.includes('xlsx')||mime.includes('csv'))return{label:'SHEET',cls:'b-sheet',icon:'📊'};
+    if(mime.includes('presentation')||mime.includes('pptx'))return{label:'SLIDES',cls:'b-slide',icon:'📑'};
+    if(mime.includes('pdf'))return{label:'PDF',cls:'b-pdf',icon:'📕'};
+    if(mime.includes('zip')||mime.includes('compressed'))return{label:'ZIP',cls:'b-zip',icon:'🗜'};
+    if(mime.includes('document')||mime.includes('docx')||mime.includes('msword'))return{label:'DOC',cls:'b-doc',icon:'📄'};
     return{label:'FILE',cls:'b-file',icon:'📄'};
   }
   function fmtDate(iso){if(!iso)return'';return new Date(iso).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'});}
   function fmtSize(b){if(!b)return'';const k=Math.round(b/1024);return k>1024?(k/1024).toFixed(1)+' MB':k+' KB';}
+  function isBookmarked(id){return bookmarks.some(b=>b.id===id);}
+
+  /* BOOKMARKS */
+  function toggleBookmark(file){
+    if(isBookmarked(file.id)){bookmarks=bookmarks.filter(b=>b.id!==file.id);toast('📌 Bookmark removed');}
+    else{bookmarks.push({id:file.id,name:file.name,mimeType:file.mimeType,modifiedTime:file.modifiedTime,webViewLink:file.webViewLink});toast('📌 Bookmarked!');}
+    localStorage.setItem('drivebot_bookmarks',JSON.stringify(bookmarks));
+    renderBookmarks();
+  }
+  function toggleBookmarkCurrent(){if(currentFile)toggleBookmark(currentFile);}
+  function renderBookmarks(){
+    const area=document.getElementById('bookmarks-content');
+    if(!bookmarks.length){area.innerHTML=`<div class="bm-empty"><div class="bm-icon">📌</div><p>No bookmarks yet.<br>Bookmark files from Search or Browse to see them here.</p></div>`;return;}
+    area.innerHTML=`<div style="margin-bottom:1rem"><div class="section-title">📌 Your Bookmarks</div><div class="bm-list">${bookmarks.map(f=>{const{icon,cls,label}=mimeInfo(f.mimeType);return`<div class="bm-item"><div style="font-size:20px">${icon}</div><div class="bm-info"><div class="bm-name">${f.name}</div><div class="bm-meta">📅 ${fmtDate(f.modifiedTime)}</div></div><div class="bm-actions"><button class="bm-btn" onclick='openPreview(${JSON.stringify(f)})'>👁 Preview</button><button class="bm-btn" onclick='shareFile(${JSON.stringify(f)})'>📤 Share</button><button class="bm-btn del" onclick='toggleBookmark(${JSON.stringify(f)})'>🗑 Remove</button><a class="bm-btn" href="${f.webViewLink||'#'}" target="_blank" style="text-decoration:none">↗ Open</a></div></div>`;}).join('')}</div></div>`;
+  }
+
+  /* DATE FILTER */
+  function setDatePreset(preset,btn){
+    document.querySelectorAll('.date-preset').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    const now=new Date();
+    if(preset==='all'){dateFrom=null;dateTo=null;document.getElementById('date-from').value='';document.getElementById('date-to').value='';}
+    else if(preset==='7d'){dateFrom=new Date(now-7*864e5);dateTo=null;}
+    else if(preset==='30d'){dateFrom=new Date(now-30*864e5);dateTo=null;}
+    else if(preset==='90d'){dateFrom=new Date(now-90*864e5);dateTo=null;}
+    renderModalFiles(document.getElementById('modal-filter').value);
+  }
+  function applyDateFilter(){
+    const f=document.getElementById('date-from').value,t=document.getElementById('date-to').value;
+    dateFrom=f?new Date(f):null;dateTo=t?new Date(t):null;
+    document.querySelectorAll('.date-preset').forEach(b=>b.classList.remove('active'));
+    renderModalFiles(document.getElementById('modal-filter').value);
+  }
+
+  /* MODAL */
+  async function openModal(mimeFilter,title){
+    modalFiles=[];modalPageToken=null;modalMimeFilter=mimeFilter;
+    dateFrom=null;dateTo=null;
+    document.getElementById('modal-title').textContent=title;
+    document.getElementById('modal-count-text').textContent='Loading...';
+    document.getElementById('modal-filter').value='';
+    document.getElementById('date-from').value='';
+    document.getElementById('date-to').value='';
+    document.querySelectorAll('.date-preset').forEach((b,i)=>{b.classList.toggle('active',i===0);});
+    document.getElementById('modal-body').innerHTML=`<div class="dash-loading"><div class="spinner"></div><p>Fetching files...</p></div>`;
+    document.getElementById('modal-footer').style.display='none';
+    document.getElementById('modal').classList.add('open');
+    await fetchModalPage();
+  }
+  async function fetchModalPage(){
+    const q=modalMimeFilter?`mimeType contains '${modalMimeFilter}' and trashed=false`:`trashed=false`;
+    const{files,nextPageToken}=await driveListPage(q,modalPageToken,50);
+    modalPageToken=nextPageToken;modalFiles=modalFiles.concat(files);
+    renderModalFiles();
+  }
+  function renderModalFiles(filter=''){
+    let filtered=modalFiles;
+    if(dateFrom)filtered=filtered.filter(f=>new Date(f.modifiedTime)>=dateFrom);
+    if(dateTo)filtered=filtered.filter(f=>new Date(f.modifiedTime)<=new Date(dateTo.getTime()+864e5));
+    if(filter)filtered=filtered.filter(f=>f.name.toLowerCase().includes(filter.toLowerCase()));
+    const body=document.getElementById('modal-body');
+    if(!filtered.length){body.innerHTML=`<p style="padding:1.5rem 0;color:var(--muted);font-size:12px;text-align:center">No files found.</p>`;document.getElementById('modal-count-text').textContent='0 files';return;}
+    document.getElementById('modal-count-text').textContent=`${filtered.length} files${modalPageToken?' · more available':''}`;
+    body.innerHTML=filtered.map(f=>{
+      const{label,cls,icon}=mimeInfo(f.mimeType);
+      const bm=isBookmarked(f.id);
+      return`<div class="mfile">
+        <div class="mfile-icon">${icon}</div>
+        <div class="mfile-info"><div class="mfile-name">${f.name}</div><div class="mfile-meta">📅 ${fmtDate(f.modifiedTime)}${f.size?' · '+fmtSize(f.size):''}</div></div>
+        <span class="mfile-badge fbadge ${cls}">${label}</span>
+        <div class="mfile-actions">
+          <button class="mfile-btn" onclick='openPreview(${JSON.stringify(f)})'>👁</button>
+          <button class="mfile-btn ${bm?'bm-active':''}" onclick='toggleBookmark(${JSON.stringify(f)});renderModalFiles(document.getElementById("modal-filter").value)'>${bm?'⭐':'📌'}</button>
+          <button class="mfile-btn open" onclick='shareFile(${JSON.stringify(f)})'>📤</button>
+          <a class="mfile-btn open" href="${f.webViewLink||'#'}" target="_blank" style="text-decoration:none">↗</a>
+        </div>
+      </div>`;
+    }).join('');
+    const footer=document.getElementById('modal-footer');
+    if(modalPageToken&&!filter&&!dateFrom&&!dateTo){footer.style.display='flex';document.getElementById('load-more-btn').disabled=false;}
+    else footer.style.display='none';
+  }
+  function filterModal(val){renderModalFiles(val);}
+  async function loadMoreFiles(){const btn=document.getElementById('load-more-btn');btn.disabled=true;btn.textContent='Loading...';await fetchModalPage();btn.textContent='Load more files ↓';}
+  function closeModal(e){if(e.target===document.getElementById('modal'))closeModalDirect();}
+  function closeModalDirect(){document.getElementById('modal').classList.remove('open');}
+
+  /* PREVIEW */
+  async function openPreview(file){
+    currentFile=file;
+    document.getElementById('preview-title').textContent=file.name;
+    document.getElementById('preview-body').innerHTML=`<div class="preview-loading"><div class="spinner"></div><p>Loading preview...</p></div>`;
+    document.getElementById('bm-btn-preview').textContent=isBookmarked(file.id)?'⭐ Bookmarked':'📌 Bookmark';
+    document.getElementById('preview-panel').classList.add('open');
+    try{
+      const previewable=['application/vnd.google-apps.document','application/vnd.google-apps.spreadsheet','application/vnd.google-apps.presentation','application/pdf','application/msword','application/vnd.openxmlformats-officedocument.wordprocessingml.document','application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'];
+      const canPreview=previewable.some(t=>file.mimeType&&file.mimeType.includes(t.split('/')[1]));
+      if(canPreview||file.mimeType.includes('google-apps')){
+        const exportMime=file.mimeType.includes('spreadsheet')?'text/csv':file.mimeType.includes('presentation')?'text/plain':'text/plain';
+        const r=await fetch(`https://www.googleapis.com/drive/v3/files/${file.id}/export?mimeType=${encodeURIComponent(exportMime)}`,{headers:{Authorization:'Bearer '+accessToken}});
+        if(!r.ok)throw new Error('Cannot export this file type');
+        const text=await r.text();
+        document.getElementById('preview-body').innerHTML=`<div class="preview-content">${text.substring(0,8000)+(text.length>8000?'\n\n[... truncated for preview ...]':'')}</div>`;
+      }else{
+        document.getElementById('preview-body').innerHTML=`<div style="text-align:center;padding:2rem;color:var(--muted)"><div style="font-size:48px;margin-bottom:12px">${mimeInfo(file.mimeType).icon}</div><p style="font-size:13px;margin-bottom:16px">Preview not available for this file type.<br>Click below to open in Google Drive.</p><a href="${file.webViewLink}" target="_blank" style="background:var(--accent);color:#fff;border-radius:10px;padding:10px 20px;text-decoration:none;font-family:'Syne',sans-serif;font-weight:700;font-size:13px">↗ Open in Drive</a></div>`;
+      }
+    }catch(e){
+      document.getElementById('preview-body').innerHTML=`<div style="text-align:center;padding:2rem;color:var(--muted)"><div style="font-size:48px;margin-bottom:12px">${mimeInfo(file.mimeType).icon}</div><p style="font-size:13px;margin-bottom:16px">${e.message||'Preview unavailable'}</p><a href="${file.webViewLink}" target="_blank" style="background:var(--accent);color:#fff;border-radius:10px;padding:10px 20px;text-decoration:none;font-family:'Syne',sans-serif;font-weight:700;font-size:13px">↗ Open in Drive</a></div>`;
+    }
+  }
+  function closePreview(e){if(e.target===document.getElementById('preview-panel'))closePreviewDirect();}
+  function closePreviewDirect(){document.getElementById('preview-panel').classList.remove('open');}
+
+  /* AI SUMMARY */
+  async function getAISummary(){
+    const body=document.getElementById('preview-body');
+    const existing=body.querySelector('.preview-content');
+    const text=existing?existing.textContent:'';
+    if(!text||text.length<50){toast('⚠️ No text content to summarize');return;}
+    const btn=document.getElementById('ai-btn');
+    btn.textContent='⏳ Summarizing...';btn.disabled=true;
+    const ak=localStorage.getItem('drivebot_ak');
+    if(!ak){
+      // Show key input prompt
+      const keyDiv=document.createElement('div');
+      keyDiv.className='ai-summary';
+      keyDiv.innerHTML=`<div class="ai-summary-title">🤖 AI Summary — API Key Required</div>
+        <p style="font-size:12px;color:var(--muted);margin-bottom:10px">To use AI summaries, enter your Anthropic API key once. It's stored only in your browser.</p>
+        <div style="display:flex;gap:8px">
+          <input type="text" id="ak-input" placeholder="sk-ant-..." style="flex:1;margin-bottom:0;padding:8px 12px;font-size:12px"/>
+          <button onclick="saveAKAndSummarize()" style="background:var(--accent);border:none;border-radius:8px;padding:8px 14px;color:#fff;font-family:'Syne',sans-serif;font-weight:700;font-size:12px;cursor:pointer;white-space:nowrap">Save & Summarize</button>
+        </div>`;
+      body.prepend(keyDiv);
+      btn.textContent='🤖 AI Summary';btn.disabled=false;
+      return;
+    }
+    await doSummarize(text,ak,btn);
+  }
+  async function saveAKAndSummarize(){
+    const ak=document.getElementById('ak-input')?.value?.trim();
+    if(!ak){toast('Please enter your API key');return;}
+    localStorage.setItem('drivebot_ak',ak);
+    document.querySelector('.ai-summary')?.remove();
+    const btn=document.getElementById('ai-btn');
+    btn.textContent='⏳ Summarizing...';btn.disabled=true;
+    const text=document.querySelector('.preview-content')?.textContent||'';
+    await doSummarize(text,ak,btn);
+  }
+  async function doSummarize(text,ak,btn){
+    try{
+      const r=await fetch('https://api.anthropic.com/v1/messages',{
+        method:'POST',
+        headers:{'Content-Type':'application/json','x-api-key':ak,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-calls':'true'},
+        body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:500,messages:[{role:'user',content:`Summarize this document in 3-5 bullet points. Be concise and focus on key information:\n\n${text.substring(0,4000)}`}]})
+      });
+      const d=await r.json();
+      const summary=d.content?.[0]?.text||'Could not generate summary.';
+      const summaryDiv=document.createElement('div');
+      summaryDiv.className='ai-summary';
+      summaryDiv.innerHTML=`<div class="ai-summary-title">🤖 AI Summary</div><div style="font-size:13px;line-height:1.7;white-space:pre-wrap">${summary}</div>`;
+      document.getElementById('preview-body').prepend(summaryDiv);
+      toast('✅ AI summary generated!');
+    }catch(e){toast('⚠️ AI error: '+e.message);}
+    btn.textContent='🤖 AI Summary';btn.disabled=false;
+  }
+
+  /* SHARE */
+  function shareFile(file){
+    currentFile=file;shareCurrentFile();
+  }
+  function shareCurrentFile(){
+    if(!currentFile||!currentFile.webViewLink){toast('No shareable link available');return;}
+    const body=document.getElementById('preview-body');
+    const existing=document.querySelector('.share-box');
+    if(existing){existing.remove();return;}
+    const shareDiv=document.createElement('div');
+    shareDiv.className='share-box';
+    shareDiv.innerHTML=`<div class="share-box-title">📤 Share this file</div>
+      <div class="share-link">
+        <input type="text" value="${currentFile.webViewLink}" readonly style="margin-bottom:0;font-size:11px"/>
+        <button class="copy-btn" onclick="copyLink('${currentFile.webViewLink}')">📋 Copy</button>
+      </div>
+      <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
+        <a href="mailto:?subject=${encodeURIComponent(currentFile.name)}&body=${encodeURIComponent('Check out this file: '+currentFile.webViewLink)}" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:6px 12px;font-size:11px;color:var(--text);text-decoration:none;font-family:'DM Mono',monospace">📧 Email</a>
+        <a href="https://wa.me/?text=${encodeURIComponent(currentFile.name+': '+currentFile.webViewLink)}" target="_blank" style="background:rgba(37,211,102,.1);border:1px solid rgba(37,211,102,.3);border-radius:8px;padding:6px 12px;font-size:11px;color:#25d366;text-decoration:none;font-family:'DM Mono',monospace">💬 WhatsApp</a>
+        <a href="https://t.me/share/url?url=${encodeURIComponent(currentFile.webViewLink)}&text=${encodeURIComponent(currentFile.name)}" target="_blank" style="background:rgba(0,136,204,.1);border:1px solid rgba(0,136,204,.3);border-radius:8px;padding:6px 12px;font-size:11px;color:#0088cc;text-decoration:none;font-family:'DM Mono',monospace">✈️ Telegram</a>
+      </div>`;
+    if(document.getElementById('preview-panel').classList.contains('open'))
+      body.prepend(shareDiv);
+    else{
+      openPreview(currentFile).then(()=>{document.getElementById('preview-body').prepend(shareDiv);});
+    }
+  }
+  function copyLink(url){navigator.clipboard.writeText(url).then(()=>toast('✅ Link copied!'));}
 
   /* DASHBOARD */
   async function loadDashboard(){
@@ -437,207 +711,64 @@
       const{files:allFiles,hasMore}=await driveListAll("trashed=false",5);
       const recentFiles=allFiles.slice(0,8);
       let docs=0,sheets=0,slides=0,pdfs=0,zips=0;
-      allFiles.forEach(f=>{
-        const m=f.mimeType||'';
-        if(m.includes('document')||m.includes('docx')||m.includes('msword')) docs++;
-        else if(m.includes('spreadsheet')||m.includes('xlsx')||m.includes('csv')) sheets++;
-        else if(m.includes('presentation')||m.includes('pptx')) slides++;
-        else if(m.includes('pdf')) pdfs++;
-        else if(m.includes('zip')||m.includes('compressed')) zips++;
-      });
-      const total=allFiles.length;
-      const name=userProfile?.given_name||'there';
-      const hour=new Date().getHours();
+      allFiles.forEach(f=>{const m=f.mimeType||'';if(m.includes('document')||m.includes('docx')||m.includes('msword'))docs++;else if(m.includes('spreadsheet')||m.includes('xlsx')||m.includes('csv'))sheets++;else if(m.includes('presentation')||m.includes('pptx'))slides++;else if(m.includes('pdf'))pdfs++;else if(m.includes('zip')||m.includes('compressed'))zips++;});
+      const total=allFiles.length,name=userProfile?.given_name||'there',hour=new Date().getHours();
       const greeting=hour<12?'Good morning':hour<17?'Good afternoon':'Good evening';
-
       dash.innerHTML=`
         <div class="dash-greeting">${greeting}, <span>${name}</span> 👋</div>
-        <div class="dash-sub">Live overview of your Google Drive${hasMore?' (500+ files)':' · '+total+' files total'}</div>
-
-        <div class="dash-search">
-          <div class="dash-search-title">🔍 Quick Search</div>
-          <div class="dash-search-row">
-            <input class="dash-search-input" type="text" id="dash-query" placeholder="Search your Drive..." onkeydown="if(event.key==='Enter')dashSearch()"/>
-            <button class="dash-search-btn" onclick="dashSearch()">Search ↗</button>
-          </div>
-        </div>
-
-        <div class="section-title">📊 Overview <span style="font-size:11px;font-weight:400;color:var(--muted)">(click any card to view files)</span></div>
+        <div class="dash-sub">Live overview of your Google Drive${hasMore?' (500+ files)':' · '+total+' files total'} · Click any card to browse</div>
+        <div class="dash-search"><div class="dash-search-title">🔍 Quick Search</div><div class="dash-search-row"><input class="dash-search-input" type="text" id="dash-query" placeholder="Search your Drive..." onkeydown="if(event.key==='Enter')dashSearch()"/><button class="dash-search-btn" onclick="dashSearch()">Search ↗</button></div></div>
+        <div class="section-title">📊 Overview</div>
         <div class="stat-grid">
-          <div class="stat-card" onclick="openModal('','📁 All Files')">
-            <div class="stat-icon">📁</div>
-            <div class="stat-val">${total}${hasMore?'+':''}</div>
-            <div class="stat-label">Total Files</div>
-            <div class="stat-click-hint">Click to browse all →</div>
-          </div>
-          <div class="stat-card" onclick="openModal('document','📄 Documents')">
-            <div class="stat-icon">📄</div>
-            <div class="stat-val">${docs+sheets+slides}</div>
-            <div class="stat-label">Documents</div>
-            <div class="stat-click-hint">Click to browse →</div>
-          </div>
-          <div class="stat-card" onclick="openModal('zip','🗜 ZIP Archives')">
-            <div class="stat-icon">🗜</div>
-            <div class="stat-val">${zips}</div>
-            <div class="stat-label">ZIP Archives</div>
-            <div class="stat-click-hint">Click to browse →</div>
-          </div>
-          <div class="stat-card" onclick="openModal('pdf','📕 PDFs')">
-            <div class="stat-icon">📕</div>
-            <div class="stat-val">${pdfs}</div>
-            <div class="stat-label">PDFs</div>
-            <div class="stat-click-hint">Click to browse →</div>
-          </div>
+          <div class="stat-card" onclick="openModal('','📁 All Files')"><div class="stat-icon">📁</div><div class="stat-val">${total}${hasMore?'+':''}</div><div class="stat-label">Total Files</div><div class="stat-click-hint">Browse all →</div></div>
+          <div class="stat-card" onclick="openModal('document','📄 Documents')"><div class="stat-icon">📄</div><div class="stat-val">${docs+sheets+slides}</div><div class="stat-label">Documents</div><div class="stat-click-hint">Browse docs →</div></div>
+          <div class="stat-card" onclick="openModal('zip','🗜 ZIP Archives')"><div class="stat-icon">🗜</div><div class="stat-val">${zips}</div><div class="stat-label">ZIP Archives</div><div class="stat-click-hint">Browse ZIPs →</div></div>
+          <div class="stat-card" onclick="openModal('pdf','📕 PDFs')"><div class="stat-icon">📕</div><div class="stat-val">${pdfs}</div><div class="stat-label">PDFs</div><div class="stat-click-hint">Browse PDFs →</div></div>
         </div>
-
-        <div class="section-title">🗂 Browse by Type <span style="font-size:11px;font-weight:400;color:var(--muted)">(click to view files)</span></div>
+        <div class="section-title">🗂 Browse by Type</div>
         <div class="type-grid">
-          <div class="type-card" onclick="openModal('document','📄 Documents')">
-            <div class="type-dot" style="background:var(--accent)"></div>
-            <div class="type-info"><div class="type-name">Docs</div><div class="type-count" style="color:var(--accent)">${docs}</div></div>
-            <div class="type-arrow">→</div>
-          </div>
-          <div class="type-card" onclick="openModal('spreadsheet','📊 Spreadsheets')">
-            <div class="type-dot" style="background:var(--accent3)"></div>
-            <div class="type-info"><div class="type-name">Sheets</div><div class="type-count" style="color:var(--accent3)">${sheets}</div></div>
-            <div class="type-arrow">→</div>
-          </div>
-          <div class="type-card" onclick="openModal('presentation','📑 Presentations')">
-            <div class="type-dot" style="background:var(--accent2)"></div>
-            <div class="type-info"><div class="type-name">Slides</div><div class="type-count" style="color:var(--accent2)">${slides}</div></div>
-            <div class="type-arrow">→</div>
-          </div>
-          <div class="type-card" onclick="openModal('pdf','📕 PDFs')">
-            <div class="type-dot" style="background:var(--accent4)"></div>
-            <div class="type-info"><div class="type-name">PDFs</div><div class="type-count" style="color:var(--accent4)">${pdfs}</div></div>
-            <div class="type-arrow">→</div>
-          </div>
+          <div class="type-card" onclick="openModal('document','📄 Documents')"><div class="type-dot" style="background:var(--accent)"></div><div class="type-info"><div class="type-name">Docs</div><div class="type-count" style="color:var(--accent)">${docs}</div></div><div class="type-arrow">→</div></div>
+          <div class="type-card" onclick="openModal('spreadsheet','📊 Spreadsheets')"><div class="type-dot" style="background:var(--accent3)"></div><div class="type-info"><div class="type-name">Sheets</div><div class="type-count" style="color:var(--accent3)">${sheets}</div></div><div class="type-arrow">→</div></div>
+          <div class="type-card" onclick="openModal('presentation','📑 Presentations')"><div class="type-dot" style="background:var(--accent2)"></div><div class="type-info"><div class="type-name">Slides</div><div class="type-count" style="color:var(--accent2)">${slides}</div></div><div class="type-arrow">→</div></div>
+          <div class="type-card" onclick="openModal('pdf','📕 PDFs')"><div class="type-dot" style="background:var(--accent4)"></div><div class="type-info"><div class="type-name">PDFs</div><div class="type-count" style="color:var(--accent4)">${pdfs}</div></div><div class="type-arrow">→</div></div>
         </div>
-
         <div class="section-title">🕐 Recently Modified</div>
-        <div class="recent-list">
-          ${recentFiles.map((f,i)=>{const{icon,cls,label}=mimeInfo(f.mimeType);return`
-            <a class="recent-item" href="${f.webViewLink||'#'}" target="_blank" style="animation-delay:${.05*i}s">
-              <div class="recent-icon">${icon}</div>
-              <div class="recent-info"><div class="recent-name">${f.name}</div><div class="recent-meta">📅 ${fmtDate(f.modifiedTime)}</div></div>
-              <span class="recent-badge fbadge ${cls}">${label}</span>
-            </a>`;}).join('')}
-        </div>`;
-    }catch(e){
-      dash.innerHTML=`<div style="padding:2rem;color:var(--accent2);font-size:13px">⚠️ Failed to load: ${e.message}</div>`;
-    }
+        <div class="recent-list">${recentFiles.map((f,i)=>{const{icon,cls,label}=mimeInfo(f.mimeType);return`<div class="recent-item" style="animation-delay:${.05*i}s"><div class="recent-icon">${icon}</div><div class="recent-info"><div class="recent-name">${f.name}</div><div class="recent-meta">📅 ${fmtDate(f.modifiedTime)}</div></div><span class="recent-badge fbadge ${cls}">${label}</span><div style="display:flex;gap:5px;margin-left:6px"><button class="mfile-btn" onclick='openPreview(${JSON.stringify(f)})' title="Preview">👁</button><button class="mfile-btn" onclick='shareFile(${JSON.stringify(f)})' title="Share">📤</button><button class="mfile-btn ${isBookmarked(f.id)?'bm-active':''}" onclick='toggleBookmark(${JSON.stringify(f)})' title="Bookmark">${isBookmarked(f.id)?'⭐':'📌'}</button></div></div>`;}).join('')}</div>`;
+    }catch(e){dash.innerHTML=`<div style="padding:2rem;color:var(--accent2);font-size:13px">⚠️ Failed to load: ${e.message}</div>`;}
   }
-
-  /* MODAL */
-  async function openModal(mimeFilter,title){
-    modalFiles=[];modalPageToken=null;modalMimeFilter=mimeFilter;modalTitle=title;
-    document.getElementById('modal-title').textContent=title;
-    document.getElementById('modal-count-text').textContent='Loading files...';
-    document.getElementById('modal-filter').value='';
-    document.getElementById('modal-body').innerHTML=`<div class="dash-loading"><div class="spinner"></div><p>Fetching files...</p></div>`;
-    document.getElementById('modal-footer').style.display='none';
-    document.getElementById('modal').classList.add('open');
-    await fetchModalPage();
-  }
-
-  async function fetchModalPage(){
-    const q=modalMimeFilter
-      ? `mimeType contains '${modalMimeFilter}' and trashed=false`
-      : `trashed=false`;
-    const{files,nextPageToken}=await driveListPage(q,modalPageToken,50);
-    modalPageToken=nextPageToken;
-    modalFiles=modalFiles.concat(files);
-    renderModalFiles();
-  }
-
-  function renderModalFiles(filter=''){
-    const body=document.getElementById('modal-body');
-    const filtered=filter?modalFiles.filter(f=>f.name.toLowerCase().includes(filter.toLowerCase())):modalFiles;
-    if(!filtered.length){
-      body.innerHTML=`<p style="padding:1.5rem 0;color:var(--muted);font-size:12px;text-align:center">No files found${filter?' matching "'+filter+'"':''}.</p>`;
-      return;
-    }
-    document.getElementById('modal-count-text').textContent=`${filtered.length} of ${modalFiles.length} files${modalPageToken?' · more available':''}`;
-    body.innerHTML=filtered.map(f=>{
-      const{label,cls,icon}=mimeInfo(f.mimeType);
-      return`<a class="mfile" href="${f.webViewLink||'#'}" target="_blank">
-        <div class="mfile-icon">${icon}</div>
-        <div class="mfile-info">
-          <div class="mfile-name">${f.name}</div>
-          <div class="mfile-meta">📅 ${fmtDate(f.modifiedTime)}${f.size?' · '+fmtSize(f.size):''}</div>
-        </div>
-        <span class="mfile-badge fbadge ${cls}">${label}</span>
-      </a>`;
-    }).join('');
-    const footer=document.getElementById('modal-footer');
-    if(modalPageToken&&!filter){footer.style.display='flex';document.getElementById('load-more-btn').disabled=false;}
-    else footer.style.display='none';
-  }
-
-  function filterModal(val){renderModalFiles(val);}
-
-  async function loadMoreFiles(){
-    const btn=document.getElementById('load-more-btn');
-    btn.disabled=true;btn.textContent='Loading...';
-    await fetchModalPage();
-    btn.textContent='Load more files ↓';
-  }
-
-  function closeModal(e){if(e.target===document.getElementById('modal')) closeModalDirect();}
-  function closeModalDirect(){document.getElementById('modal').classList.remove('open');}
-
-  /* DASHBOARD SEARCH */
-  function dashSearch(){
-    const q=document.getElementById('dash-query')?.value?.trim();
-    if(!q) return;
-    switchView('search',document.querySelectorAll('.nav-tab')[1]);
-    document.getElementById('query').value=q;send();
-  }
+  function dashSearch(){const q=document.getElementById('dash-query')?.value?.trim();if(!q)return;switchView('search',document.querySelectorAll('.nav-tab')[1]);document.getElementById('query').value=q;send();}
 
   /* SEARCH */
   function fillQ(t){document.getElementById('query').value=t;document.getElementById('query').focus();}
   function addMsg(role,html){
-    const chat=document.getElementById('chat');
-    const wrap=document.createElement('div');wrap.className='msg '+role;
+    const chat=document.getElementById('chat'),wrap=document.createElement('div');wrap.className='msg '+role;
     const av=document.createElement('div');av.className='av '+(role==='bot'?'bot':'user-av');
-    if(role==='user'&&userProfile?.picture) av.innerHTML=`<img src="${userProfile.picture}" alt=""/>`;
-    else if(role==='bot') av.textContent='🤖'; else av.textContent='👤';
+    if(role==='user'&&userProfile?.picture)av.innerHTML=`<img src="${userProfile.picture}" alt=""/>`;
+    else if(role==='bot')av.textContent='🤖';else av.textContent='👤';
     const bub=document.createElement('div');bub.className='bubble';bub.innerHTML=html;
-    wrap.appendChild(av);wrap.appendChild(bub);chat.appendChild(wrap);
-    chat.scrollTop=chat.scrollHeight;
+    wrap.appendChild(av);wrap.appendChild(bub);chat.appendChild(wrap);chat.scrollTop=chat.scrollHeight;
   }
-  function addThinking(){
-    const chat=document.getElementById('chat');
-    const wrap=document.createElement('div');wrap.className='msg bot';wrap.id='thinking';
-    wrap.innerHTML=`<div class="av bot">🤖</div><div class="bubble"><div class="thinking"><span></span><span></span><span></span></div></div>`;
-    chat.appendChild(wrap);chat.scrollTop=chat.scrollHeight;
-  }
+  function addThinking(){const chat=document.getElementById('chat'),wrap=document.createElement('div');wrap.className='msg bot';wrap.id='thinking';wrap.innerHTML=`<div class="av bot">🤖</div><div class="bubble"><div class="thinking"><span></span><span></span><span></span></div></div>`;chat.appendChild(wrap);chat.scrollTop=chat.scrollHeight;}
   function removeThinking(){document.getElementById('thinking')?.remove();}
   async function send(){
     const input=document.getElementById('query'),btn=document.getElementById('send-btn');
-    const q=input.value.trim();
-    if(!q||btn.disabled) return;
+    const q=input.value.trim();if(!q||btn.disabled)return;
     document.getElementById('chips').style.display='none';
-    input.value='';btn.disabled=true;
-    addMsg('user',q);addThinking();
+    input.value='';btn.disabled=true;addMsg('user',q);addThinking();
     try{
       const files=await driveSearch(q);removeThinking();
       if(files.length){
         addMsg('bot',`Found <strong>${files.length} file${files.length>1?'s':''}</strong> matching "<em>${q}</em>":`);
         const chat=document.getElementById('chat'),d=document.createElement('div');
         d.innerHTML=`<div class="results-wrap">${files.map(f=>{
-          const{label,cls,icon}=mimeInfo(f.mimeType);
-          return`<div class="rcard"><div class="rcard-top"><span class="fbadge ${cls}">${label}</span><div class="rcard-name" title="${f.name}">${icon} ${f.name}</div></div><div class="rcard-meta">📅 ${fmtDate(f.modifiedTime)}${f.size?' · '+fmtSize(f.size):''}</div>${f.webViewLink?`<a class="rcard-link" href="${f.webViewLink}" target="_blank">🔗 Open in Google Drive ↗</a>`:''}</div>`;
+          const{label,cls,icon}=mimeInfo(f.mimeType);const bm=isBookmarked(f.id);
+          return`<div class="rcard"><div class="rcard-top"><span class="fbadge ${cls}">${label}</span><div class="rcard-name" title="${f.name}">${icon} ${f.name}</div></div><div class="rcard-meta">📅 ${fmtDate(f.modifiedTime)}${f.size?' · '+fmtSize(f.size):''}</div><div class="rcard-actions"><button class="rcard-btn" onclick='openPreview(${JSON.stringify(f)})'>👁 Preview</button><button class="rcard-btn ${bm?'bm':''}" onclick='toggleBookmark(${JSON.stringify(f)});this.className="rcard-btn bm";this.textContent="${bm?'⭐':'📌'} Bookmark"'>${bm?'⭐':'📌'} Bookmark</button><button class="rcard-btn share" onclick='shareFile(${JSON.stringify(f)})'>📤 Share</button>${f.webViewLink?`<a class="rcard-btn" href="${f.webViewLink}" target="_blank" style="text-decoration:none">↗ Open</a>`:''}</div></div>`;
         }).join('')}</div>`;
         chat.appendChild(d);chat.scrollTop=chat.scrollHeight;
-      }else{
-        addMsg('bot',`😕 No files found for "<em>${q}</em>". Try different keywords.`);
-      }
+      }else{addMsg('bot',`😕 No files found for "<em>${q}</em>". Try different keywords.`);}
     }catch(e){
-      removeThinking();
-      const chat=document.getElementById('chat'),d=document.createElement('div');
-      d.style.paddingLeft='40px';
-      d.innerHTML=`<div class="err-box">⚠️ ${e.message}. Try signing out and back in.</div>`;
+      removeThinking();const chat=document.getElementById('chat'),d=document.createElement('div');
+      d.style.paddingLeft='40px';d.innerHTML=`<div class="err-box">⚠️ ${e.message}. Try signing out and back in.</div>`;
       chat.appendChild(d);chat.scrollTop=chat.scrollHeight;
     }
     btn.disabled=false;input.focus();
