@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Drive Doc Bot</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --surface: #13131a;
+      --surface2: #1c1c27;
+      --border: #2a2a3d;
+      --accent: #6c63ff;
+      --accent2: #ff6584;
+      --accent3: #43e97b;
+      --text: #e8e8f0;
+      --muted: #6b6b8a;
+      --bot-bubble: #1c1c2e;
+      --user-bubble: #1e1a3f;
+      --radius: 16px;
+      --font-head: 'Syne', sans-serif;
+      --font-mono: 'DM Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-mono);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* Animated background */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 40% at 20% 20%, rgba(108,99,255,0.12) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 50% at 80% 80%, rgba(67,233,123,0.07) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 60% at 60% 10%, rgba(255,101,132,0.06) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Setup Screen */
+    #setup-screen {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      background: var(--bg);
+      padding: 2rem;
+    }
+
+    .setup-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 2.5rem;
+      width: 100%;
+      max-width: 480px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .setup-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent3));
+    }
+
+    .setup-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 2rem;
+    }
+
+    .logo-icon {
+      width: 44px; height: 44px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+    }
+
+    .logo-text {
+      font-family: var(--font-head);
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+
+    .logo-text span { color: var(--accent); }
+
+    .setup-title {
+      font-family: var(--font-head);
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .setup-desc {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 1.8rem;
+    }
+
+    .field-label {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .field-label a {
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 10px;
+    }
+
+    .field-label a:hover { text-decoration: underline; }
+
+    input[type="text"], input[type="password"] {
+      width: 100%;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 11px 14px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s;
+      margin-bottom: 1.2rem;
+    }
+
+    input:focus { border-color: var(--accent); }
+
+    .toggle-pw {
+      position: relative;
+    }
+
+    .toggle-pw input { padding-right: 40px; }
+
+    .toggle-pw button {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-60%);
+      background: none;
+      border: none;
+      color: var(--muted);
+      cursor: pointer;
+      font-size: 14px;
+      padding: 0;
+    }
+
+    .btn-primary {
+      width: 100%;
+      background: linear-gradient(135deg, var(--accent), #8b5cf6);
+      border: none;
+      border-radius: 12px;
+      padding: 13px;
+      font-family: var(--font-head);
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      cursor: pointer;
+      letter-spacing: 0.3px;
+      transition: opacity 0.2s, transform 0.1s;
+      margin-top: 0.4rem;
+    }
+
+    .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+    .btn-primary:active { transform: translateY(0); }
+
+    .setup-note {
+      font-size: 11px;
+      color: var(--muted);
+      text-align: center;
+      margin-top: 1rem;
+      line-height: 1.5;
+    }
+
+    /* Main App */
+    #app {
+      display: none;
+      flex-direction: column;
+      height: 100vh;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Header */
+    .app-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      background: rgba(10,10,15,0.8);
+      backdrop-filter: blur(12px);
+      flex-shrink: 0;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .header-icon {
+      width: 34px; height: 34px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      border-radius: 9px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px;
+    }
+
+    .header-title {
+      font-family: var(--font-head);
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+    }
+
+    .header-title span { color: var(--accent); }
+
+    .header-status {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      color: var(--accent3);
+    }
+
+    .status-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--accent3);
+      animation: blink 2s ease-in-out infinite;
+    }
+
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+    .btn-reset {
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 6px 12px;
+      color: var(--muted);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-reset:hover { border-color: var(--accent2); color: var(--accent2); }
+
+    /* Chat */
+    .chat-area {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      scroll-behavior: smooth;
+    }
+
+    .chat-area::-webkit-scrollbar { width: 4px; }
+    .chat-area::-webkit-scrollbar-track { background: transparent; }
+    .chat-area::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+    .msg {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      animation: fadeUp 0.3s ease;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .msg.user { flex-direction: row-reverse; }
+
+    .avatar {
+      width: 30px; height: 30px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px;
+      flex-shrink: 0;
+    }
+
+    .avatar.bot { background: linear-gradient(135deg, var(--accent), #8b5cf6); }
+    .avatar.user { background: var(--surface2); border: 1px solid var(--border); }
+
+    .bubble {
+      max-width: 78%;
+      padding: 12px 16px;
+      border-radius: var(--radius);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .msg.bot .bubble {
+      background: var(--bot-bubble);
+      border: 1px solid var(--border);
+      border-radius: 4px var(--radius) var(--radius) var(--radius);
+    }
+
+    .msg.user .bubble {
+      background: var(--user-bubble);
+      border: 1px solid rgba(108,99,255,0.3);
+      border-radius: var(--radius) 4px var(--radius) var(--radius);
+      color: #c4bfff;
+    }
+
+    /* Result cards */
+    .result-card {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin: 6px 0;
+      transition: border-color 0.2s;
+    }
+
+    .result-card:hover { border-color: var(--accent); }
+
+    .result-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 5px;
+    }
+
+    .file-badge {
+      font-size: 10px;
+      padding: 2px 8px;
+      border-radius: 20px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
+
+    .badge-xlsx { background: rgba(67,233,123,0.15); color: var(--accent3); border: 1px solid rgba(67,233,123,0.3); }
+    .badge-zip  { background: rgba(255,101,132,0.15); color: var(--accent2); border: 1px solid rgba(255,101,132,0.3); }
+    .badge-doc  { background: rgba(108,99,255,0.15); color: var(--accent);  border: 1px solid rgba(108,99,255,0.3); }
+    .badge-pdf  { background: rgba(255,165,0,0.15);  color: #ffa500;         border: 1px solid rgba(255,165,0,0.3); }
+
+    .result-name {
+      font-family: var(--font-head);
+      font-size: 13px;
+      font-weight: 600;
+      flex: 1;
+    }
+
+    .result-meta {
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .result-snippet {
+      font-size: 11px;
+      color: var(--muted);
+      line-height: 1.6;
+      border-top: 1px solid var(--border);
+      padding-top: 7px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .result-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      color: var(--accent);
+      text-decoration: none;
+      margin-top: 6px;
+    }
+
+    .result-link:hover { text-decoration: underline; }
+
+    /* Thinking */
+    .thinking-dots {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+      padding: 4px 0;
+    }
+
+    .thinking-dots span {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      opacity: 0.4;
+      animation: pulse 1.2s ease-in-out infinite;
+    }
+
+    .thinking-dots span:nth-child(2) { animation-delay: 0.2s; background: var(--accent2); }
+    .thinking-dots span:nth-child(3) { animation-delay: 0.4s; background: var(--accent3); }
+
+    @keyframes pulse {
+      0%,80%,100% { opacity: 0.25; transform: scale(0.85); }
+      40% { opacity: 1; transform: scale(1); }
+    }
+
+    /* Suggestions */
+    .suggestions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding: 0 1.5rem 0.5rem;
+    }
+
+    .chip {
+      font-size: 11px;
+      padding: 6px 14px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--muted);
+      cursor: pointer;
+      font-family: var(--font-mono);
+      transition: all 0.2s;
+    }
+
+    .chip:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(108,99,255,0.08);
+    }
+
+    /* Input */
+    .input-area {
+      padding: 1rem 1.5rem 1.5rem;
+      border-top: 1px solid var(--border);
+      background: rgba(10,10,15,0.8);
+      backdrop-filter: blur(12px);
+      flex-shrink: 0;
+    }
+
+    .input-row {
+      display: flex;
+      gap: 8px;
+    }
+
+    #query {
+      flex: 1;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 16px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    #query:focus { border-color: var(--accent); }
+    #query::placeholder { color: var(--muted); }
+
+    #send-btn {
+      background: linear-gradient(135deg, var(--accent), #8b5cf6);
+      border: none;
+      border-radius: 12px;
+      padding: 12px 20px;
+      color: #fff;
+      font-family: var(--font-head);
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.1s;
+      white-space: nowrap;
+    }
+
+    #send-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+    #send-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+    .powered-by {
+      text-align: center;
+      font-size: 10px;
+      color: var(--muted);
+      margin-top: 8px;
+      letter-spacing: 0.5px;
+    }
+
+    .powered-by span { color: var(--accent); }
+
+    /* Error */
+    .error-bubble {
+      background: rgba(255,101,132,0.1);
+      border: 1px solid rgba(255,101,132,0.3);
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-size: 12px;
+      color: var(--accent2);
+      margin: 4px 0;
+    }
+  </style>
+</head>
+<body>
+
+<!-- SETUP SCREEN -->
+<div id="setup-screen">
+  <div class="setup-card">
+    <div class="setup-logo">
+      <div class="logo-icon">🤖</div>
+      <div class="logo-text">Drive<span>Bot</span></div>
+    </div>
+    <div class="setup-title">Connect Your Keys</div>
+    <div class="setup-desc">
+      Enter your API keys below. They're stored only in your browser's local storage — never sent anywhere except directly to the respective APIs.
+    </div>
+
+    <div class="field-label">
+      Anthropic API Key
+      <a href="https://console.anthropic.com/keys" target="_blank">↗ Get key</a>
+    </div>
+    <div class="toggle-pw">
+      <input type="password" id="anthropic-key" placeholder="sk-ant-..." />
+      <button onclick="togglePw('anthropic-key', this)">👁</button>
+    </div>
+
+    <div class="field-label">
+      Google Drive API Key
+      <a href="https://console.cloud.google.com/apis/credentials" target="_blank">↗ Get key</a>
+    </div>
+    <div class="toggle-pw">
+      <input type="password" id="gdrive-key" placeholder="AIza..." />
+      <button onclick="togglePw('gdrive-key', this)">👁</button>
+    </div>
+
+    <div class="field-label">
+      Google OAuth Client ID
+      <a href="https://console.cloud.google.com/apis/credentials" target="_blank">↗ Get Client ID</a>
+    </div>
+    <input type="text" id="gclient-id" placeholder="xxxxxx.apps.googleusercontent.com" />
+
+    <button class="btn-primary" onclick="saveAndStart()">🚀 Launch DriveBot</button>
+    <div class="setup-note">
+      Keys saved locally in your browser. Clear browser data to reset.<br/>
+      Requires Google Drive API + OAuth 2.0 enabled in Google Cloud Console.
+    </div>
+  </div>
+</div>
+
+<!-- MAIN APP -->
+<div id="app">
+  <header class="app-header">
+    <div class="header-left">
+      <div class="header-icon">🤖</div>
+      <div class="header-title">Drive<span>Bot</span></div>
+    </div>
+    <div class="header-status">
+      <div class="status-dot"></div>
+      Connected
+    </div>
+    <button class="btn-reset" onclick="resetKeys()">⚙ Reset Keys</button>
+  </header>
+
+  <div class="chat-area" id="chat">
+    <div class="msg bot">
+      <div class="avatar bot">🤖</div>
+      <div class="bubble">
+        Hey! I'm your personal <strong>Google Drive search bot</strong>.<br><br>
+        Ask me to find any document, spreadsheet, handover file, or anything from your Drive. I'll search and surface results instantly.<br><br>
+        Try: <em>"Find handover documents"</em> or <em>"Search for budget reports"</em> 🔍
+      </div>
+    </div>
+  </div>
+
+  <div class="suggestions" id="chips">
+    <span class="chip" onclick="fillQuery('Find handover documents')">Find handover docs</span>
+    <span class="chip" onclick="fillQuery('Search for budget reports')">Budget reports</span>
+    <span class="chip" onclick="fillQuery('Show meeting notes')">Meeting notes</span>
+    <span class="chip" onclick="fillQuery('Find project proposals')">Project proposals</span>
+    <span class="chip" onclick="fillQuery('Recent spreadsheets')">Recent spreadsheets</span>
+  </div>
+
+  <div class="input-area">
+    <div class="input-row">
+      <input id="query" type="text" placeholder="Ask me to find anything in your Drive..." onkeydown="if(event.key==='Enter' && !event.shiftKey) send()" />
+      <button id="send-btn" onclick="send()">Search ↗</button>
+    </div>
+    <div class="powered-by">Powered by <span>Claude AI</span> + Google Drive API</div>
+  </div>
+</div>
+
+<script>
+  /* ── GOOGLE OAUTH ── */
+  let accessToken = null;
+
+  function loadGoogleAuth(clientId) {
+    return new Promise((resolve) => {
+      const s = document.createElement('script');
+      s.src = 'https://accounts.google.com/gsi/client';
+      s.onload = resolve;
+      document.head.appendChild(s);
+    });
+  }
+
+  async function signInGoogle(clientId) {
+    await loadGoogleAuth(clientId);
+    return new Promise((resolve, reject) => {
+      const client = google.accounts.oauth2.initTokenClient({
+        client_id: clientId,
+        scope: 'https://www.googleapis.com/auth/drive.readonly',
+        callback: (resp) => {
+          if (resp.access_token) { accessToken = resp.access_token; resolve(); }
+          else reject('Google sign-in failed');
+        }
+      });
+      client.requestAccessToken();
+    });
+  }
+
+  /* ── SETUP ── */
+  function togglePw(id, btn) {
+    const el = document.getElementById(id);
+    el.type = el.type === 'password' ? 'text' : 'password';
+    btn.textContent = el.type === 'password' ? '👁' : '🙈';
+  }
+
+  async function saveAndStart() {
+    const ak = document.getElementById('anthropic-key').value.trim();
+    const gk = document.getElementById('gdrive-key').value.trim();
+    const gc = document.getElementById('gclient-id').value.trim();
+    if (!ak || !gk || !gc) { alert('Please fill in all three fields.'); return; }
+    localStorage.setItem('drivebot_ak', ak);
+    localStorage.setItem('drivebot_gk', gk);
+    localStorage.setItem('drivebot_gc', gc);
+    await launchApp(ak, gk, gc);
+  }
+
+  async function launchApp(ak, gk, gc) {
+    try {
+      await signInGoogle(gc);
+      document.getElementById('setup-screen').style.display = 'none';
+      document.getElementById('app').style.display = 'flex';
+    } catch(e) {
+      alert('Google sign-in failed. Check your Client ID and make sure this origin is authorized in Google Cloud Console.\n\n' + e);
+    }
+  }
+
+  function resetKeys() {
+    if (!confirm('Clear saved keys and reset?')) return;
+    localStorage.clear();
+    location.reload();
+  }
+
+  /* ── SEARCH DRIVE ── */
+  async function searchDrive(query) {
+    const gk = localStorage.getItem('drivebot_gk');
+    const q = `fullText contains '${query.replace(/'/g,"\\'")}' or title contains '${query.replace(/'/g,"\\'")}' `;
+    const url = `https://www.googleapis.com/drive/v3/files?q=${encodeURIComponent(q)}&pageSize=8&fields=files(id,name,mimeType,modifiedTime,size,webViewLink,description)&key=${gk}`;
+    const resp = await fetch(url, { headers: { Authorization: `Bearer ${accessToken}` } });
+    if (!resp.ok) throw new Error('Drive API error: ' + resp.status);
+    const data = await resp.json();
+    return data.files || [];
+  }
+
+  /* ── CLAUDE ── */
+  async function askClaude(userMsg, driveResults) {
+    const ak = localStorage.getItem('drivebot_ak');
+    const systemPrompt = `You are DriveBot, a helpful assistant that helps users find and understand documents from their Google Drive.
+You have been given search results from the user's Google Drive. Summarize them clearly, listing each file with its name, type, last modified date, and a brief description. 
+If there are no results, say so helpfully and suggest the user try different keywords.
+Format your response in a friendly, readable way. For each file, mention its name and type prominently.`;
+
+    const context = driveResults.length > 0
+      ? `Drive search results for "${userMsg}":\n\n` + driveResults.map((f, i) =>
+          `${i+1}. Name: ${f.name}\n   Type: ${f.mimeType}\n   Modified: ${f.modifiedTime}\n   Link: ${f.webViewLink || 'N/A'}`
+        ).join('\n\n')
+      : `No files found in Google Drive for "${userMsg}".`;
+
+    const resp = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': ak,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-calls': 'true'
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        system: systemPrompt,
+        messages: [{ role: 'user', content: `${context}\n\nUser asked: ${userMsg}` }]
+      })
+    });
+
+    if (!resp.ok) throw new Error('Claude API error: ' + resp.status);
+    const data = await resp.json();
+    return data.content?.[0]?.text || 'No response.';
+  }
+
+  /* ── UI ── */
+  function fillQuery(text) {
+    document.getElementById('query').value = text;
+    document.getElementById('query').focus();
+  }
+
+  function badgeClass(mime) {
+    if (!mime) return 'badge-doc';
+    if (mime.includes('spreadsheet') || mime.includes('xlsx')) return 'badge-xlsx';
+    if (mime.includes('zip') || mime.includes('compressed')) return 'badge-zip';
+    if (mime.includes('pdf')) return 'badge-pdf';
+    return 'badge-doc';
+  }
+
+  function mimeLabel(mime) {
+    if (!mime) return 'FILE';
+    if (mime.includes('spreadsheet') || mime.includes('xlsx')) return 'SHEET';
+    if (mime.includes('zip') || mime.includes('compressed')) return 'ZIP';
+    if (mime.includes('pdf')) return 'PDF';
+    if (mime.includes('document')) return 'DOC';
+    if (mime.includes('presentation')) return 'SLIDES';
+    return 'FILE';
+  }
+
+  function formatDate(iso) {
+    if (!iso) return '';
+    return new Date(iso).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+  }
+
+  function addMsg(role, content, isHTML = false) {
+    const chat = document.getElementById('chat');
+    const div = document.createElement('div');
+    div.className = 'msg ' + role;
+    const av = document.createElement('div');
+    av.className = 'avatar ' + role;
+    av.textContent = role === 'bot' ? '🤖' : '👤';
+    const bub = document.createElement('div');
+    bub.className = 'bubble';
+    if (isHTML) bub.innerHTML = content;
+    else bub.textContent = content;
+    div.appendChild(av);
+    div.appendChild(bub);
+    chat.appendChild(div);
+    chat.scrollTop = chat.scrollHeight;
+    return bub;
+  }
+
+  function addThinking() {
+    const chat = document.getElementById('chat');
+    const div = document.createElement('div');
+    div.className = 'msg bot';
+    div.id = 'thinking';
+    div.innerHTML = `<div class="avatar bot">🤖</div><div class="bubble"><div class="thinking-dots"><span></span><span></span><span></span></div></div>`;
+    chat.appendChild(div);
+    chat.scrollTop = chat.scrollHeight;
+  }
+
+  function removeThinking() {
+    document.getElementById('thinking')?.remove();
+  }
+
+  function renderResults(files) {
+    if (!files.length) return '<em style="color:var(--muted)">No files found. Try different keywords.</em>';
+    return files.map(f => `
+      <div class="result-card">
+        <div class="result-header">
+          <span class="file-badge ${badgeClass(f.mimeType)}">${mimeLabel(f.mimeType)}</span>
+          <div class="result-name">${f.name}</div>
+        </div>
+        <div class="result-meta">📅 Modified: ${formatDate(f.modifiedTime)}${f.size ? ' · ' + Math.round(f.size/1024) + ' KB' : ''}</div>
+        ${f.webViewLink ? `<a class="result-link" href="${f.webViewLink}" target="_blank">🔗 Open in Drive ↗</a>` : ''}
+      </div>
+    `).join('');
+  }
+
+  async function send() {
+    const input = document.getElementById('query');
+    const btn = document.getElementById('send-btn');
+    const q = input.value.trim();
+    if (!q || btn.disabled) return;
+
+    // Hide chips after first use
+    document.getElementById('chips').style.display = 'none';
+
+    input.value = '';
+    btn.disabled = true;
+    addMsg('user', q);
+    addThinking();
+
+    try {
+      const files = await searchDrive(q);
+      const reply = await askClaude(q, files);
+      removeThinking();
+
+      // Show Claude's summary
+      addMsg('bot', reply, false);
+
+      // Show file cards if any
+      if (files.length) {
+        const chat = document.getElementById('chat');
+        const cardsDiv = document.createElement('div');
+        cardsDiv.style.paddingLeft = '40px';
+        cardsDiv.innerHTML = renderResults(files);
+        chat.appendChild(cardsDiv);
+        chat.scrollTop = chat.scrollHeight;
+      }
+    } catch(err) {
+      removeThinking();
+      const chat = document.getElementById('chat');
+      const errDiv = document.createElement('div');
+      errDiv.style.paddingLeft = '40px';
+      errDiv.innerHTML = `<div class="error-bubble">⚠️ Error: ${err.message}. Check your API keys or network.</div>`;
+      chat.appendChild(errDiv);
+      chat.scrollTop = chat.scrollHeight;
+    }
+
+    btn.disabled = false;
+    input.focus();
+  }
+
+  /* ── INIT ── */
+  window.addEventListener('DOMContentLoaded', async () => {
+    const ak = localStorage.getItem('drivebot_ak');
+    const gk = localStorage.getItem('drivebot_gk');
+    const gc = localStorage.getItem('drivebot_gc');
+    if (ak && gk && gc) {
+      document.getElementById('anthropic-key').value = ak;
+      document.getElementById('gdrive-key').value = gk;
+      document.getElementById('gclient-id').value = gc;
+      await launchApp(ak, gk, gc);
+    }
+  });
+</script>
+</body>
+</html>
