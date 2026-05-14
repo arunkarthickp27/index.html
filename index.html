@@ -306,13 +306,40 @@
   </div>
   <div class="view" id="view-folders">
     <div class="folder-breadcrumb" id="breadcrumb"></div>
+    <div style="display:flex;align-items:center;gap:8px;padding:.6rem 1.2rem;border-bottom:1px solid var(--border);background:var(--surface);flex-shrink:0;">
+      <span style="font-size:11px;color:var(--muted);white-space:nowrap;">🔗 Paste Drive folder link:</span>
+      <input type="text" id="folder-link-input" placeholder="https://drive.google.com/drive/folders/..." style="flex:1;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:6px 12px;font-family:'DM Mono',monospace;font-size:11px;color:var(--text);outline:none;margin-bottom:0;" onkeydown="if(event.key==='Enter')goToFolderByLink()"/>
+      <button onclick="goToFolderByLink()" style="background:linear-gradient(135deg,var(--accent),#8b5cf6);border:none;border-radius:8px;padding:6px 14px;font-family:'Syne',sans-serif;font-size:11px;font-weight:700;color:#fff;cursor:pointer;white-space:nowrap;">Go ↗</button>
+    </div>
     <div class="scroll-area" id="folder-content"><div class="dash-loading"><div class="spinner"></div><p>Loading folders...</p></div></div>
   </div>
   <div class="view" id="view-calendar"><div class="scroll-area" id="cal-content"><div class="dash-loading"><div class="spinner"></div><p>Loading calendar...</p></div></div></div>
   <div class="view" id="view-analytics"><div class="scroll-area" id="analytics-content"><div class="dash-loading"><div class="spinner"></div><p>Analysing Drive data...</p></div></div></div>
   <div class="view" id="view-bookmarks"><div class="scroll-area" id="bm-content"></div></div>
 </div>
-<script src="https://accounts.google.com/gsi/client" async></script>
+<script src="https://accounts.google.com/gsi/client" async>
+function goToFolderByLink(){
+  var input = document.getElementById('folder-link-input');
+  var url = input.value.trim();
+  if(!url){ toast('Please paste a Google Drive folder link'); return; }
+  // Extract folder ID from various Drive URL formats
+  var folderId = null;
+  // Format: /drive/folders/FOLDER_ID
+  var m1 = url.match(/\/folders\/([a-zA-Z0-9_-]+)/);
+  if(m1) folderId = m1[1];
+  // Format: ?id=FOLDER_ID
+  if(!folderId){ var m2 = url.match(/[?&]id=([a-zA-Z0-9_-]+)/); if(m2) folderId = m2[1]; }
+  // Plain folder ID
+  if(!folderId && url.match(/^[a-zA-Z0-9_-]{20,}$/)) folderId = url;
+  if(!folderId){ toast('Could not extract folder ID from this link. Please check the URL.'); return; }
+  input.value = '';
+  // Push to folder stack and navigate
+  folderStack = [{id:'root',name:'My Drive'},{id:folderId,name:'Shared Folder'}];
+  loadFolder(folderId);
+  toast('📂 Loading shared folder...');
+}
+
+</script>
 <script>
 var accessToken=null,tokenClient=null,userProfile=null,isDark=true;
 var modalFiles=[],modalPageToken=null,modalMime='';
