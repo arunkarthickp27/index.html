@@ -85,7 +85,7 @@
     .b-file{background:rgba(150,150,150,.12);color:var(--muted);border:1px solid rgba(150,150,150,.25)}
     .b-folder{background:rgba(251,191,36,.12);color:var(--accent4);border:1px solid rgba(251,191,36,.25)}
     .xbtn{background:none;border:1px solid var(--border);border-radius:7px;padding:3px 8px;font-size:10px;cursor:pointer;color:var(--muted);font-family:'DM Mono',monospace;transition:all .2s;white-space:nowrap;text-decoration:none;display:inline-block}
-    .xbtn:hover{border-color:var(--accent);color:var(--accent)}
+    .xbtn:hover{border-color:var(--accent);color:var(--accent)}.bm-active{border-color:var(--accent4)!important;color:var(--accent4)!important}
     .stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:1.5rem}
     @media(max-width:768px){.stat-grid{grid-template-columns:repeat(2,1fr)}}
     .stat-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1rem;position:relative;overflow:hidden;transition:transform .2s,border-color .2s,box-shadow .2s;cursor:pointer}
@@ -311,9 +311,21 @@
 </div>
 <script src="https://accounts.google.com/gsi/client" async>
 function goToFolderByLink(){
-  var input = document.getElementById('folder-link-input');
-  var url = input.value.trim();
-  if(!url){ toast('Please paste a Google Drive folder link'); return; }
+  var input=document.getElementById('folder-link-input');
+  var url=input.value.trim();
+  if(!url){alert('Please paste a Google Drive folder link');return;}
+  var folderId=null;
+  var m1=url.match(/\/folders\/([a-zA-Z0-9_-]+)/);
+  if(m1) folderId=m1[1];
+  if(!folderId){var m2=url.match(/[?&]id=([a-zA-Z0-9_-]+)/);if(m2)folderId=m2[1];}
+  if(!folderId&&url.match(/^[a-zA-Z0-9_-]{25,}$/)) folderId=url.trim();
+  if(!folderId){alert('Could not extract folder ID. Please check the URL.');return;}
+  input.value='';
+  folderStack=[{id:'root',name:'My Drive'},{id:folderId,name:'Shared Folder'}];
+  renderBreadcrumb();
+  loadFolder(folderId);
+  toast('Loading shared folder...');
+}
   // Extract folder ID from various Drive URL formats
   var folderId = null;
   // Format: /drive/folders/FOLDER_ID
@@ -530,7 +542,7 @@ function loadFolder(folderId){
     var docs=files.filter(function(f){return f.mimeType!=='application/vnd.google-apps.folder';});
     var sorted=folders.concat(docs);
     if(!sorted.length){content.innerHTML='<div style="padding:2rem;color:var(--muted);font-size:13px;text-align:center">📂 This folder is empty</div>';return;}
-    content.innerHTML='<div class="folder-grid">'+sorted.map(function(f){var r=mimeInfo(f.mimeType);var isFolder=f.mimeType==='application/vnd.google-apps.folder';return'<div class="folder-item" onclick="'+(isFolder?'enterFolder(\''+f.id+'\',\''+f.name.replace(/'/g,"\\'").replace(/"/g,'\\"')+'\')'+'':'')+'">'+'<div class="fi-icon">'+r.icon+'</div><div class="fi-info"><div class="fi-name">'+f.name+'</div><div class="fi-meta">'+(isFolder?'Folder':''+fmtDate(f.modifiedTime)+(f.size?' · '+fmtSize(f.size):''))+'</div></div><span class="fbadge '+r.cls+'" style="font-size:9px">'+r.label+'</span>'+(isFolder?'':'<div class="fi-actions"><button class="xbtn" onclick="event.stopPropagation();shareDeepLink('+JSON.stringify(f)+')">🔗</button><button class="xbtn" onclick="event.stopPropagation();toggleBM('+JSON.stringify(f)+')">📌</button><a class="xbtn" href="'+(f.webViewLink||'#')+'" target="_blank" onclick="event.stopPropagation()">↗</a></div>')+'</div>';}).join('')+'</div>';
+    content.innerHTML='<div class="folder-grid">'+sorted.map(function(f){var r=mimeInfo(f.mimeType);var isFolder=f.mimeType==='application/vnd.google-apps.folder';var bm=isBookmarked(f.id);var fj=JSON.stringify(f);return'<div class="folder-item" onclick="'+(isFolder?'enterFolder(\''+f.id+'\',\''+f.name.replace(/'/g,"\\'")+'\')'+'':'')+'"><div class="fi-icon">'+r.icon+'</div><div class="fi-info"><div class="fi-name">'+f.name+'</div><div class="fi-meta">'+(isFolder?'Folder':fmtDate(f.modifiedTime)+(f.size?' · '+fmtSize(f.size):''))+'</div></div><span class="fbadge '+r.cls+'" style="font-size:9px">'+r.label+'</span><div class="fi-actions" style="opacity:1;display:flex;gap:4px"><button class="xbtn" style="color:'+(bm?'var(--accent4)':'var(--muted)')+'" onclick="event.stopPropagation();toggleBM('+fj+');loadFolder(folderStack[folderStack.length-1].id)">'+(bm?'⭐':'📌')+'</button>'+(isFolder?'':'<button class="xbtn" onclick="event.stopPropagation();shareDeepLink('+fj+')">🔗</button><a class="xbtn" href="'+(f.webViewLink||'#')+'" target="_blank" onclick="event.stopPropagation()">↗</a>')+'</div></div>';}).join('')+'</div>';
   }).catch(function(e){content.innerHTML='<div style="padding:2rem;color:var(--accent2);font-size:13px">Error: '+e.message+'</div>';});
 }
 function enterFolder(id,name){folderStack.push({id:id,name:name});loadFolder(id);}
