@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>DriveBot – My Document Search</title>
+  <title>DriveBot – Team Edition</title>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
   <style>
     [data-theme="dark"]{--bg:#08080f;--surface:#111118;--surface2:#18181f;--surface3:#1f1f28;--border:#252535;--border2:#2e2e42;--text:#e2e2f0;--muted:#65657a;--accent:#5b6af8;--accent2:#f85b8a;--accent3:#38e8a0;--accent4:#fbbf24;--shadow:rgba(0,0,0,0.5);--glow:rgba(91,106,248,0.12)}
@@ -13,26 +13,26 @@
     [data-theme="dark"] body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 55% 45% at 15% 15%,rgba(91,106,248,.1) 0%,transparent 65%),radial-gradient(ellipse 45% 55% at 85% 85%,rgba(56,232,160,.06) 0%,transparent 65%);pointer-events:none;z-index:0}
 
     /* LOGIN */
-    #login-screen{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;z-index:100;padding:1.5rem}
-    .login-card{background:var(--surface);border:1px solid var(--border);border-radius:24px;padding:2.5rem 2rem;width:100%;max-width:400px;position:relative;overflow:hidden;box-shadow:0 20px 60px var(--shadow);animation:popIn .4s cubic-bezier(.34,1.56,.64,1)}
+    #login-screen{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;z-index:100;padding:1.5rem;background:var(--bg)}
+    .login-card{background:var(--surface);border:1px solid var(--border);border-radius:24px;padding:2.5rem 2rem;width:100%;max-width:420px;position:relative;overflow:hidden;box-shadow:0 20px 60px var(--shadow);animation:popIn .4s cubic-bezier(.34,1.56,.64,1)}
     @keyframes popIn{from{opacity:0;transform:scale(.92) translateY(20px)}to{opacity:1;transform:scale(1) translateY(0)}}
     .login-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2),var(--accent3))}
-    .brand{display:flex;align-items:center;gap:12px;margin-bottom:2rem}
+    .brand{display:flex;align-items:center;gap:12px;margin-bottom:1.5rem}
     .brand-icon{width:48px;height:48px;background:linear-gradient(135deg,var(--accent),var(--accent2));border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px}
     .brand-name{font-family:'Syne',sans-serif;font-size:26px;font-weight:800;letter-spacing:-.5px}
     .brand-name span{color:var(--accent)}
-    .login-headline{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;margin-bottom:8px}
-    .login-sub{font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:2rem}
-    .features{display:flex;flex-direction:column;gap:10px;margin-bottom:2rem}
-    .feature{display:flex;align-items:center;gap:10px;font-size:12px;color:var(--muted)}
-    .feature-icon{width:28px;height:28px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+    .brand-badge{font-size:10px;background:rgba(56,232,160,.15);color:var(--accent3);border:1px solid rgba(56,232,160,.3);border-radius:20px;padding:2px 10px;margin-left:6px}
+    .login-headline{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;margin-bottom:6px}
+    .login-sub{font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:1.5rem}
+    .features{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:1.5rem}
+    .feature{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--muted);background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:8px 10px}
     .btn-google{width:100%;display:flex;align-items:center;justify-content:center;gap:10px;background:var(--surface);border:1.5px solid var(--border2);border-radius:12px;padding:13px 20px;font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--text);cursor:pointer;transition:transform .15s,box-shadow .15s,border-color .2s;box-shadow:0 2px 12px var(--shadow)}
     .btn-google:hover{transform:translateY(-2px);box-shadow:0 6px 24px var(--shadow);border-color:var(--accent)}
     .btn-google svg{width:20px;height:20px;flex-shrink:0}
     .login-note{font-size:10px;color:var(--muted);text-align:center;margin-top:1rem;line-height:1.6}
 
     /* CLIENT ID */
-    #clientid-screen{position:fixed;inset:0;display:none;align-items:center;justify-content:center;z-index:99;padding:1.5rem}
+    #clientid-screen{position:fixed;inset:0;display:none;align-items:center;justify-content:center;z-index:99;padding:1.5rem;background:var(--bg)}
     .clientid-card{background:var(--surface);border:1px solid var(--border);border-radius:24px;padding:2rem;width:100%;max-width:440px;position:relative;overflow:hidden;box-shadow:0 20px 60px var(--shadow)}
     .clientid-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent3),var(--accent))}
     .step-badge{display:inline-flex;align-items:center;gap:6px;background:var(--glow);border:1px solid rgba(91,106,248,.25);border-radius:20px;padding:4px 12px;font-size:11px;color:var(--accent);margin-bottom:1rem}
@@ -43,196 +43,78 @@
     .step-num{width:20px;height:20px;background:var(--glow);border:1px solid rgba(91,106,248,.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--accent);flex-shrink:0;margin-top:1px}
     .steps-list a{color:var(--accent)}
     .field-label{font-size:11px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
-    input[type="text"],input[type="date"]{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:11px 14px;font-family:'DM Mono',monospace;font-size:12px;color:var(--text);outline:none;transition:border-color .2s;margin-bottom:1rem}
-    input[type="text"]:focus,input[type="date"]:focus{border-color:var(--accent)}
-    input[type="date"]{color-scheme:dark}
+    input[type="text"],input[type="date"],textarea{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:11px 14px;font-family:'DM Mono',monospace;font-size:12px;color:var(--text);outline:none;transition:border-color .2s;margin-bottom:1rem}
+    input[type="text"]:focus,input[type="date"]:focus,textarea:focus{border-color:var(--accent)}
+    textarea{resize:vertical;min-height:80px}
     .origin-box{background:var(--bg);border:1px dashed var(--border);border-radius:10px;padding:10px 14px;font-size:12px;color:var(--accent3);margin-bottom:1rem;word-break:break-all}
     .btn-primary{width:100%;background:linear-gradient(135deg,var(--accent),#8b5cf6);border:none;border-radius:12px;padding:13px;font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:#fff;cursor:pointer;transition:opacity .2s,transform .1s}
     .btn-primary:hover{opacity:.9;transform:translateY(-1px)}
 
     /* APP */
     #app{display:none;flex-direction:column;height:100vh;position:relative;z-index:1}
-    .app-header{display:flex;align-items:center;justify-content:space-between;padding:.8rem 1.5rem;border-bottom:1px solid var(--border);background:var(--surface);flex-shrink:0;z-index:10;box-shadow:0 1px 12px var(--shadow)}
+    .app-header{display:flex;align-items:center;justify-content:space-between;padding:.7rem 1.2rem;border-bottom:1px solid var(--border);background:var(--surface);flex-shrink:0;z-index:10;box-shadow:0 1px 12px var(--shadow)}
     .header-left{display:flex;align-items:center;gap:10px}
-    .h-icon{width:32px;height:32px;background:linear-gradient(135deg,var(--accent),var(--accent2));border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:15px}
-    .h-title{font-family:'Syne',sans-serif;font-size:16px;font-weight:800}
+    .h-icon{width:30px;height:30px;background:linear-gradient(135deg,var(--accent),var(--accent2));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px}
+    .h-title{font-family:'Syne',sans-serif;font-size:15px;font-weight:800}
     .h-title span{color:var(--accent)}
-    .nav-tabs{display:flex;gap:4px;background:var(--surface2);border-radius:10px;padding:3px}
-    .nav-tab{padding:6px 12px;border-radius:8px;border:none;font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);cursor:pointer;background:none;transition:all .2s;white-space:nowrap}
+    .h-badge{font-size:9px;background:rgba(56,232,160,.15);color:var(--accent3);border:1px solid rgba(56,232,160,.3);border-radius:20px;padding:2px 8px}
+    .nav-tabs{display:flex;gap:3px;background:var(--surface2);border-radius:10px;padding:3px}
+    .nav-tab{padding:5px 10px;border-radius:7px;border:none;font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);cursor:pointer;background:none;transition:all .2s;white-space:nowrap}
     .nav-tab.active{background:var(--accent);color:#fff}
     .nav-tab:not(.active):hover{color:var(--text);background:var(--surface3)}
-    .header-right{display:flex;align-items:center;gap:8px}
-    .theme-toggle{width:34px;height:34px;border-radius:9px;background:var(--surface2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:15px;transition:all .2s}
-    .theme-toggle:hover{border-color:var(--accent);background:var(--glow)}
-    .user-pill{display:flex;align-items:center;gap:7px;background:var(--surface2);border:1px solid var(--border);border-radius:20px;padding:4px 12px 4px 6px;font-size:12px;color:var(--muted)}
-    .user-pill img{width:22px;height:22px;border-radius:50%;object-fit:cover}
-    .user-pill .dot{width:6px;height:6px;border-radius:50%;background:var(--accent3)}
-    .btn-logout{background:none;border:1px solid var(--border);border-radius:8px;padding:5px 10px;color:var(--muted);font-family:'DM Mono',monospace;font-size:11px;cursor:pointer;transition:all .2s}
+    .header-right{display:flex;align-items:center;gap:6px}
+    .theme-toggle{width:32px;height:32px;border-radius:8px;background:var(--surface2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:14px;transition:all .2s}
+    .theme-toggle:hover{border-color:var(--accent)}
+    .user-pill{display:flex;align-items:center;gap:6px;background:var(--surface2);border:1px solid var(--border);border-radius:20px;padding:3px 10px 3px 5px;font-size:11px;color:var(--muted)}
+    .user-pill img{width:20px;height:20px;border-radius:50%;object-fit:cover}
+    .user-pill .dot{width:5px;height:5px;border-radius:50%;background:var(--accent3)}
+    .btn-logout{background:none;border:1px solid var(--border);border-radius:7px;padding:4px 9px;color:var(--muted);font-family:'DM Mono',monospace;font-size:10px;cursor:pointer;transition:all .2s}
     .btn-logout:hover{border-color:var(--accent2);color:var(--accent2)}
 
     .view{display:none;flex:1;overflow:hidden;flex-direction:column}
     .view.active{display:flex}
+    .scroll-area{flex:1;overflow-y:auto;padding:1.5rem}
+    .scroll-area::-webkit-scrollbar{width:3px}
+    .scroll-area::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
 
-    /* DASHBOARD */
-    .dashboard-area{flex:1;overflow-y:auto;padding:1.5rem}
-    .dashboard-area::-webkit-scrollbar{width:3px}
-    .dashboard-area::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
-    .dash-greeting{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;margin-bottom:4px}
-    .dash-greeting span{color:var(--accent)}
-    .dash-sub{font-size:12px;color:var(--muted);margin-bottom:1.5rem}
-    .stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:1.5rem}
-    @media(max-width:768px){.stat-grid{grid-template-columns:repeat(2,1fr)}}
-    .stat-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.2rem;position:relative;overflow:hidden;transition:transform .2s,border-color .2s,box-shadow .2s;animation:fadeUp .4s ease both;cursor:pointer}
-    .stat-card:hover{transform:translateY(-4px);border-color:var(--accent);box-shadow:0 8px 28px var(--shadow)}
-    .stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
-    .stat-card:nth-child(1)::before{background:var(--accent)}.stat-card:nth-child(2)::before{background:var(--accent3)}.stat-card:nth-child(3)::before{background:var(--accent2)}.stat-card:nth-child(4)::before{background:var(--accent4)}
-    .stat-card:nth-child(1){animation-delay:.05s}.stat-card:nth-child(2){animation-delay:.1s}.stat-card:nth-child(3){animation-delay:.15s}.stat-card:nth-child(4){animation-delay:.2s}
-    .stat-icon{font-size:22px;margin-bottom:10px}
-    .stat-val{font-family:'Syne',sans-serif;font-size:28px;font-weight:800;line-height:1;margin-bottom:4px}
-    .stat-label{font-size:11px;color:var(--muted)}
-    .stat-click-hint{font-size:10px;color:var(--accent);margin-top:6px;opacity:0;transition:opacity .2s}
-    .stat-card:hover .stat-click-hint{opacity:1}
+    /* CARDS & GRIDS */
     .section-title{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px}
     .section-title::after{content:'';flex:1;height:1px;background:var(--border)}
-    .type-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:1.5rem}
-    @media(max-width:768px){.type-grid{grid-template-columns:repeat(2,1fr)}}
-    .type-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1rem;display:flex;align-items:center;gap:10px;transition:transform .2s,border-color .2s,box-shadow .2s;animation:fadeUp .4s ease both;cursor:pointer}
-    .type-card:hover{transform:translateY(-3px);border-color:var(--accent);box-shadow:0 8px 24px var(--shadow)}
-    .type-card:nth-child(1){animation-delay:.1s}.type-card:nth-child(2){animation-delay:.15s}.type-card:nth-child(3){animation-delay:.2s}.type-card:nth-child(4){animation-delay:.25s}
-    .type-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
-    .type-info{flex:1;min-width:0}
-    .type-name{font-size:12px;font-weight:500;color:var(--text)}
-    .type-count{font-family:'Syne',sans-serif;font-size:18px;font-weight:700}
-    .type-arrow{font-size:14px;color:var(--muted)}
-    .recent-list{display:flex;flex-direction:column;gap:8px;margin-bottom:1.5rem}
-    .recent-item{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:12px;transition:border-color .2s,transform .15s;animation:fadeUp .4s ease both;text-decoration:none;color:var(--text)}
-    .recent-item:hover{border-color:var(--accent);transform:translateX(4px)}
-    .recent-icon{font-size:20px;flex-shrink:0}
-    .recent-info{flex:1;min-width:0}
-    .recent-name{font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .recent-meta{font-size:11px;color:var(--muted);margin-top:2px}
-    .recent-badge{font-size:10px;padding:2px 8px;border-radius:20px;flex-shrink:0}
-    .dash-search{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.2rem;margin-bottom:1.5rem;animation:fadeUp .4s ease .05s both}
-    .dash-search-title{font-size:12px;color:var(--muted);margin-bottom:10px}
-    .dash-search-row{display:flex;gap:8px}
-    .dash-search-input{flex:1;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:10px 14px;font-family:'DM Mono',monospace;font-size:13px;color:var(--text);outline:none;transition:border-color .2s;margin-bottom:0}
-    .dash-search-input:focus{border-color:var(--accent)}
-    .dash-search-input::placeholder{color:var(--muted)}
-    .dash-search-btn{background:linear-gradient(135deg,var(--accent),#8b5cf6);border:none;border-radius:10px;padding:10px 18px;font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:#fff;cursor:pointer;transition:opacity .2s;white-space:nowrap}
-    .dash-search-btn:hover{opacity:.9}
-    .dash-loading{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem;gap:12px}
-    .spinner{width:36px;height:36px;border-radius:50%;border:3px solid var(--border);border-top-color:var(--accent);animation:spin .8s linear infinite}
-    @keyframes spin{to{transform:rotate(360deg)}}
-    .dash-loading p{font-size:12px;color:var(--muted)}
+    .stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:1.5rem}
+    @media(max-width:768px){.stat-grid{grid-template-columns:repeat(2,1fr)}}
+    .stat-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1rem;position:relative;overflow:hidden;transition:transform .2s,border-color .2s,box-shadow .2s;cursor:pointer}
+    .stat-card:hover{transform:translateY(-3px);border-color:var(--accent);box-shadow:0 8px 24px var(--shadow)}
+    .stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+    .stat-card:nth-child(1)::before{background:var(--accent)}.stat-card:nth-child(2)::before{background:var(--accent3)}.stat-card:nth-child(3)::before{background:var(--accent2)}.stat-card:nth-child(4)::before{background:var(--accent4)}
+    .stat-icon{font-size:20px;margin-bottom:8px}
+    .stat-val{font-family:'Syne',sans-serif;font-size:24px;font-weight:800;line-height:1;margin-bottom:3px}
+    .stat-label{font-size:10px;color:var(--muted)}
+    .stat-hint{font-size:9px;color:var(--accent);margin-top:4px;opacity:0;transition:opacity .2s}
+    .stat-card:hover .stat-hint{opacity:1}
 
-    /* BOOKMARKS VIEW */
-    .bookmarks-area{flex:1;overflow-y:auto;padding:1.5rem}
-    .bookmarks-area::-webkit-scrollbar{width:3px}
-    .bookmarks-area::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
-    .bm-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:4rem;gap:12px;color:var(--muted)}
-    .bm-empty .bm-icon{font-size:48px;opacity:.4}
-    .bm-empty p{font-size:13px;text-align:center;line-height:1.6}
-    .bm-list{display:flex;flex-direction:column;gap:8px}
-    .bm-item{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:12px;animation:fadeUp .3s ease}
-    .bm-item:hover{border-color:var(--accent)}
-    .bm-info{flex:1;min-width:0}
-    .bm-name{font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .bm-meta{font-size:11px;color:var(--muted);margin-top:2px}
-    .bm-actions{display:flex;gap:6px;flex-shrink:0}
-    .bm-btn{background:none;border:1px solid var(--border);border-radius:8px;padding:4px 10px;font-size:11px;cursor:pointer;color:var(--muted);font-family:'DM Mono',monospace;transition:all .2s;white-space:nowrap}
-    .bm-btn:hover{border-color:var(--accent);color:var(--accent)}
-    .bm-btn.del:hover{border-color:var(--accent2);color:var(--accent2)}
+    /* TAGS */
+    .tag{display:inline-flex;align-items:center;gap:4px;font-size:10px;padding:2px 8px;border-radius:20px;font-weight:500;cursor:pointer;transition:all .2s}
+    .tag:hover{opacity:.8}
+    .tag-red{background:rgba(248,91,138,.15);color:var(--accent2);border:1px solid rgba(248,91,138,.3)}
+    .tag-blue{background:rgba(91,106,248,.15);color:var(--accent);border:1px solid rgba(91,106,248,.3)}
+    .tag-green{background:rgba(56,232,160,.15);color:var(--accent3);border:1px solid rgba(56,232,160,.3)}
+    .tag-yellow{background:rgba(251,191,36,.15);color:var(--accent4);border:1px solid rgba(251,191,36,.3)}
+    .tag-purple{background:rgba(168,85,247,.15);color:#a855f7;border:1px solid rgba(168,85,247,.3)}
+    .tag-gray{background:rgba(150,150,150,.1);color:var(--muted);border:1px solid rgba(150,150,150,.2)}
 
-    /* FILE MODAL */
-    .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);backdrop-filter:blur(6px);z-index:200;display:none;align-items:center;justify-content:center;padding:1.5rem}
-    .modal-overlay.open{display:flex}
-    .modal{background:var(--surface);border:1px solid var(--border);border-radius:20px;width:100%;max-width:660px;max-height:85vh;display:flex;flex-direction:column;box-shadow:0 24px 80px var(--shadow);animation:popIn .3s cubic-bezier(.34,1.56,.64,1)}
-    .modal-header{display:flex;align-items:center;justify-content:space-between;padding:1.1rem 1.5rem;border-bottom:1px solid var(--border);flex-shrink:0}
-    .modal-title{font-family:'Syne',sans-serif;font-size:15px;font-weight:700}
-    .modal-header-actions{display:flex;align-items:center;gap:8px}
-    .modal-close{background:none;border:1px solid var(--border);border-radius:8px;width:30px;height:30px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--muted);font-size:16px;transition:all .2s}
-    .modal-close:hover{border-color:var(--accent2);color:var(--accent2)}
-
-    /* date filter bar */
-    .date-filter-bar{padding:.8rem 1.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;flex-shrink:0;flex-wrap:wrap}
-    .date-filter-bar label{font-size:11px;color:var(--muted)}
-    .date-input{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:5px 10px;font-family:'DM Mono',monospace;font-size:11px;color:var(--text);outline:none;margin-bottom:0;width:auto}
-    .date-input:focus{border-color:var(--accent)}
-    .date-preset{font-size:10px;padding:4px 10px;border-radius:16px;border:1px solid var(--border);background:none;color:var(--muted);cursor:pointer;font-family:'DM Mono',monospace;transition:all .2s}
-    .date-preset:hover,.date-preset.active{border-color:var(--accent);color:var(--accent);background:var(--glow)}
-
-    .modal-toolbar{padding:.6rem 1.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;flex-shrink:0}
-    .modal-search{flex:1;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:7px 12px;font-family:'DM Mono',monospace;font-size:12px;color:var(--text);outline:none;transition:border-color .2s;margin-bottom:0}
-    .modal-search:focus{border-color:var(--accent)}
-    .modal-search::placeholder{color:var(--muted)}
-    .modal-count-text{font-size:11px;color:var(--muted);white-space:nowrap}
-    .modal-body{flex:1;overflow-y:auto;padding:0 1.5rem}
-    .modal-body::-webkit-scrollbar{width:3px}
-    .modal-body::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
-    .modal-footer{padding:.8rem 1.5rem;border-top:1px solid var(--border);display:flex;justify-content:center;flex-shrink:0}
-    .btn-load-more{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:8px 20px;font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);cursor:pointer;transition:all .2s}
-    .btn-load-more:hover{border-color:var(--accent);color:var(--accent)}
-    .btn-load-more:disabled{opacity:.4;cursor:not-allowed}
-
-    /* FILE ROW */
+    /* FILE ROWS */
     .mfile{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
     .mfile:last-child{border-bottom:none}
     .mfile-icon{font-size:18px;flex-shrink:0}
     .mfile-info{flex:1;min-width:0}
     .mfile-name{font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--text)}
-    .mfile-meta{font-size:11px;color:var(--muted);margin-top:2px}
+    .mfile-meta{font-size:11px;color:var(--muted);margin-top:2px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+    .mfile-tags{display:flex;gap:4px;flex-wrap:wrap;margin-top:4px}
     .mfile-badge{font-size:10px;padding:2px 7px;border-radius:20px;flex-shrink:0}
-    .mfile-actions{display:flex;gap:5px;flex-shrink:0}
-    .mfile-btn{background:none;border:1px solid var(--border);border-radius:7px;padding:3px 8px;font-size:11px;cursor:pointer;color:var(--muted);font-family:'DM Mono',monospace;transition:all .2s;white-space:nowrap}
+    .mfile-actions{display:flex;gap:4px;flex-shrink:0;flex-wrap:wrap}
+    .mfile-btn{background:none;border:1px solid var(--border);border-radius:7px;padding:3px 8px;font-size:10px;cursor:pointer;color:var(--muted);font-family:'DM Mono',monospace;transition:all .2s;white-space:nowrap}
     .mfile-btn:hover{border-color:var(--accent);color:var(--accent)}
     .mfile-btn.bm-active{border-color:var(--accent4);color:var(--accent4)}
-    .mfile-btn.open{border-color:var(--accent3);color:var(--accent3)}
-
-    /* PREVIEW PANEL */
-    .preview-panel{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(8px);z-index:300;display:none;align-items:center;justify-content:center;padding:1.5rem}
-    .preview-panel.open{display:flex}
-    .preview-box{background:var(--surface);border:1px solid var(--border);border-radius:20px;width:100%;max-width:700px;max-height:88vh;display:flex;flex-direction:column;box-shadow:0 24px 80px var(--shadow);animation:popIn .3s ease}
-    .preview-header{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.5rem;border-bottom:1px solid var(--border);flex-shrink:0}
-    .preview-title{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-right:12px}
-    .preview-header-btns{display:flex;gap:6px;flex-shrink:0}
-    .preview-btn{background:none;border:1px solid var(--border);border-radius:8px;padding:5px 12px;font-size:11px;cursor:pointer;color:var(--muted);font-family:'DM Mono',monospace;transition:all .2s;white-space:nowrap}
-    .preview-btn:hover{border-color:var(--accent);color:var(--accent)}
-    .preview-btn.ai{border-color:rgba(91,106,248,.4);color:var(--accent);background:var(--glow)}
-    .preview-btn.ai:hover{background:rgba(91,106,248,.2)}
-    .preview-btn.share{border-color:rgba(56,232,160,.4);color:var(--accent3)}
-    .preview-btn.close-btn:hover{border-color:var(--accent2);color:var(--accent2)}
-    .preview-body{flex:1;overflow-y:auto;padding:1.5rem}
-    .preview-body::-webkit-scrollbar{width:3px}
-    .preview-body::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
-    .preview-content{font-size:13px;line-height:1.8;color:var(--text);white-space:pre-wrap;word-break:break-word}
-    .preview-loading{display:flex;flex-direction:column;align-items:center;gap:12px;padding:3rem;color:var(--muted);font-size:12px}
-    .ai-summary{background:var(--glow);border:1px solid rgba(91,106,248,.25);border-radius:12px;padding:1rem;margin-bottom:1rem;font-size:13px;line-height:1.7}
-    .ai-summary-title{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;color:var(--accent);margin-bottom:8px;display:flex;align-items:center;gap:6px}
-    .share-box{background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:1rem;margin-bottom:1rem}
-    .share-box-title{font-size:12px;color:var(--muted);margin-bottom:8px}
-    .share-link{display:flex;gap:8px;align-items:center}
-    .share-link input{flex:1;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:8px 12px;font-family:'DM Mono',monospace;font-size:11px;color:var(--accent3);outline:none;margin-bottom:0}
-    .copy-btn{background:var(--accent);border:none;border-radius:8px;padding:8px 14px;font-family:'Syne',sans-serif;font-size:11px;font-weight:700;color:#fff;cursor:pointer;white-space:nowrap;transition:opacity .2s}
-    .copy-btn:hover{opacity:.85}
-
-    /* SEARCH VIEW */
-    .chat-area{flex:1;overflow-y:auto;padding:1.5rem;display:flex;flex-direction:column;gap:1rem;scroll-behavior:smooth}
-    .chat-area::-webkit-scrollbar{width:3px}
-    .chat-area::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
-    .msg{display:flex;gap:10px;align-items:flex-start;animation:fadeUp .3s ease}
-    .msg.user{flex-direction:row-reverse}
-    @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-    .av{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
-    .av.bot{background:linear-gradient(135deg,var(--accent),#8b5cf6)}
-    .av.user-av{background:var(--surface2);border:1px solid var(--border);overflow:hidden}
-    .av.user-av img{width:100%;height:100%;object-fit:cover}
-    .bubble{max-width:80%;padding:12px 16px;border-radius:14px;font-size:13px;line-height:1.7}
-    .msg.bot .bubble{background:var(--surface);border:1px solid var(--border);border-radius:4px 14px 14px 14px}
-    .msg.user .bubble{background:var(--glow);border:1px solid rgba(91,106,248,.25);border-radius:14px 4px 14px 14px;color:var(--text)}
-    .results-wrap{padding-left:40px;display:flex;flex-direction:column;gap:8px}
-    .rcard{background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:12px 14px;transition:border-color .2s,transform .15s;animation:fadeUp .3s ease}
-    .rcard:hover{border-color:var(--accent);transform:translateX(3px)}
-    .rcard-top{display:flex;align-items:center;gap:8px;margin-bottom:4px}
     .fbadge{font-size:10px;padding:2px 8px;border-radius:20px;font-weight:500;letter-spacing:.4px;flex-shrink:0}
     .b-sheet{background:rgba(56,232,160,.12);color:var(--accent3);border:1px solid rgba(56,232,160,.25)}
     .b-doc{background:rgba(91,106,248,.12);color:var(--accent);border:1px solid rgba(91,106,248,.25)}
@@ -240,32 +122,199 @@
     .b-pdf{background:rgba(251,191,36,.12);color:var(--accent4);border:1px solid rgba(251,191,36,.25)}
     .b-zip{background:rgba(150,150,150,.12);color:var(--muted);border:1px solid rgba(150,150,150,.25)}
     .b-file{background:rgba(150,150,150,.12);color:var(--muted);border:1px solid rgba(150,150,150,.25)}
+
+    /* MODALS */
+    .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);backdrop-filter:blur(6px);z-index:200;display:none;align-items:center;justify-content:center;padding:1.5rem}
+    .modal-overlay.open{display:flex}
+    .modal{background:var(--surface);border:1px solid var(--border);border-radius:20px;width:100%;max-width:680px;max-height:88vh;display:flex;flex-direction:column;box-shadow:0 24px 80px var(--shadow);animation:popIn .3s cubic-bezier(.34,1.56,.64,1)}
+    .modal-sm{max-width:440px}
+    .modal-header{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.5rem;border-bottom:1px solid var(--border);flex-shrink:0}
+    .modal-title{font-family:'Syne',sans-serif;font-size:15px;font-weight:700}
+    .modal-close{background:none;border:1px solid var(--border);border-radius:8px;width:28px;height:28px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--muted);font-size:14px;transition:all .2s}
+    .modal-close:hover{border-color:var(--accent2);color:var(--accent2)}
+    .modal-toolbar{padding:.6rem 1.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;flex-shrink:0;flex-wrap:wrap}
+    .modal-search{flex:1;min-width:120px;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:7px 12px;font-family:'DM Mono',monospace;font-size:12px;color:var(--text);outline:none;transition:border-color .2s;margin-bottom:0}
+    .modal-search:focus{border-color:var(--accent)}
+    .modal-search::placeholder{color:var(--muted)}
+    .modal-count{font-size:11px;color:var(--muted);white-space:nowrap}
+    .modal-body{flex:1;overflow-y:auto;padding:0 1.5rem}
+    .modal-body::-webkit-scrollbar{width:3px}
+    .modal-body::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
+    .modal-footer{padding:.8rem 1.5rem;border-top:1px solid var(--border);display:flex;justify-content:center;flex-shrink:0}
+    .btn-load{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:7px 18px;font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);cursor:pointer;transition:all .2s}
+    .btn-load:hover{border-color:var(--accent);color:var(--accent)}
+    .btn-load:disabled{opacity:.4;cursor:not-allowed}
+
+    /* DATE FILTER */
+    .date-bar{padding:.6rem 1.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:6px;flex-shrink:0;flex-wrap:wrap}
+    .date-bar label{font-size:10px;color:var(--muted)}
+    .date-input{background:var(--bg);border:1px solid var(--border);border-radius:7px;padding:4px 8px;font-family:'DM Mono',monospace;font-size:10px;color:var(--text);outline:none;margin-bottom:0;width:auto;color-scheme:dark}
+    .date-input:focus{border-color:var(--accent)}
+    .preset{font-size:10px;padding:3px 9px;border-radius:16px;border:1px solid var(--border);background:none;color:var(--muted);cursor:pointer;font-family:'DM Mono',monospace;transition:all .2s}
+    .preset:hover,.preset.on{border-color:var(--accent);color:var(--accent);background:var(--glow)}
+
+    /* CHAT WITH FILE */
+    .chat-file-panel{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(8px);z-index:300;display:none;align-items:center;justify-content:center;padding:1.5rem}
+    .chat-file-panel.open{display:flex}
+    .chat-file-box{background:var(--surface);border:1px solid var(--border);border-radius:20px;width:100%;max-width:700px;height:85vh;display:flex;flex-direction:column;box-shadow:0 24px 80px var(--shadow);animation:popIn .3s ease}
+    .cfp-header{display:flex;align-items:center;gap:10px;padding:1rem 1.5rem;border-bottom:1px solid var(--border);flex-shrink:0}
+    .cfp-icon{font-size:20px}
+    .cfp-info{flex:1;min-width:0}
+    .cfp-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .cfp-sub{font-size:10px;color:var(--muted)}
+    .cfp-close{background:none;border:1px solid var(--border);border-radius:8px;width:28px;height:28px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--muted);font-size:14px;transition:all .2s}
+    .cfp-close:hover{border-color:var(--accent2);color:var(--accent2)}
+    .cfp-messages{flex:1;overflow-y:auto;padding:1rem 1.5rem;display:flex;flex-direction:column;gap:10px}
+    .cfp-messages::-webkit-scrollbar{width:3px}
+    .cfp-messages::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
+    .cfp-msg{display:flex;gap:8px;align-items:flex-start;animation:fadeUp .3s ease}
+    .cfp-msg.user{flex-direction:row-reverse}
+    .cfp-av{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
+    .cfp-av.bot{background:linear-gradient(135deg,var(--accent),#8b5cf6)}
+    .cfp-av.user{background:var(--surface2);border:1px solid var(--border)}
+    .cfp-bubble{max-width:78%;padding:10px 14px;border-radius:12px;font-size:12px;line-height:1.7}
+    .cfp-msg.bot .cfp-bubble{background:var(--surface2);border:1px solid var(--border);border-radius:4px 12px 12px 12px}
+    .cfp-msg.user .cfp-bubble{background:var(--glow);border:1px solid rgba(91,106,248,.25);border-radius:12px 4px 12px 12px}
+    .cfp-thinking{display:flex;gap:4px;align-items:center;padding:4px 0}
+    .cfp-thinking span{width:6px;height:6px;border-radius:50%;opacity:.3;animation:pulse 1.2s ease-in-out infinite}
+    .cfp-thinking span:nth-child(1){background:var(--accent)}.cfp-thinking span:nth-child(2){background:var(--accent2);animation-delay:.2s}.cfp-thinking span:nth-child(3){background:var(--accent3);animation-delay:.4s}
+    @keyframes pulse{0%,80%,100%{opacity:.2;transform:scale(.8)}40%{opacity:1;transform:scale(1.1)}}
+    .cfp-input-area{padding:.8rem 1.5rem;border-top:1px solid var(--border);flex-shrink:0}
+    .cfp-ak-notice{font-size:10px;color:var(--muted);text-align:center;margin-bottom:6px}
+    .cfp-ak-notice a{color:var(--accent);cursor:pointer}
+    .cfp-row{display:flex;gap:8px}
+    .cfp-input{flex:1;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:9px 14px;font-family:'DM Mono',monospace;font-size:12px;color:var(--text);outline:none;transition:border-color .2s}
+    .cfp-input:focus{border-color:var(--accent)}
+    .cfp-input::placeholder{color:var(--muted)}
+    .cfp-send{background:linear-gradient(135deg,var(--accent),#8b5cf6);border:none;border-radius:10px;padding:9px 16px;font-family:'Syne',sans-serif;font-size:12px;font-weight:700;color:#fff;cursor:pointer;white-space:nowrap}
+    .cfp-send:disabled{opacity:.4;cursor:not-allowed}
+
+    /* TAGS PANEL */
+    .tag-panel{position:fixed;inset:0;background:rgba(0,0,0,.65);backdrop-filter:blur(6px);z-index:300;display:none;align-items:center;justify-content:center;padding:1.5rem}
+    .tag-panel.open{display:flex}
+    .tag-box{background:var(--surface);border:1px solid var(--border);border-radius:20px;width:100%;max-width:440px;box-shadow:0 24px 80px var(--shadow);animation:popIn .3s ease;overflow:hidden}
+    .tag-header{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.5rem;border-bottom:1px solid var(--border)}
+    .tag-title{font-family:'Syne',sans-serif;font-size:15px;font-weight:700}
+    .tag-body{padding:1.5rem}
+    .tag-fname{font-size:12px;color:var(--muted);margin-bottom:1rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .tag-grid{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:1.2rem}
+    .tag-option{font-size:12px;padding:6px 14px;border-radius:20px;cursor:pointer;transition:all .2s;border:2px solid transparent;user-select:none}
+    .tag-option.selected{transform:scale(1.05);box-shadow:0 0 0 2px var(--accent)}
+    .tag-custom{display:flex;gap:8px;margin-bottom:1rem}
+    .tag-custom input{flex:1;margin-bottom:0;padding:8px 12px;font-size:12px}
+    .tag-custom-btn{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:8px 14px;font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);cursor:pointer;white-space:nowrap;transition:all .2s}
+    .tag-custom-btn:hover{border-color:var(--accent);color:var(--accent)}
+    .tag-save{width:100%;background:linear-gradient(135deg,var(--accent),#8b5cf6);border:none;border-radius:10px;padding:11px;font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:#fff;cursor:pointer}
+
+    /* TEAM ACTIVITY */
+    .activity-list{display:flex;flex-direction:column;gap:10px}
+    .activity-item{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 14px;display:flex;align-items:flex-start;gap:12px;animation:fadeUp .3s ease}
+    .activity-icon{font-size:20px;flex-shrink:0;margin-top:2px}
+    .activity-info{flex:1;min-width:0}
+    .activity-name{font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .activity-meta{font-size:11px;color:var(--muted);margin-top:3px}
+    .activity-badge{font-size:10px;padding:2px 8px;border-radius:20px;flex-shrink:0;align-self:center}
+    .act-shared{background:rgba(56,232,160,.12);color:var(--accent3);border:1px solid rgba(56,232,160,.25)}
+    .act-modified{background:rgba(91,106,248,.12);color:var(--accent);border:1px solid rgba(91,106,248,.25)}
+    .act-created{background:rgba(251,191,36,.12);color:var(--accent4);border:1px solid rgba(251,191,36,.25)}
+
+    /* ADMIN PANEL */
+    .admin-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.2rem;margin-bottom:1rem}
+    .admin-card-title{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+    .admin-stat{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border);font-size:12px}
+    .admin-stat:last-child{border-bottom:none}
+    .admin-stat-val{font-family:'Syne',sans-serif;font-weight:700;color:var(--accent)}
+    .admin-toggle{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
+    .admin-toggle:last-child{border-bottom:none}
+    .admin-toggle-info{flex:1}
+    .admin-toggle-label{font-size:12px;font-weight:500}
+    .admin-toggle-desc{font-size:10px;color:var(--muted);margin-top:2px}
+    .toggle-sw{width:36px;height:20px;border-radius:20px;background:var(--border2);border:none;cursor:pointer;position:relative;transition:background .2s;flex-shrink:0}
+    .toggle-sw.on{background:var(--accent)}
+    .toggle-sw::after{content:'';position:absolute;width:14px;height:14px;border-radius:50%;background:#fff;top:3px;left:3px;transition:left .2s}
+    .toggle-sw.on::after{left:19px}
+    .admin-input-row{display:flex;gap:8px;margin-top:8px}
+    .admin-input{flex:1;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:8px 12px;font-family:'DM Mono',monospace;font-size:12px;color:var(--text);outline:none;margin-bottom:0;transition:border-color .2s}
+    .admin-input:focus{border-color:var(--accent)}
+    .admin-btn{background:var(--accent);border:none;border-radius:8px;padding:8px 14px;font-family:'Syne',sans-serif;font-size:11px;font-weight:700;color:#fff;cursor:pointer;white-space:nowrap}
+    .admin-btn.danger{background:var(--accent2)}
+    .blocked-list{display:flex;flex-direction:column;gap:6px;margin-top:8px}
+    .blocked-item{display:flex;align-items:center;justify-content:space-between;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:6px 10px;font-size:11px}
+    .blocked-remove{background:none;border:none;color:var(--accent2);cursor:pointer;font-size:12px}
+
+    /* SEARCH */
+    .chat-area{flex:1;overflow-y:auto;padding:1.5rem;display:flex;flex-direction:column;gap:1rem;scroll-behavior:smooth}
+    .chat-area::-webkit-scrollbar{width:3px}
+    .chat-area::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
+    .msg{display:flex;gap:10px;align-items:flex-start;animation:fadeUp .3s ease}
+    .msg.user{flex-direction:row-reverse}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+    .av{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
+    .av.bot{background:linear-gradient(135deg,var(--accent),#8b5cf6)}
+    .av.user-av{background:var(--surface2);border:1px solid var(--border);overflow:hidden}
+    .av.user-av img{width:100%;height:100%;object-fit:cover}
+    .bubble{max-width:80%;padding:11px 15px;border-radius:14px;font-size:13px;line-height:1.7}
+    .msg.bot .bubble{background:var(--surface);border:1px solid var(--border);border-radius:4px 14px 14px 14px}
+    .msg.user .bubble{background:var(--glow);border:1px solid rgba(91,106,248,.25);border-radius:14px 4px 14px 14px;color:var(--text)}
+    .results-wrap{padding-left:38px;display:flex;flex-direction:column;gap:8px}
+    .rcard{background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:12px 14px;transition:border-color .2s,transform .15s;animation:fadeUp .3s ease}
+    .rcard:hover{border-color:var(--accent);transform:translateX(3px)}
+    .rcard-top{display:flex;align-items:center;gap:8px;margin-bottom:4px}
     .rcard-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:600;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
     .rcard-meta{font-size:11px;color:var(--muted);margin-bottom:6px}
-    .rcard-actions{display:flex;gap:6px;flex-wrap:wrap}
-    .rcard-btn{background:none;border:1px solid var(--border);border-radius:7px;padding:4px 10px;font-size:11px;cursor:pointer;color:var(--muted);font-family:'DM Mono',monospace;transition:all .2s}
+    .rcard-tags{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:6px}
+    .rcard-actions{display:flex;gap:5px;flex-wrap:wrap}
+    .rcard-btn{background:none;border:1px solid var(--border);border-radius:7px;padding:3px 9px;font-size:10px;cursor:pointer;color:var(--muted);font-family:'DM Mono',monospace;transition:all .2s}
     .rcard-btn:hover{border-color:var(--accent);color:var(--accent)}
+    .rcard-btn.chat{border-color:rgba(91,106,248,.4);color:var(--accent)}
+    .rcard-btn.tag{border-color:rgba(251,191,36,.4);color:var(--accent4)}
     .rcard-btn.bm{border-color:rgba(251,191,36,.4);color:var(--accent4)}
     .rcard-btn.share{border-color:rgba(56,232,160,.4);color:var(--accent3)}
-    .thinking{display:flex;gap:5px;align-items:center;padding:6px 0}
-    .thinking span{width:7px;height:7px;border-radius:50%;opacity:.3;animation:pulse 1.2s ease-in-out infinite}
+    .thinking{display:flex;gap:5px;align-items:center;padding:5px 0}
+    .thinking span{width:6px;height:6px;border-radius:50%;opacity:.3;animation:pulse 1.2s ease-in-out infinite}
     .thinking span:nth-child(1){background:var(--accent)}.thinking span:nth-child(2){background:var(--accent2);animation-delay:.2s}.thinking span:nth-child(3){background:var(--accent3);animation-delay:.4s}
-    @keyframes pulse{0%,80%,100%{opacity:.2;transform:scale(.8)}40%{opacity:1;transform:scale(1.1)}}
-    .chips{display:flex;flex-wrap:wrap;gap:6px;padding:0 1.5rem .6rem}
-    .chip{font-size:11px;padding:5px 13px;border-radius:20px;border:1px solid var(--border);background:var(--surface);color:var(--muted);cursor:pointer;font-family:'DM Mono',monospace;transition:all .2s}
+    .chips{display:flex;flex-wrap:wrap;gap:6px;padding:0 1.5rem .5rem}
+    .chip{font-size:11px;padding:4px 12px;border-radius:20px;border:1px solid var(--border);background:var(--surface);color:var(--muted);cursor:pointer;font-family:'DM Mono',monospace;transition:all .2s}
     .chip:hover{border-color:var(--accent);color:var(--accent);background:var(--glow)}
-    .input-area{padding:.9rem 1.5rem 1.3rem;border-top:1px solid var(--border);background:var(--surface);flex-shrink:0}
+    .input-area{padding:.8rem 1.5rem 1.2rem;border-top:1px solid var(--border);background:var(--surface);flex-shrink:0}
     .input-row{display:flex;gap:8px}
-    #query{flex:1;background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:11px 16px;font-family:'DM Mono',monospace;font-size:13px;color:var(--text);outline:none;transition:border-color .2s}
+    #query{flex:1;background:var(--surface2);border:1px solid var(--border);border-radius:11px;padding:10px 15px;font-family:'DM Mono',monospace;font-size:13px;color:var(--text);outline:none;transition:border-color .2s}
     #query:focus{border-color:var(--accent)}
     #query::placeholder{color:var(--muted)}
-    #send-btn{background:linear-gradient(135deg,var(--accent),#8b5cf6);border:none;border-radius:12px;padding:11px 20px;font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:#fff;cursor:pointer;transition:opacity .2s,transform .1s;white-space:nowrap}
+    #send-btn{background:linear-gradient(135deg,var(--accent),#8b5cf6);border:none;border-radius:11px;padding:10px 18px;font-family:'Syne',sans-serif;font-size:12px;font-weight:700;color:#fff;cursor:pointer;transition:opacity .2s,transform .1s;white-space:nowrap}
     #send-btn:hover{opacity:.9;transform:translateY(-1px)}
     #send-btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
-    .footer-note{font-size:10px;color:var(--muted);text-align:center;margin-top:7px}
+    .footer-note{font-size:10px;color:var(--muted);text-align:center;margin-top:6px}
     .footer-note span{color:var(--accent3)}
     .err-box{background:rgba(248,91,138,.08);border:1px solid rgba(248,91,138,.25);border-radius:10px;padding:10px 14px;font-size:12px;color:var(--accent2)}
     .toast{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%);background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 20px;font-size:12px;color:var(--text);box-shadow:0 8px 32px var(--shadow);z-index:999;animation:fadeUp .3s ease;white-space:nowrap}
+
+    /* DASHBOARD */
+    .dash-greeting{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;margin-bottom:4px}
+    .dash-greeting span{color:var(--accent)}
+    .dash-sub{font-size:12px;color:var(--muted);margin-bottom:1.5rem}
+    .dash-search{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1rem;margin-bottom:1.5rem}
+    .dash-search-title{font-size:11px;color:var(--muted);margin-bottom:8px}
+    .dash-search-row{display:flex;gap:8px}
+    .dash-search-input{flex:1;background:var(--bg);border:1px solid var(--border);border-radius:9px;padding:9px 13px;font-family:'DM Mono',monospace;font-size:12px;color:var(--text);outline:none;transition:border-color .2s;margin-bottom:0}
+    .dash-search-input:focus{border-color:var(--accent)}
+    .dash-search-input::placeholder{color:var(--muted)}
+    .dash-search-btn{background:linear-gradient(135deg,var(--accent),#8b5cf6);border:none;border-radius:9px;padding:9px 16px;font-family:'Syne',sans-serif;font-size:12px;font-weight:700;color:#fff;cursor:pointer;white-space:nowrap}
+    .type-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:1.5rem}
+    @media(max-width:768px){.type-grid{grid-template-columns:repeat(2,1fr)}}
+    .type-card{background:var(--surface);border:1px solid var(--border);border-radius:11px;padding:.9rem;display:flex;align-items:center;gap:8px;cursor:pointer;transition:transform .2s,border-color .2s,box-shadow .2s}
+    .type-card:hover{transform:translateY(-2px);border-color:var(--accent);box-shadow:0 6px 20px var(--shadow)}
+    .type-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+    .type-info{flex:1;min-width:0}
+    .type-name{font-size:11px;font-weight:500;color:var(--text)}
+    .type-count{font-family:'Syne',sans-serif;font-size:16px;font-weight:700}
+    .recent-list{display:flex;flex-direction:column;gap:6px;margin-bottom:1.5rem}
+    .recent-item{background:var(--surface);border:1px solid var(--border);border-radius:11px;padding:10px 12px;display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text);transition:border-color .2s,transform .15s}
+    .recent-item:hover{border-color:var(--accent);transform:translateX(3px)}
+    .dash-loading{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem;gap:12px}
+    .spinner{width:32px;height:32px;border-radius:50%;border:3px solid var(--border);border-top-color:var(--accent);animation:spin .8s linear infinite}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .dash-loading p{font-size:12px;color:var(--muted)}
   </style>
 </head>
 <body>
@@ -273,20 +322,22 @@
 <!-- LOGIN -->
 <div id="login-screen">
   <div class="login-card">
-    <div class="brand"><div class="brand-icon">🤖</div><div class="brand-name">Drive<span>Bot</span></div></div>
-    <div class="login-headline">Your Personal Document<br>Search Assistant</div>
-    <div class="login-sub">Sign in with Google to search your Drive files. All features, no API keys needed!</div>
+    <div class="brand"><div class="brand-icon">🤖</div><div class="brand-name">Drive<span>Bot</span><span class="brand-badge">Team</span></div></div>
+    <div class="login-headline">Team Document Intelligence</div>
+    <div class="login-sub">Sign in with your Google account to search, tag, chat with, and share your Drive files.</div>
     <div class="features">
-      <div class="feature"><div class="feature-icon">📊</div> Dashboard with stats & file browser</div>
-      <div class="feature"><div class="feature-icon">📌</div> Bookmark favourite files</div>
-      <div class="feature"><div class="feature-icon">👁</div> Preview & AI summarize documents</div>
-      <div class="feature"><div class="feature-icon">📤</div> Share files directly from the bot</div>
+      <div class="feature">🗣 Chat with files</div>
+      <div class="feature">🏷 Tag & label files</div>
+      <div class="feature">📊 Team activity</div>
+      <div class="feature">🔐 Admin controls</div>
+      <div class="feature">📌 Bookmarks</div>
+      <div class="feature">📤 Share instantly</div>
     </div>
     <button class="btn-google" onclick="startSetup()">
       <svg viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
       Sign in with Google
     </button>
-    <div class="login-note">Read-only access to Google Drive · Files never stored or shared</div>
+    <div class="login-note">Each team member sees only their own Drive · Read-only access</div>
   </div>
 </div>
 
@@ -295,7 +346,7 @@
   <div class="clientid-card">
     <div class="step-badge">⚙️ One-time setup</div>
     <div class="clientid-title">Enter your Google OAuth Client ID</div>
-    <div class="clientid-desc">Free setup using your Google Cloud project. Done once, saved forever in browser.</div>
+    <div class="clientid-desc">Free setup — done once, saved forever in your browser.</div>
     <ol class="steps-list">
       <li><div class="step-num">1</div><span>Go to <a href="https://console.cloud.google.com/apis/credentials" target="_blank">Google Cloud Console → Credentials</a></span></li>
       <li><div class="step-num">2</div><span>Enable <strong>Google Drive API</strong> → Create <strong>OAuth 2.0 Client ID</strong> (Web app)</span></li>
@@ -304,54 +355,64 @@
     <div class="origin-box" id="origin-display">Loading...</div>
     <div class="field-label">Your Client ID</div>
     <input type="text" id="client-id-input" placeholder="xxxxxxxx.apps.googleusercontent.com"/>
-    <button class="btn-primary" onclick="saveClientId()">✓ Save & Sign In with Google</button>
+    <button class="btn-primary" onclick="saveClientId()">✓ Save & Sign In</button>
   </div>
 </div>
 
 <!-- FILE LIST MODAL -->
 <div class="modal-overlay" id="modal" onclick="closeModal(event)">
   <div class="modal">
-    <div class="modal-header">
-      <div class="modal-title" id="modal-title">📄 Files</div>
-      <div class="modal-header-actions">
-        <button class="modal-close" onclick="closeModalDirect()">✕</button>
-      </div>
-    </div>
-    <div class="date-filter-bar">
-      <label>📅 Date:</label>
-      <button class="date-preset active" onclick="setDatePreset('all',this)">All</button>
-      <button class="date-preset" onclick="setDatePreset('7d',this)">7 days</button>
-      <button class="date-preset" onclick="setDatePreset('30d',this)">30 days</button>
-      <button class="date-preset" onclick="setDatePreset('90d',this)">3 months</button>
-      <input class="date-input" type="date" id="date-from" onchange="applyDateFilter()" title="From date"/>
-      <span style="font-size:11px;color:var(--muted)">to</span>
-      <input class="date-input" type="date" id="date-to" onchange="applyDateFilter()" title="To date"/>
+    <div class="modal-header"><div class="modal-title" id="modal-title">📄 Files</div><button class="modal-close" onclick="closeModalDirect()">✕</button></div>
+    <div class="date-bar">
+      <label>📅</label>
+      <button class="preset on" onclick="setPreset('all',this)">All</button>
+      <button class="preset" onclick="setPreset('7d',this)">7d</button>
+      <button class="preset" onclick="setPreset('30d',this)">30d</button>
+      <button class="preset" onclick="setPreset('90d',this)">3mo</button>
+      <input class="date-input" type="date" id="df" onchange="applyDate()" title="From"/>
+      <span style="font-size:10px;color:var(--muted)">→</span>
+      <input class="date-input" type="date" id="dt" onchange="applyDate()" title="To"/>
     </div>
     <div class="modal-toolbar">
-      <input class="modal-search" type="text" placeholder="Filter by name..." oninput="filterModal(this.value)" id="modal-filter"/>
-      <span class="modal-count-text" id="modal-count-text">Loading...</span>
+      <input class="modal-search" type="text" placeholder="Filter by name..." oninput="filterModal(this.value)" id="mf"/>
+      <span class="modal-count" id="mc">Loading...</span>
     </div>
     <div class="modal-body" id="modal-body"></div>
-    <div class="modal-footer" id="modal-footer" style="display:none">
-      <button class="btn-load-more" id="load-more-btn" onclick="loadMoreFiles()">Load more files ↓</button>
+    <div class="modal-footer" id="modal-footer" style="display:none"><button class="btn-load" id="load-btn" onclick="loadMore()">Load more ↓</button></div>
+  </div>
+</div>
+
+<!-- CHAT WITH FILE PANEL -->
+<div class="chat-file-panel" id="cfp" onclick="closeCFP(event)">
+  <div class="chat-file-box">
+    <div class="cfp-header">
+      <div class="cfp-icon" id="cfp-icon">📄</div>
+      <div class="cfp-info"><div class="cfp-name" id="cfp-name">File</div><div class="cfp-sub">🗣 Chat with this document — ask anything about its content</div></div>
+      <button class="cfp-close" onclick="closeCFPDirect()">✕</button>
+    </div>
+    <div class="cfp-messages" id="cfp-msgs"></div>
+    <div class="cfp-input-area">
+      <div class="cfp-ak-notice" id="cfp-ak-notice" style="display:none">⚠️ Anthropic API key needed for AI chat. <a onclick="promptAK()">Enter key</a></div>
+      <div class="cfp-row">
+        <input class="cfp-input" id="cfp-q" placeholder="Ask a question about this file..." onkeydown="if(event.key==='Enter')sendCFP()"/>
+        <button class="cfp-send" id="cfp-send" onclick="sendCFP()">Ask →</button>
+      </div>
     </div>
   </div>
 </div>
 
-<!-- PREVIEW PANEL -->
-<div class="preview-panel" id="preview-panel" onclick="closePreview(event)">
-  <div class="preview-box">
-    <div class="preview-header">
-      <div class="preview-title" id="preview-title">Preview</div>
-      <div class="preview-header-btns">
-        <button class="preview-btn ai" id="ai-btn" onclick="getAISummary()">🤖 AI Summary</button>
-        <button class="preview-btn share" id="share-btn-preview" onclick="shareCurrentFile()">📤 Share</button>
-        <button class="preview-btn" id="bm-btn-preview" onclick="toggleBookmarkCurrent()">📌 Bookmark</button>
-        <button class="preview-btn close-btn" onclick="closePreviewDirect()">✕ Close</button>
+<!-- TAG PANEL -->
+<div class="tag-panel" id="tag-panel" onclick="closeTagPanel(event)">
+  <div class="tag-box">
+    <div class="tag-header"><div class="tag-title">🏷 Tag this file</div><button class="modal-close" onclick="closeTagPanelDirect()">✕</button></div>
+    <div class="tag-body">
+      <div class="tag-fname" id="tag-fname">File name</div>
+      <div class="tag-grid" id="tag-grid"></div>
+      <div class="tag-custom">
+        <input type="text" id="tag-custom-input" placeholder="Custom tag..." style="margin-bottom:0;padding:8px 12px;font-size:12px"/>
+        <button class="tag-custom-btn" onclick="addCustomTag()">+ Add</button>
       </div>
-    </div>
-    <div class="preview-body" id="preview-body">
-      <div class="preview-loading"><div class="spinner"></div><p>Loading preview...</p></div>
+      <button class="tag-save" onclick="saveTags()">✓ Save Tags</button>
     </div>
   </div>
 </div>
@@ -362,69 +423,66 @@
     <div class="header-left">
       <div class="h-icon">🤖</div>
       <div class="h-title">Drive<span>Bot</span></div>
+      <span class="h-badge">Team</span>
     </div>
     <div class="nav-tabs">
       <button class="nav-tab active" onclick="switchView('dashboard',this)">📊 Dashboard</button>
       <button class="nav-tab" onclick="switchView('search',this)">🔍 Search</button>
-      <button class="nav-tab" onclick="switchView('bookmarks',this)">📌 Bookmarks</button>
+      <button class="nav-tab" onclick="switchView('activity',this)">📡 Activity</button>
+      <button class="nav-tab" onclick="switchView('bookmarks',this)">📌 Saved</button>
+      <button class="nav-tab" onclick="switchView('admin',this)">🔐 Admin</button>
     </div>
     <div class="header-right">
-      <button class="theme-toggle" onclick="toggleTheme()" id="theme-btn" title="Toggle theme">🌙</button>
-      <div class="user-pill">
-        <span class="dot"></span>
-        <img id="user-avatar" src="" alt="" onerror="this.style.display='none'"/>
-        <span id="user-name">You</span>
-      </div>
+      <button class="theme-toggle" onclick="toggleTheme()" id="theme-btn">🌙</button>
+      <div class="user-pill"><span class="dot"></span><img id="user-avatar" src="" alt="" onerror="this.style.display='none'"/><span id="user-name">You</span></div>
       <button class="btn-logout" onclick="logout()">Sign out</button>
     </div>
   </header>
 
   <!-- DASHBOARD -->
-  <div class="view active" id="view-dashboard">
-    <div class="dashboard-area" id="dash-content">
-      <div class="dash-loading"><div class="spinner"></div><p>Loading your Drive stats...</p></div>
-    </div>
-  </div>
+  <div class="view active" id="view-dashboard"><div class="scroll-area" id="dash-content"><div class="dash-loading"><div class="spinner"></div><p>Loading your Drive stats...</p></div></div></div>
 
   <!-- SEARCH -->
   <div class="view" id="view-search">
     <div class="chat-area" id="chat">
-      <div class="msg bot">
-        <div class="av bot">🤖</div>
-        <div class="bubble">Hey! I'm your <strong>DriveBot</strong> 👋<br><br>Search your Drive — then <strong>preview</strong>, <strong>bookmark</strong>, <strong>share</strong>, or get an <strong>AI summary</strong> of any file!</div>
-      </div>
+      <div class="msg bot"><div class="av bot">🤖</div><div class="bubble">Hey! Search your Drive then <strong>🗣 chat with any file</strong>, <strong>🏷 tag it</strong>, <strong>📌 bookmark</strong> or <strong>📤 share</strong> it!</div></div>
     </div>
     <div class="chips" id="chips">
-      <span class="chip" onclick="fillQ('Find handover documents')">📋 Handover docs</span>
-      <span class="chip" onclick="fillQ('Search budget report')">💰 Budget reports</span>
-      <span class="chip" onclick="fillQ('Show meeting notes')">📝 Meeting notes</span>
-      <span class="chip" onclick="fillQ('Find project proposal')">🗂 Proposals</span>
-      <span class="chip" onclick="fillQ('spreadsheet')">📊 Spreadsheets</span>
+      <span class="chip" onclick="fillQ('handover document')">📋 Handover</span>
+      <span class="chip" onclick="fillQ('budget report')">💰 Budget</span>
+      <span class="chip" onclick="fillQ('meeting notes')">📝 Meeting notes</span>
+      <span class="chip" onclick="fillQ('project proposal')">🗂 Proposals</span>
+      <span class="chip" onclick="fillQ('spreadsheet')">📊 Sheets</span>
     </div>
     <div class="input-area">
       <div class="input-row">
         <input id="query" type="text" placeholder="Search your Drive..." onkeydown="if(event.key==='Enter')send()"/>
         <button id="send-btn" onclick="send()">Search ↗</button>
       </div>
-      <div class="footer-note">Searching your <span>Google Drive</span> in real-time · Preview · Bookmark · Share · AI Summary</div>
+      <div class="footer-note">🗣 Chat · 🏷 Tag · 📌 Bookmark · 📤 Share · <span>Google Drive</span> in real-time</div>
     </div>
   </div>
 
+  <!-- ACTIVITY -->
+  <div class="view" id="view-activity"><div class="scroll-area" id="activity-content"><div class="dash-loading"><div class="spinner"></div><p>Loading team activity...</p></div></div></div>
+
   <!-- BOOKMARKS -->
-  <div class="view" id="view-bookmarks">
-    <div class="bookmarks-area" id="bookmarks-content">
-      <div class="bm-empty"><div class="bm-icon">📌</div><p>No bookmarks yet.<br>Bookmark files from Search or Browse to see them here.</p></div>
-    </div>
-  </div>
+  <div class="view" id="view-bookmarks"><div class="scroll-area" id="bm-content"></div></div>
+
+  <!-- ADMIN -->
+  <div class="view" id="view-admin"><div class="scroll-area" id="admin-content"></div></div>
 </div>
 
 <script src="https://accounts.google.com/gsi/client" async></script>
 <script>
   let accessToken=null,tokenClient=null,userProfile=null,isDark=true;
-  let modalFiles=[],modalPageToken=null,modalMimeFilter='';
-  let currentFile=null,dateFrom=null,dateTo=null;
-  let bookmarks=JSON.parse(localStorage.getItem('drivebot_bookmarks')||'[]');
-  const ANTHROPIC_KEY=localStorage.getItem('drivebot_ak')||'';
+  let modalFiles=[],modalPageToken=null,modalMime='',dateFrom=null,dateTo=null;
+  let cfpFile=null,cfpContent='',cfpHistory=[];
+  let tagFile=null,selectedTags=[];
+  let bookmarks=JSON.parse(localStorage.getItem('drivebot_bm')||'[]');
+  let fileTags=JSON.parse(localStorage.getItem('drivebot_tags')||'{}');
+  let adminSettings=JSON.parse(localStorage.getItem('drivebot_admin')||'{"allowAI":true,"allowShare":true,"allowTag":true,"blockedEmails":[]}');
+  const PRESET_TAGS=[{label:'🔴 Urgent',cls:'tag-red'},{label:'🔵 Project',cls:'tag-blue'},{label:'🟢 Done',cls:'tag-green'},{label:'🟡 Review',cls:'tag-yellow'},{label:'🟣 Handover',cls:'tag-purple'},{label:'⚪ Archive',cls:'tag-gray'}];
 
   /* THEME */
   function toggleTheme(){isDark=!isDark;document.documentElement.setAttribute('data-theme',isDark?'dark':'light');document.getElementById('theme-btn').textContent=isDark?'🌙':'☀️';localStorage.setItem('drivebot_theme',isDark?'dark':'light');}
@@ -435,342 +493,299 @@
   /* INIT */
   window.addEventListener('load',()=>{
     document.getElementById('origin-display').textContent=window.location.origin;
-    const saved=localStorage.getItem('drivebot_theme');
-    if(saved==='light'){isDark=false;document.documentElement.setAttribute('data-theme','light');document.getElementById('theme-btn').textContent='☀️';}
-    const cid=localStorage.getItem('drivebot_cid');
-    if(cid) initGoogleAuth(cid);
+    const s=localStorage.getItem('drivebot_theme');if(s==='light'){isDark=false;document.documentElement.setAttribute('data-theme','light');document.getElementById('theme-btn').textContent='☀️';}
+    const cid=localStorage.getItem('drivebot_cid');if(cid)initGoogleAuth(cid);
   });
 
   function startSetup(){const cid=localStorage.getItem('drivebot_cid');if(cid){signIn();return;}document.getElementById('login-screen').style.display='none';document.getElementById('clientid-screen').style.display='flex';}
-  function saveClientId(){
-    const cid=document.getElementById('client-id-input').value.trim();
-    if(!cid||!cid.includes('.apps.googleusercontent.com')){alert('Please enter a valid Client ID');return;}
-    localStorage.setItem('drivebot_cid',cid);
-    document.getElementById('clientid-screen').style.display='none';
-    document.getElementById('login-screen').style.display='flex';
-    initGoogleAuth(cid);signIn();
-  }
-  function initGoogleAuth(clientId){
-    const tryInit=()=>{
-      if(typeof google==='undefined'){setTimeout(tryInit,200);return;}
-      tokenClient=google.accounts.oauth2.initTokenClient({client_id:clientId,scope:'https://www.googleapis.com/auth/drive.readonly https://www.googleapis.com/auth/userinfo.profile',callback:handleToken});
-    };tryInit();
-  }
+  function saveClientId(){const cid=document.getElementById('client-id-input').value.trim();if(!cid||!cid.includes('.apps.googleusercontent.com')){alert('Invalid Client ID');return;}localStorage.setItem('drivebot_cid',cid);document.getElementById('clientid-screen').style.display='none';document.getElementById('login-screen').style.display='flex';initGoogleAuth(cid);signIn();}
+  function initGoogleAuth(cid){const t=()=>{if(typeof google==='undefined'){setTimeout(t,200);return;}tokenClient=google.accounts.oauth2.initTokenClient({client_id:cid,scope:'https://www.googleapis.com/auth/drive.readonly https://www.googleapis.com/auth/userinfo.profile',callback:handleToken});};t();}
   function signIn(){if(!tokenClient){setTimeout(signIn,300);return;}tokenClient.requestAccessToken();}
   async function handleToken(resp){
     if(!resp.access_token){alert('Sign-in failed.');return;}
     accessToken=resp.access_token;
-    try{const r=await fetch('https://www.googleapis.com/oauth2/v3/userinfo',{headers:{Authorization:'Bearer '+accessToken}});userProfile=await r.json();document.getElementById('user-name').textContent=userProfile.given_name||userProfile.name||'You';if(userProfile.picture)document.getElementById('user-avatar').src=userProfile.picture;}catch(e){}
-    document.getElementById('login-screen').style.display='none';
-    document.getElementById('clientid-screen').style.display='none';
+    try{const r=await fetch('https://www.googleapis.com/oauth2/v3/userinfo',{headers:{Authorization:'Bearer '+accessToken}});userProfile=await r.json();document.getElementById('user-name').textContent=userProfile.given_name||'You';if(userProfile.picture)document.getElementById('user-avatar').src=userProfile.picture;}catch(e){}
+    // Check if blocked
+    if(adminSettings.blockedEmails.includes(userProfile?.email)){alert('Your account has been restricted from accessing DriveBot. Contact your admin.');return;}
+    document.getElementById('login-screen').style.display='none';document.getElementById('clientid-screen').style.display='none';
     document.getElementById('app').style.display='flex';
-    loadDashboard();renderBookmarks();
+    loadDashboard();renderBM();renderAdmin();
   }
   function logout(){accessToken=null;document.getElementById('app').style.display='none';document.getElementById('login-screen').style.display='flex';}
-  function switchView(name,btn){
-    document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
-    document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
-    document.getElementById('view-'+name).classList.add('active');
-    if(btn)btn.classList.add('active');
-    if(name==='bookmarks')renderBookmarks();
-  }
+  function switchView(n,btn){document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));document.getElementById('view-'+n).classList.add('active');if(btn)btn.classList.add('active');if(n==='activity')loadActivity();if(n==='bookmarks')renderBM();if(n==='admin')renderAdmin();}
 
-  /* DRIVE API */
-  async function driveListPage(q,pageToken=null,pageSize=50){
-    let url=`https://www.googleapis.com/drive/v3/files?q=${encodeURIComponent(q)}&pageSize=${pageSize}&fields=nextPageToken,files(id,name,mimeType,modifiedTime,size,webViewLink)&orderBy=modifiedTime desc`;
-    if(pageToken)url+=`&pageToken=${encodeURIComponent(pageToken)}`;
-    const r=await fetch(url,{headers:{Authorization:'Bearer '+accessToken}});
-    if(!r.ok)return{files:[],nextPageToken:null};
-    const d=await r.json();return{files:d.files||[],nextPageToken:d.nextPageToken||null};
+  /* DRIVE */
+  async function driveListPage(q,pt=null,ps=50){
+    let url=`https://www.googleapis.com/drive/v3/files?q=${encodeURIComponent(q)}&pageSize=${ps}&fields=nextPageToken,files(id,name,mimeType,modifiedTime,size,webViewLink,sharingUser)&orderBy=modifiedTime desc`;
+    if(pt)url+=`&pageToken=${encodeURIComponent(pt)}`;
+    const r=await fetch(url,{headers:{Authorization:'Bearer '+accessToken}});if(!r.ok)return{files:[],nextPageToken:null};const d=await r.json();return{files:d.files||[],nextPageToken:d.nextPageToken||null};
   }
-  async function driveListAll(q,maxPages=5){
-    let all=[],token=null,page=0;
-    do{const res=await driveListPage(q,token,100);all=all.concat(res.files);token=res.nextPageToken;page++;}while(token&&page<maxPages);
-    return{files:all,hasMore:!!token};
-  }
-  async function driveSearch(query){
-    const q=`(fullText contains '${query.replace(/'/g,"\\'")}' or name contains '${query.replace(/'/g,"\\'")}') and trashed=false`;
-    const url=`https://www.googleapis.com/drive/v3/files?q=${encodeURIComponent(q)}&pageSize=10&fields=files(id,name,mimeType,modifiedTime,size,webViewLink)&orderBy=modifiedTime desc`;
-    const r=await fetch(url,{headers:{Authorization:'Bearer '+accessToken}});
-    if(r.status===401){logout();return[];}if(!r.ok)throw new Error('Drive search failed ('+r.status+')');
-    return(await r.json()).files||[];
-  }
+  async function driveListAll(q,mp=5){let all=[],t=null,p=0;do{const res=await driveListPage(q,t,100);all=all.concat(res.files);t=res.nextPageToken;p++;}while(t&&p<mp);return{files:all,hasMore:!!t};}
+  async function driveSearch(q){const url=`https://www.googleapis.com/drive/v3/files?q=${encodeURIComponent('(fullText contains \''+q.replace(/'/g,"\\'")+'\' or name contains \''+q.replace(/'/g,"\\'")+'\') and trashed=false')}&pageSize=10&fields=files(id,name,mimeType,modifiedTime,size,webViewLink)&orderBy=modifiedTime desc`;const r=await fetch(url,{headers:{Authorization:'Bearer '+accessToken}});if(r.status===401){logout();return[];}if(!r.ok)throw new Error('Search failed ('+r.status+')');return(await r.json()).files||[];}
+  async function exportFile(id,mime){const em=mime.includes('spreadsheet')?'text/csv':mime.includes('presentation')?'text/plain':'text/plain';const r=await fetch(`https://www.googleapis.com/drive/v3/files/${id}/export?mimeType=${encodeURIComponent(em)}`,{headers:{Authorization:'Bearer '+accessToken}});if(!r.ok)throw new Error('Cannot read this file type');return(await r.text()).substring(0,6000);}
 
   /* HELPERS */
-  function mimeInfo(mime){
-    if(!mime)return{label:'FILE',cls:'b-file',icon:'📄'};
-    if(mime.includes('spreadsheet')||mime.includes('xlsx')||mime.includes('csv'))return{label:'SHEET',cls:'b-sheet',icon:'📊'};
-    if(mime.includes('presentation')||mime.includes('pptx'))return{label:'SLIDES',cls:'b-slide',icon:'📑'};
-    if(mime.includes('pdf'))return{label:'PDF',cls:'b-pdf',icon:'📕'};
-    if(mime.includes('zip')||mime.includes('compressed'))return{label:'ZIP',cls:'b-zip',icon:'🗜'};
-    if(mime.includes('document')||mime.includes('docx')||mime.includes('msword'))return{label:'DOC',cls:'b-doc',icon:'📄'};
-    return{label:'FILE',cls:'b-file',icon:'📄'};
-  }
+  function mimeInfo(m){if(!m)return{label:'FILE',cls:'b-file',icon:'📄'};if(m.includes('spreadsheet')||m.includes('xlsx')||m.includes('csv'))return{label:'SHEET',cls:'b-sheet',icon:'📊'};if(m.includes('presentation')||m.includes('pptx'))return{label:'SLIDES',cls:'b-slide',icon:'📑'};if(m.includes('pdf'))return{label:'PDF',cls:'b-pdf',icon:'📕'};if(m.includes('zip')||m.includes('compressed'))return{label:'ZIP',cls:'b-zip',icon:'🗜'};if(m.includes('document')||m.includes('docx')||m.includes('msword'))return{label:'DOC',cls:'b-doc',icon:'📄'};return{label:'FILE',cls:'b-file',icon:'📄'};}
   function fmtDate(iso){if(!iso)return'';return new Date(iso).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'});}
   function fmtSize(b){if(!b)return'';const k=Math.round(b/1024);return k>1024?(k/1024).toFixed(1)+' MB':k+' KB';}
+  function getFileTags(id){return fileTags[id]||[];}
+  function renderTagBadges(id){return getFileTags(id).map(t=>`<span class="tag tag-${t.color||'blue'}">${t.label}</span>`).join('');}
   function isBookmarked(id){return bookmarks.some(b=>b.id===id);}
-
-  /* BOOKMARKS */
-  function toggleBookmark(file){
-    if(isBookmarked(file.id)){bookmarks=bookmarks.filter(b=>b.id!==file.id);toast('📌 Bookmark removed');}
-    else{bookmarks.push({id:file.id,name:file.name,mimeType:file.mimeType,modifiedTime:file.modifiedTime,webViewLink:file.webViewLink});toast('📌 Bookmarked!');}
-    localStorage.setItem('drivebot_bookmarks',JSON.stringify(bookmarks));
-    renderBookmarks();
-  }
-  function toggleBookmarkCurrent(){if(currentFile)toggleBookmark(currentFile);}
-  function renderBookmarks(){
-    const area=document.getElementById('bookmarks-content');
-    if(!bookmarks.length){area.innerHTML=`<div class="bm-empty"><div class="bm-icon">📌</div><p>No bookmarks yet.<br>Bookmark files from Search or Browse to see them here.</p></div>`;return;}
-    area.innerHTML=`<div style="margin-bottom:1rem"><div class="section-title">📌 Your Bookmarks</div><div class="bm-list">${bookmarks.map(f=>{const{icon,cls,label}=mimeInfo(f.mimeType);return`<div class="bm-item"><div style="font-size:20px">${icon}</div><div class="bm-info"><div class="bm-name">${f.name}</div><div class="bm-meta">📅 ${fmtDate(f.modifiedTime)}</div></div><div class="bm-actions"><button class="bm-btn" onclick='openPreview(${JSON.stringify(f)})'>👁 Preview</button><button class="bm-btn" onclick='shareFile(${JSON.stringify(f)})'>📤 Share</button><button class="bm-btn del" onclick='toggleBookmark(${JSON.stringify(f)})'>🗑 Remove</button><a class="bm-btn" href="${f.webViewLink||'#'}" target="_blank" style="text-decoration:none">↗ Open</a></div></div>`;}).join('')}</div></div>`;
-  }
-
-  /* DATE FILTER */
-  function setDatePreset(preset,btn){
-    document.querySelectorAll('.date-preset').forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
-    const now=new Date();
-    if(preset==='all'){dateFrom=null;dateTo=null;document.getElementById('date-from').value='';document.getElementById('date-to').value='';}
-    else if(preset==='7d'){dateFrom=new Date(now-7*864e5);dateTo=null;}
-    else if(preset==='30d'){dateFrom=new Date(now-30*864e5);dateTo=null;}
-    else if(preset==='90d'){dateFrom=new Date(now-90*864e5);dateTo=null;}
-    renderModalFiles(document.getElementById('modal-filter').value);
-  }
-  function applyDateFilter(){
-    const f=document.getElementById('date-from').value,t=document.getElementById('date-to').value;
-    dateFrom=f?new Date(f):null;dateTo=t?new Date(t):null;
-    document.querySelectorAll('.date-preset').forEach(b=>b.classList.remove('active'));
-    renderModalFiles(document.getElementById('modal-filter').value);
-  }
-
-  /* MODAL */
-  async function openModal(mimeFilter,title){
-    modalFiles=[];modalPageToken=null;modalMimeFilter=mimeFilter;
-    dateFrom=null;dateTo=null;
-    document.getElementById('modal-title').textContent=title;
-    document.getElementById('modal-count-text').textContent='Loading...';
-    document.getElementById('modal-filter').value='';
-    document.getElementById('date-from').value='';
-    document.getElementById('date-to').value='';
-    document.querySelectorAll('.date-preset').forEach((b,i)=>{b.classList.toggle('active',i===0);});
-    document.getElementById('modal-body').innerHTML=`<div class="dash-loading"><div class="spinner"></div><p>Fetching files...</p></div>`;
-    document.getElementById('modal-footer').style.display='none';
-    document.getElementById('modal').classList.add('open');
-    await fetchModalPage();
-  }
-  async function fetchModalPage(){
-    const q=modalMimeFilter?`mimeType contains '${modalMimeFilter}' and trashed=false`:`trashed=false`;
-    const{files,nextPageToken}=await driveListPage(q,modalPageToken,50);
-    modalPageToken=nextPageToken;modalFiles=modalFiles.concat(files);
-    renderModalFiles();
-  }
-  function renderModalFiles(filter=''){
-    let filtered=modalFiles;
-    if(dateFrom)filtered=filtered.filter(f=>new Date(f.modifiedTime)>=dateFrom);
-    if(dateTo)filtered=filtered.filter(f=>new Date(f.modifiedTime)<=new Date(dateTo.getTime()+864e5));
-    if(filter)filtered=filtered.filter(f=>f.name.toLowerCase().includes(filter.toLowerCase()));
-    const body=document.getElementById('modal-body');
-    if(!filtered.length){body.innerHTML=`<p style="padding:1.5rem 0;color:var(--muted);font-size:12px;text-align:center">No files found.</p>`;document.getElementById('modal-count-text').textContent='0 files';return;}
-    document.getElementById('modal-count-text').textContent=`${filtered.length} files${modalPageToken?' · more available':''}`;
-    body.innerHTML=filtered.map(f=>{
-      const{label,cls,icon}=mimeInfo(f.mimeType);
-      const bm=isBookmarked(f.id);
-      return`<div class="mfile">
-        <div class="mfile-icon">${icon}</div>
-        <div class="mfile-info"><div class="mfile-name">${f.name}</div><div class="mfile-meta">📅 ${fmtDate(f.modifiedTime)}${f.size?' · '+fmtSize(f.size):''}</div></div>
-        <span class="mfile-badge fbadge ${cls}">${label}</span>
-        <div class="mfile-actions">
-          <button class="mfile-btn" onclick='openPreview(${JSON.stringify(f)})'>👁</button>
-          <button class="mfile-btn ${bm?'bm-active':''}" onclick='toggleBookmark(${JSON.stringify(f)});renderModalFiles(document.getElementById("modal-filter").value)'>${bm?'⭐':'📌'}</button>
-          <button class="mfile-btn open" onclick='shareFile(${JSON.stringify(f)})'>📤</button>
-          <a class="mfile-btn open" href="${f.webViewLink||'#'}" target="_blank" style="text-decoration:none">↗</a>
-        </div>
-      </div>`;
-    }).join('');
-    const footer=document.getElementById('modal-footer');
-    if(modalPageToken&&!filter&&!dateFrom&&!dateTo){footer.style.display='flex';document.getElementById('load-more-btn').disabled=false;}
-    else footer.style.display='none';
-  }
-  function filterModal(val){renderModalFiles(val);}
-  async function loadMoreFiles(){const btn=document.getElementById('load-more-btn');btn.disabled=true;btn.textContent='Loading...';await fetchModalPage();btn.textContent='Load more files ↓';}
-  function closeModal(e){if(e.target===document.getElementById('modal'))closeModalDirect();}
-  function closeModalDirect(){document.getElementById('modal').classList.remove('open');}
-
-  /* PREVIEW */
-  async function openPreview(file){
-    currentFile=file;
-    document.getElementById('preview-title').textContent=file.name;
-    document.getElementById('preview-body').innerHTML=`<div class="preview-loading"><div class="spinner"></div><p>Loading preview...</p></div>`;
-    document.getElementById('bm-btn-preview').textContent=isBookmarked(file.id)?'⭐ Bookmarked':'📌 Bookmark';
-    document.getElementById('preview-panel').classList.add('open');
-    try{
-      const previewable=['application/vnd.google-apps.document','application/vnd.google-apps.spreadsheet','application/vnd.google-apps.presentation','application/pdf','application/msword','application/vnd.openxmlformats-officedocument.wordprocessingml.document','application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'];
-      const canPreview=previewable.some(t=>file.mimeType&&file.mimeType.includes(t.split('/')[1]));
-      if(canPreview||file.mimeType.includes('google-apps')){
-        const exportMime=file.mimeType.includes('spreadsheet')?'text/csv':file.mimeType.includes('presentation')?'text/plain':'text/plain';
-        const r=await fetch(`https://www.googleapis.com/drive/v3/files/${file.id}/export?mimeType=${encodeURIComponent(exportMime)}`,{headers:{Authorization:'Bearer '+accessToken}});
-        if(!r.ok)throw new Error('Cannot export this file type');
-        const text=await r.text();
-        document.getElementById('preview-body').innerHTML=`<div class="preview-content">${text.substring(0,8000)+(text.length>8000?'\n\n[... truncated for preview ...]':'')}</div>`;
-      }else{
-        document.getElementById('preview-body').innerHTML=`<div style="text-align:center;padding:2rem;color:var(--muted)"><div style="font-size:48px;margin-bottom:12px">${mimeInfo(file.mimeType).icon}</div><p style="font-size:13px;margin-bottom:16px">Preview not available for this file type.<br>Click below to open in Google Drive.</p><a href="${file.webViewLink}" target="_blank" style="background:var(--accent);color:#fff;border-radius:10px;padding:10px 20px;text-decoration:none;font-family:'Syne',sans-serif;font-weight:700;font-size:13px">↗ Open in Drive</a></div>`;
-      }
-    }catch(e){
-      document.getElementById('preview-body').innerHTML=`<div style="text-align:center;padding:2rem;color:var(--muted)"><div style="font-size:48px;margin-bottom:12px">${mimeInfo(file.mimeType).icon}</div><p style="font-size:13px;margin-bottom:16px">${e.message||'Preview unavailable'}</p><a href="${file.webViewLink}" target="_blank" style="background:var(--accent);color:#fff;border-radius:10px;padding:10px 20px;text-decoration:none;font-family:'Syne',sans-serif;font-weight:700;font-size:13px">↗ Open in Drive</a></div>`;
-    }
-  }
-  function closePreview(e){if(e.target===document.getElementById('preview-panel'))closePreviewDirect();}
-  function closePreviewDirect(){document.getElementById('preview-panel').classList.remove('open');}
-
-  /* AI SUMMARY */
-  async function getAISummary(){
-    const body=document.getElementById('preview-body');
-    const existing=body.querySelector('.preview-content');
-    const text=existing?existing.textContent:'';
-    if(!text||text.length<50){toast('⚠️ No text content to summarize');return;}
-    const btn=document.getElementById('ai-btn');
-    btn.textContent='⏳ Summarizing...';btn.disabled=true;
-    const ak=localStorage.getItem('drivebot_ak');
-    if(!ak){
-      // Show key input prompt
-      const keyDiv=document.createElement('div');
-      keyDiv.className='ai-summary';
-      keyDiv.innerHTML=`<div class="ai-summary-title">🤖 AI Summary — API Key Required</div>
-        <p style="font-size:12px;color:var(--muted);margin-bottom:10px">To use AI summaries, enter your Anthropic API key once. It's stored only in your browser.</p>
-        <div style="display:flex;gap:8px">
-          <input type="text" id="ak-input" placeholder="sk-ant-..." style="flex:1;margin-bottom:0;padding:8px 12px;font-size:12px"/>
-          <button onclick="saveAKAndSummarize()" style="background:var(--accent);border:none;border-radius:8px;padding:8px 14px;color:#fff;font-family:'Syne',sans-serif;font-weight:700;font-size:12px;cursor:pointer;white-space:nowrap">Save & Summarize</button>
-        </div>`;
-      body.prepend(keyDiv);
-      btn.textContent='🤖 AI Summary';btn.disabled=false;
-      return;
-    }
-    await doSummarize(text,ak,btn);
-  }
-  async function saveAKAndSummarize(){
-    const ak=document.getElementById('ak-input')?.value?.trim();
-    if(!ak){toast('Please enter your API key');return;}
-    localStorage.setItem('drivebot_ak',ak);
-    document.querySelector('.ai-summary')?.remove();
-    const btn=document.getElementById('ai-btn');
-    btn.textContent='⏳ Summarizing...';btn.disabled=true;
-    const text=document.querySelector('.preview-content')?.textContent||'';
-    await doSummarize(text,ak,btn);
-  }
-  async function doSummarize(text,ak,btn){
-    try{
-      const r=await fetch('https://api.anthropic.com/v1/messages',{
-        method:'POST',
-        headers:{'Content-Type':'application/json','x-api-key':ak,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-calls':'true'},
-        body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:500,messages:[{role:'user',content:`Summarize this document in 3-5 bullet points. Be concise and focus on key information:\n\n${text.substring(0,4000)}`}]})
-      });
-      const d=await r.json();
-      const summary=d.content?.[0]?.text||'Could not generate summary.';
-      const summaryDiv=document.createElement('div');
-      summaryDiv.className='ai-summary';
-      summaryDiv.innerHTML=`<div class="ai-summary-title">🤖 AI Summary</div><div style="font-size:13px;line-height:1.7;white-space:pre-wrap">${summary}</div>`;
-      document.getElementById('preview-body').prepend(summaryDiv);
-      toast('✅ AI summary generated!');
-    }catch(e){toast('⚠️ AI error: '+e.message);}
-    btn.textContent='🤖 AI Summary';btn.disabled=false;
-  }
-
-  /* SHARE */
-  function shareFile(file){
-    currentFile=file;shareCurrentFile();
-  }
-  function shareCurrentFile(){
-    if(!currentFile||!currentFile.webViewLink){toast('No shareable link available');return;}
-    const body=document.getElementById('preview-body');
-    const existing=document.querySelector('.share-box');
-    if(existing){existing.remove();return;}
-    const shareDiv=document.createElement('div');
-    shareDiv.className='share-box';
-    shareDiv.innerHTML=`<div class="share-box-title">📤 Share this file</div>
-      <div class="share-link">
-        <input type="text" value="${currentFile.webViewLink}" readonly style="margin-bottom:0;font-size:11px"/>
-        <button class="copy-btn" onclick="copyLink('${currentFile.webViewLink}')">📋 Copy</button>
-      </div>
-      <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
-        <a href="mailto:?subject=${encodeURIComponent(currentFile.name)}&body=${encodeURIComponent('Check out this file: '+currentFile.webViewLink)}" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:6px 12px;font-size:11px;color:var(--text);text-decoration:none;font-family:'DM Mono',monospace">📧 Email</a>
-        <a href="https://wa.me/?text=${encodeURIComponent(currentFile.name+': '+currentFile.webViewLink)}" target="_blank" style="background:rgba(37,211,102,.1);border:1px solid rgba(37,211,102,.3);border-radius:8px;padding:6px 12px;font-size:11px;color:#25d366;text-decoration:none;font-family:'DM Mono',monospace">💬 WhatsApp</a>
-        <a href="https://t.me/share/url?url=${encodeURIComponent(currentFile.webViewLink)}&text=${encodeURIComponent(currentFile.name)}" target="_blank" style="background:rgba(0,136,204,.1);border:1px solid rgba(0,136,204,.3);border-radius:8px;padding:6px 12px;font-size:11px;color:#0088cc;text-decoration:none;font-family:'DM Mono',monospace">✈️ Telegram</a>
-      </div>`;
-    if(document.getElementById('preview-panel').classList.contains('open'))
-      body.prepend(shareDiv);
-    else{
-      openPreview(currentFile).then(()=>{document.getElementById('preview-body').prepend(shareDiv);});
-    }
-  }
-  function copyLink(url){navigator.clipboard.writeText(url).then(()=>toast('✅ Link copied!'));}
 
   /* DASHBOARD */
   async function loadDashboard(){
     const dash=document.getElementById('dash-content');
     dash.innerHTML=`<div class="dash-loading"><div class="spinner"></div><p>Loading your Drive stats...</p></div>`;
     try{
-      const{files:allFiles,hasMore}=await driveListAll("trashed=false",5);
-      const recentFiles=allFiles.slice(0,8);
+      const{files:all,hasMore}=await driveListAll("trashed=false",5);
       let docs=0,sheets=0,slides=0,pdfs=0,zips=0;
-      allFiles.forEach(f=>{const m=f.mimeType||'';if(m.includes('document')||m.includes('docx')||m.includes('msword'))docs++;else if(m.includes('spreadsheet')||m.includes('xlsx')||m.includes('csv'))sheets++;else if(m.includes('presentation')||m.includes('pptx'))slides++;else if(m.includes('pdf'))pdfs++;else if(m.includes('zip')||m.includes('compressed'))zips++;});
-      const total=allFiles.length,name=userProfile?.given_name||'there',hour=new Date().getHours();
+      all.forEach(f=>{const m=f.mimeType||'';if(m.includes('document')||m.includes('docx')||m.includes('msword'))docs++;else if(m.includes('spreadsheet')||m.includes('xlsx')||m.includes('csv'))sheets++;else if(m.includes('presentation')||m.includes('pptx'))slides++;else if(m.includes('pdf'))pdfs++;else if(m.includes('zip')||m.includes('compressed'))zips++;});
+      const total=all.length,name=userProfile?.given_name||'there',hour=new Date().getHours();
       const greeting=hour<12?'Good morning':hour<17?'Good afternoon':'Good evening';
+      const recent=all.slice(0,6);
       dash.innerHTML=`
         <div class="dash-greeting">${greeting}, <span>${name}</span> 👋</div>
-        <div class="dash-sub">Live overview of your Google Drive${hasMore?' (500+ files)':' · '+total+' files total'} · Click any card to browse</div>
-        <div class="dash-search"><div class="dash-search-title">🔍 Quick Search</div><div class="dash-search-row"><input class="dash-search-input" type="text" id="dash-query" placeholder="Search your Drive..." onkeydown="if(event.key==='Enter')dashSearch()"/><button class="dash-search-btn" onclick="dashSearch()">Search ↗</button></div></div>
+        <div class="dash-sub">Your Drive has ${total}${hasMore?'+':''} files · Click any card to browse</div>
+        <div class="dash-search"><div class="dash-search-title">🔍 Quick Search</div><div class="dash-search-row"><input class="dash-search-input" type="text" id="dq" placeholder="Search your Drive..." onkeydown="if(event.key==='Enter')dashSearch()"/><button class="dash-search-btn" onclick="dashSearch()">Search ↗</button></div></div>
         <div class="section-title">📊 Overview</div>
         <div class="stat-grid">
-          <div class="stat-card" onclick="openModal('','📁 All Files')"><div class="stat-icon">📁</div><div class="stat-val">${total}${hasMore?'+':''}</div><div class="stat-label">Total Files</div><div class="stat-click-hint">Browse all →</div></div>
-          <div class="stat-card" onclick="openModal('document','📄 Documents')"><div class="stat-icon">📄</div><div class="stat-val">${docs+sheets+slides}</div><div class="stat-label">Documents</div><div class="stat-click-hint">Browse docs →</div></div>
-          <div class="stat-card" onclick="openModal('zip','🗜 ZIP Archives')"><div class="stat-icon">🗜</div><div class="stat-val">${zips}</div><div class="stat-label">ZIP Archives</div><div class="stat-click-hint">Browse ZIPs →</div></div>
-          <div class="stat-card" onclick="openModal('pdf','📕 PDFs')"><div class="stat-icon">📕</div><div class="stat-val">${pdfs}</div><div class="stat-label">PDFs</div><div class="stat-click-hint">Browse PDFs →</div></div>
+          <div class="stat-card" onclick="openModal('','📁 All Files')"><div class="stat-icon">📁</div><div class="stat-val">${total}${hasMore?'+':''}</div><div class="stat-label">Total Files</div><div class="stat-hint">Browse all →</div></div>
+          <div class="stat-card" onclick="openModal('document','📄 Documents')"><div class="stat-icon">📄</div><div class="stat-val">${docs+sheets+slides}</div><div class="stat-label">Documents</div><div class="stat-hint">Browse →</div></div>
+          <div class="stat-card" onclick="openModal('zip','🗜 ZIPs')"><div class="stat-icon">🗜</div><div class="stat-val">${zips}</div><div class="stat-label">ZIP Archives</div><div class="stat-hint">Browse →</div></div>
+          <div class="stat-card" onclick="openModal('pdf','📕 PDFs')"><div class="stat-icon">📕</div><div class="stat-val">${pdfs}</div><div class="stat-label">PDFs</div><div class="stat-hint">Browse →</div></div>
         </div>
         <div class="section-title">🗂 Browse by Type</div>
         <div class="type-grid">
-          <div class="type-card" onclick="openModal('document','📄 Documents')"><div class="type-dot" style="background:var(--accent)"></div><div class="type-info"><div class="type-name">Docs</div><div class="type-count" style="color:var(--accent)">${docs}</div></div><div class="type-arrow">→</div></div>
-          <div class="type-card" onclick="openModal('spreadsheet','📊 Spreadsheets')"><div class="type-dot" style="background:var(--accent3)"></div><div class="type-info"><div class="type-name">Sheets</div><div class="type-count" style="color:var(--accent3)">${sheets}</div></div><div class="type-arrow">→</div></div>
-          <div class="type-card" onclick="openModal('presentation','📑 Presentations')"><div class="type-dot" style="background:var(--accent2)"></div><div class="type-info"><div class="type-name">Slides</div><div class="type-count" style="color:var(--accent2)">${slides}</div></div><div class="type-arrow">→</div></div>
-          <div class="type-card" onclick="openModal('pdf','📕 PDFs')"><div class="type-dot" style="background:var(--accent4)"></div><div class="type-info"><div class="type-name">PDFs</div><div class="type-count" style="color:var(--accent4)">${pdfs}</div></div><div class="type-arrow">→</div></div>
+          <div class="type-card" onclick="openModal('document','📄 Documents')"><div class="type-dot" style="background:var(--accent)"></div><div class="type-info"><div class="type-name">Docs</div><div class="type-count" style="color:var(--accent)">${docs}</div></div></div>
+          <div class="type-card" onclick="openModal('spreadsheet','📊 Sheets')"><div class="type-dot" style="background:var(--accent3)"></div><div class="type-info"><div class="type-name">Sheets</div><div class="type-count" style="color:var(--accent3)">${sheets}</div></div></div>
+          <div class="type-card" onclick="openModal('presentation','📑 Slides')"><div class="type-dot" style="background:var(--accent2)"></div><div class="type-info"><div class="type-name">Slides</div><div class="type-count" style="color:var(--accent2)">${slides}</div></div></div>
+          <div class="type-card" onclick="openModal('pdf','📕 PDFs')"><div class="type-dot" style="background:var(--accent4)"></div><div class="type-info"><div class="type-name">PDFs</div><div class="type-count" style="color:var(--accent4)">${pdfs}</div></div></div>
         </div>
         <div class="section-title">🕐 Recently Modified</div>
-        <div class="recent-list">${recentFiles.map((f,i)=>{const{icon,cls,label}=mimeInfo(f.mimeType);return`<div class="recent-item" style="animation-delay:${.05*i}s"><div class="recent-icon">${icon}</div><div class="recent-info"><div class="recent-name">${f.name}</div><div class="recent-meta">📅 ${fmtDate(f.modifiedTime)}</div></div><span class="recent-badge fbadge ${cls}">${label}</span><div style="display:flex;gap:5px;margin-left:6px"><button class="mfile-btn" onclick='openPreview(${JSON.stringify(f)})' title="Preview">👁</button><button class="mfile-btn" onclick='shareFile(${JSON.stringify(f)})' title="Share">📤</button><button class="mfile-btn ${isBookmarked(f.id)?'bm-active':''}" onclick='toggleBookmark(${JSON.stringify(f)})' title="Bookmark">${isBookmarked(f.id)?'⭐':'📌'}</button></div></div>`;}).join('')}</div>`;
-    }catch(e){dash.innerHTML=`<div style="padding:2rem;color:var(--accent2);font-size:13px">⚠️ Failed to load: ${e.message}</div>`;}
+        <div class="recent-list">${recent.map((f,i)=>{const{icon,cls,label}=mimeInfo(f.mimeType);return`<div class="recent-item" style="text-decoration:none"><div style="font-size:18px">${icon}</div><div style="flex:1;min-width:0"><div style="font-size:12px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${f.name}</div><div style="font-size:10px;color:var(--muted);margin-top:2px">${fmtDate(f.modifiedTime)}</div></div><span class="fbadge ${cls}" style="font-size:9px">${label}</span><div style="display:flex;gap:4px;margin-left:6px"><button class="mfile-btn" onclick='openCFP(${JSON.stringify(f)})'>🗣</button><button class="mfile-btn" onclick='openTagPanel(${JSON.stringify(f)})'>🏷</button><button class="mfile-btn" onclick='toggleBM(${JSON.stringify(f)})'>${isBookmarked(f.id)?'⭐':'📌'}</button></div></div>`;}).join('')}
+        </div>`;
+    }catch(e){document.getElementById('dash-content').innerHTML=`<div style="padding:2rem;color:var(--accent2);font-size:13px">⚠️ ${e.message}</div>`;}
   }
-  function dashSearch(){const q=document.getElementById('dash-query')?.value?.trim();if(!q)return;switchView('search',document.querySelectorAll('.nav-tab')[1]);document.getElementById('query').value=q;send();}
+  function dashSearch(){const q=document.getElementById('dq')?.value?.trim();if(!q)return;switchView('search',document.querySelectorAll('.nav-tab')[1]);document.getElementById('query').value=q;send();}
+
+  /* MODAL */
+  async function openModal(mime,title){modalFiles=[];modalPageToken=null;modalMime=mime;dateFrom=null;dateTo=null;document.getElementById('modal-title').textContent=title;document.getElementById('mc').textContent='Loading...';document.getElementById('mf').value='';document.getElementById('df').value='';document.getElementById('dt').value='';document.querySelectorAll('.preset').forEach((b,i)=>b.classList.toggle('on',i===0));document.getElementById('modal-body').innerHTML=`<div class="dash-loading"><div class="spinner"></div><p>Fetching files...</p></div>`;document.getElementById('modal-footer').style.display='none';document.getElementById('modal').classList.add('open');await fetchModalPage();}
+  async function fetchModalPage(){const q=modalMime?`mimeType contains '${modalMime}' and trashed=false`:`trashed=false`;const{files,nextPageToken}=await driveListPage(q,modalPageToken,50);modalPageToken=nextPageToken;modalFiles=modalFiles.concat(files);renderModal();}
+  function renderModal(filter=''){
+    let f=modalFiles;
+    if(dateFrom)f=f.filter(x=>new Date(x.modifiedTime)>=dateFrom);
+    if(dateTo)f=f.filter(x=>new Date(x.modifiedTime)<=new Date(dateTo.getTime()+864e5));
+    if(filter)f=f.filter(x=>x.name.toLowerCase().includes(filter.toLowerCase()));
+    const body=document.getElementById('modal-body');
+    if(!f.length){body.innerHTML=`<p style="padding:1.5rem 0;color:var(--muted);font-size:12px;text-align:center">No files found.</p>`;document.getElementById('mc').textContent='0 files';return;}
+    document.getElementById('mc').textContent=`${f.length} files${modalPageToken?' · more available':''}`;
+    body.innerHTML=f.map(x=>{const{label,cls,icon}=mimeInfo(x.mimeType);const bm=isBookmarked(x.id);const tags=getFileTags(x.id);return`<div class="mfile"><div class="mfile-icon">${icon}</div><div class="mfile-info"><div class="mfile-name">${x.name}</div><div class="mfile-meta">📅 ${fmtDate(x.modifiedTime)}${x.size?' · '+fmtSize(x.size):''}</div>${tags.length?`<div class="mfile-tags">${tags.map(t=>`<span class="tag tag-${t.color||'blue'}">${t.label}</span>`).join('')}</div>`:''}</div><span class="mfile-badge fbadge ${cls}">${label}</span><div class="mfile-actions"><button class="mfile-btn" onclick='openCFP(${JSON.stringify(x)})' title="Chat">🗣</button><button class="mfile-btn" onclick='openTagPanel(${JSON.stringify(x)})' title="Tag">🏷</button><button class="mfile-btn ${bm?'bm-active':''}" onclick='toggleBM(${JSON.stringify(x)});this.classList.toggle("bm-active");this.textContent="${bm?'📌':'⭐"}'>${bm?'⭐':'📌'}</button><a class="mfile-btn" href="${x.webViewLink||'#'}" target="_blank" style="text-decoration:none">↗</a></div></div>`;}).join('');
+    const footer=document.getElementById('modal-footer');
+    if(modalPageToken&&!filter&&!dateFrom&&!dateTo){footer.style.display='flex';document.getElementById('load-btn').disabled=false;}else footer.style.display='none';
+  }
+  function filterModal(v){renderModal(v);}
+  async function loadMore(){const btn=document.getElementById('load-btn');btn.disabled=true;btn.textContent='Loading...';await fetchModalPage();btn.textContent='Load more ↓';}
+  function setPreset(p,btn){document.querySelectorAll('.preset').forEach(b=>b.classList.remove('on'));btn.classList.add('on');const now=new Date();if(p==='all'){dateFrom=null;dateTo=null;document.getElementById('df').value='';document.getElementById('dt').value='';}else if(p==='7d'){dateFrom=new Date(now-7*864e5);dateTo=null;}else if(p==='30d'){dateFrom=new Date(now-30*864e5);dateTo=null;}else if(p==='90d'){dateFrom=new Date(now-90*864e5);dateTo=null;}renderModal(document.getElementById('mf').value);}
+  function applyDate(){const f=document.getElementById('df').value,t=document.getElementById('dt').value;dateFrom=f?new Date(f):null;dateTo=t?new Date(t):null;document.querySelectorAll('.preset').forEach(b=>b.classList.remove('on'));renderModal(document.getElementById('mf').value);}
+  function closeModal(e){if(e.target===document.getElementById('modal'))closeModalDirect();}
+  function closeModalDirect(){document.getElementById('modal').classList.remove('open');}
+
+  /* CHAT WITH FILE */
+  async function openCFP(file){
+    cfpFile=file;cfpHistory=[];cfpContent='';
+    const{icon}=mimeInfo(file.mimeType);
+    document.getElementById('cfp-icon').textContent=icon;
+    document.getElementById('cfp-name').textContent=file.name;
+    document.getElementById('cfp-msgs').innerHTML='';
+    document.getElementById('cfp-q').value='';
+    document.getElementById('cfp').classList.add('open');
+    const ak=localStorage.getItem('drivebot_ak');
+    document.getElementById('cfp-ak-notice').style.display=ak?'none':'block';
+    // Load file content
+    addCFPMsg('bot','Loading file content... 📄');
+    try{
+      cfpContent=await exportFile(file.id,file.mimeType);
+      document.getElementById('cfp-msgs').innerHTML='';
+      addCFPMsg('bot',`✅ File loaded! I've read <strong>${file.name}</strong>.<br><br>Ask me anything about this document — what it contains, key points, specific information, anything!`);
+    }catch(e){
+      document.getElementById('cfp-msgs').innerHTML='';
+      cfpContent='';
+      addCFPMsg('bot',`⚠️ I couldn't read this file's content directly (${e.message}). You can still ask questions and I'll try to help based on the filename and type. Or <a href="${file.webViewLink}" target="_blank" style="color:var(--accent)">open it in Drive</a> to read it.`);
+    }
+  }
+  function addCFPMsg(role,html){const msgs=document.getElementById('cfp-msgs');const wrap=document.createElement('div');wrap.className='cfp-msg '+role;const av=document.createElement('div');av.className='cfp-av '+role;av.textContent=role==='bot'?'🤖':'👤';const bub=document.createElement('div');bub.className='cfp-bubble';bub.innerHTML=html;wrap.appendChild(av);wrap.appendChild(bub);msgs.appendChild(wrap);msgs.scrollTop=msgs.scrollHeight;return bub;}
+  function addCFPThinking(){const msgs=document.getElementById('cfp-msgs');const wrap=document.createElement('div');wrap.className='cfp-msg bot';wrap.id='cfp-thinking';wrap.innerHTML=`<div class="cfp-av bot">🤖</div><div class="cfp-bubble"><div class="cfp-thinking"><span></span><span></span><span></span></div></div>`;msgs.appendChild(wrap);msgs.scrollTop=msgs.scrollHeight;}
+  function removeCFPThinking(){document.getElementById('cfp-thinking')?.remove();}
+  async function sendCFP(){
+    const q=document.getElementById('cfp-q').value.trim();if(!q)return;
+    const ak=localStorage.getItem('drivebot_ak');
+    if(!ak){promptAK();return;}
+    document.getElementById('cfp-q').value='';document.getElementById('cfp-send').disabled=true;
+    addCFPMsg('user',q);addCFPThinking();
+    cfpHistory.push({role:'user',content:q});
+    const systemPrompt=cfpContent
+      ?`You are a helpful assistant answering questions about a document named "${cfpFile.name}". Here is the document content:\n\n${cfpContent}\n\nAnswer questions based on this content. Be concise and helpful.`
+      :`You are a helpful assistant. The user is asking about a file named "${cfpFile.name}" (type: ${cfpFile.mimeType}). You don't have the file content but help as best you can.`;
+    try{
+      const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':ak,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-calls':'true'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:600,system:systemPrompt,messages:cfpHistory})});
+      const d=await r.json();const reply=d.content?.[0]?.text||'Sorry, no response.';
+      removeCFPThinking();addCFPMsg('bot',reply.replace(/\n/g,'<br>'));
+      cfpHistory.push({role:'assistant',content:reply});
+    }catch(e){removeCFPThinking();addCFPMsg('bot','⚠️ Error: '+e.message);}
+    document.getElementById('cfp-send').disabled=false;
+  }
+  function promptAK(){const ak=prompt('Enter your Anthropic API key to enable AI chat (stored in your browser):');if(ak){localStorage.setItem('drivebot_ak',ak);document.getElementById('cfp-ak-notice').style.display='none';toast('✅ API key saved!');}}
+  function closeCFP(e){if(e.target===document.getElementById('cfp'))closeCFPDirect();}
+  function closeCFPDirect(){document.getElementById('cfp').classList.remove('open');}
+
+  /* TAGS */
+  function openTagPanel(file){
+    tagFile=file;selectedTags=[...getFileTags(file.id)];
+    document.getElementById('tag-fname').textContent=file.name;
+    document.getElementById('tag-custom-input').value='';
+    renderTagGrid();
+    document.getElementById('tag-panel').classList.add('open');
+  }
+  function renderTagGrid(){
+    const grid=document.getElementById('tag-grid');
+    const colors=['red','blue','green','yellow','purple','gray'];
+    grid.innerHTML=PRESET_TAGS.map((t,i)=>{const sel=selectedTags.some(s=>s.label===t.label);return`<span class="tag tag-${colors[i]} tag-option ${sel?'selected':''}" onclick="toggleTag('${t.label}','${colors[i]}',this)">${t.label}</span>`;}).join('')+selectedTags.filter(t=>!PRESET_TAGS.some(p=>p.label===t.label)).map(t=>`<span class="tag tag-${t.color||'blue'} tag-option selected" onclick="toggleTag('${t.label}','${t.color||'blue'}',this)">${t.label} ✕</span>`).join('');
+  }
+  function toggleTag(label,color,el){const idx=selectedTags.findIndex(t=>t.label===label);if(idx>=0){selectedTags.splice(idx,1);el.classList.remove('selected');}else{selectedTags.push({label,color});el.classList.add('selected');}}
+  function addCustomTag(){const v=document.getElementById('tag-custom-input').value.trim();if(!v)return;if(!selectedTags.some(t=>t.label===v)){selectedTags.push({label:v,color:'blue'});}document.getElementById('tag-custom-input').value='';renderTagGrid();}
+  function saveTags(){if(!tagFile)return;fileTags[tagFile.id]=selectedTags;localStorage.setItem('drivebot_tags',JSON.stringify(fileTags));toast('🏷 Tags saved!');closeTagPanelDirect();}
+  function closeTagPanel(e){if(e.target===document.getElementById('tag-panel'))closeTagPanelDirect();}
+  function closeTagPanelDirect(){document.getElementById('tag-panel').classList.remove('open');}
+
+  /* BOOKMARKS */
+  function toggleBM(file){if(isBookmarked(file.id)){bookmarks=bookmarks.filter(b=>b.id!==file.id);toast('📌 Removed');}else{bookmarks.push(file);toast('📌 Bookmarked!');}localStorage.setItem('drivebot_bm',JSON.stringify(bookmarks));}
+  function renderBM(){
+    const area=document.getElementById('bm-content');
+    if(!bookmarks.length){area.innerHTML=`<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:4rem;gap:12px;color:var(--muted)"><div style="font-size:48px;opacity:.3">📌</div><p style="font-size:13px;text-align:center">No bookmarks yet.<br>Bookmark files from Search or Browse.</p></div>`;return;}
+    area.innerHTML=`<div class="section-title">📌 Saved Files (${bookmarks.length})</div><div style="display:flex;flex-direction:column;gap:8px">${bookmarks.map(f=>{const{icon,cls,label}=mimeInfo(f.mimeType);const tags=getFileTags(f.id);return`<div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:10px"><div style="font-size:18px">${icon}</div><div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${f.name}</div><div style="font-size:11px;color:var(--muted);margin-top:2px">${fmtDate(f.modifiedTime)}</div>${tags.length?`<div style="display:flex;gap:4px;flex-wrap:wrap;margin-top:4px">${tags.map(t=>`<span class="tag tag-${t.color||'blue'}">${t.label}</span>`).join('')}</div>`:''}</div><span class="fbadge ${cls}">${label}</span><div style="display:flex;gap:4px"><button class="mfile-btn" onclick='openCFP(${JSON.stringify(f)})'>🗣</button><button class="mfile-btn" onclick='openTagPanel(${JSON.stringify(f)})'>🏷</button><a class="mfile-btn" href="${f.webViewLink||'#'}" target="_blank" style="text-decoration:none">↗ Open</a><button class="mfile-btn" style="color:var(--accent2)" onclick='bookmarks=bookmarks.filter(b=>b.id!=="'+f.id+'");localStorage.setItem("drivebot_bm",JSON.stringify(bookmarks));renderBM();toast("Removed")'>🗑</button></div></div>`;}).join('')}</div>`;
+  }
+
+  /* TEAM ACTIVITY */
+  async function loadActivity(){
+    const area=document.getElementById('activity-content');
+    area.innerHTML=`<div class="dash-loading"><div class="spinner"></div><p>Loading team activity...</p></div>`;
+    try{
+      // Fetch recently shared with me + recently modified
+      const [sharedRes,modifiedRes]=await Promise.all([
+        driveListPage("sharedWithMe=true and trashed=false",null,20),
+        driveListPage("trashed=false",null,20)
+      ]);
+      const shared=sharedRes.files||[];const modified=modifiedRes.files||[];
+      // Combine and sort
+      const combined=[
+        ...shared.map(f=>({...f,actType:'shared'})),
+        ...modified.slice(0,10).map(f=>({...f,actType:'modified'}))
+      ].sort((a,b)=>new Date(b.modifiedTime)-new Date(a.modifiedTime)).slice(0,30);
+      if(!combined.length){area.innerHTML=`<div style="padding:2rem;color:var(--muted);font-size:13px;text-align:center">No recent activity found.</div>`;return;}
+      area.innerHTML=`
+        <div class="dash-greeting" style="font-size:18px">📡 Team Activity</div>
+        <div class="dash-sub" style="margin-bottom:1.5rem">Recently shared & modified files in your Drive</div>
+        <div class="section-title">🔄 Recent Files</div>
+        <div class="activity-list">${combined.map((f,i)=>{const{icon,cls,label}=mimeInfo(f.mimeType);const isShared=f.actType==='shared';return`<div class="activity-item" style="animation-delay:${.04*i}s">
+          <div class="activity-icon">${icon}</div>
+          <div class="activity-info">
+            <div class="activity-name">${f.name}</div>
+            <div class="activity-meta">📅 ${fmtDate(f.modifiedTime)} ${f.sharingUser?'· Shared by '+f.sharingUser.displayName:''}</div>
+          </div>
+          <span class="activity-badge ${isShared?'act-shared':'act-modified'}">${isShared?'Shared':'Modified'}</span>
+          <span class="fbadge ${cls}" style="font-size:9px">${label}</span>
+          <div style="display:flex;gap:4px;margin-left:4px">
+            <button class="mfile-btn" onclick='openCFP(${JSON.stringify(f)})'>🗣</button>
+            <button class="mfile-btn" onclick='toggleBM(${JSON.stringify(f)})'>📌</button>
+            <a class="mfile-btn" href="${f.webViewLink||'#'}" target="_blank" style="text-decoration:none">↗</a>
+          </div>
+        </div>`;}).join('')}</div>`;
+    }catch(e){area.innerHTML=`<div style="padding:2rem;color:var(--accent2);font-size:13px">⚠️ ${e.message}</div>`;}
+  }
+
+  /* ADMIN */
+  function renderAdmin(){
+    const isAdmin=userProfile?.email===localStorage.getItem('drivebot_admin_email')||!localStorage.getItem('drivebot_admin_email');
+    const area=document.getElementById('admin-content');
+    area.innerHTML=`
+      <div class="dash-greeting" style="font-size:18px">🔐 Admin Panel</div>
+      <div class="dash-sub" style="margin-bottom:1.5rem">Manage DriveBot settings for your team of 70</div>
+
+      ${!isAdmin?`<div style="background:rgba(248,91,138,.08);border:1px solid rgba(248,91,138,.25);border-radius:12px;padding:1rem;font-size:13px;color:var(--accent2)">⚠️ You don't have admin access. Contact your DriveBot admin.</div>`:
+      `<div class="admin-card">
+        <div class="admin-card-title">👥 Team Stats</div>
+        <div class="admin-stat"><span>Admin Email</span><span class="admin-stat-val">${userProfile?.email||'—'}</span></div>
+        <div class="admin-stat"><span>Bookmarks saved</span><span class="admin-stat-val">${bookmarks.length}</span></div>
+        <div class="admin-stat"><span>Tagged files</span><span class="admin-stat-val">${Object.keys(fileTags).length}</span></div>
+        <div class="admin-stat"><span>Blocked users</span><span class="admin-stat-val">${adminSettings.blockedEmails.length}</span></div>
+      </div>
+
+      <div class="admin-card">
+        <div class="admin-card-title">⚙️ Feature Controls</div>
+        ${[['allowAI','🤖 AI Chat with Files','Allow team to use AI chat feature'],['allowShare','📤 File Sharing','Allow sharing files via WhatsApp/Email/Telegram'],['allowTag','🏷 File Tagging','Allow team to tag and label files']].map(([key,label,desc])=>`
+          <div class="admin-toggle">
+            <div class="admin-toggle-info"><div class="admin-toggle-label">${label}</div><div class="admin-toggle-desc">${desc}</div></div>
+            <button class="toggle-sw ${adminSettings[key]?'on':''}" onclick="toggleSetting('${key}',this)"></button>
+          </div>`).join('')}
+      </div>
+
+      <div class="admin-card">
+        <div class="admin-card-title">🚫 Block Users</div>
+        <p style="font-size:12px;color:var(--muted);margin-bottom:10px">Blocked users cannot sign in to DriveBot</p>
+        <div class="admin-input-row">
+          <input class="admin-input" type="text" id="block-email" placeholder="user@company.com"/>
+          <button class="admin-btn" onclick="blockUser()">Block</button>
+        </div>
+        <div class="blocked-list" id="blocked-list">${adminSettings.blockedEmails.map(e=>`<div class="blocked-item"><span>${e}</span><button class="blocked-remove" onclick="unblockUser('${e}')">✕ Remove</button></div>`).join('')}</div>
+      </div>
+
+      <div class="admin-card">
+        <div class="admin-card-title">🔑 Admin Access</div>
+        <p style="font-size:12px;color:var(--muted);margin-bottom:10px">Set which email has admin privileges</p>
+        <div class="admin-input-row">
+          <input class="admin-input" type="text" id="admin-email" placeholder="admin@company.com" value="${localStorage.getItem('drivebot_admin_email')||userProfile?.email||''}"/>
+          <button class="admin-btn" onclick="setAdminEmail()">Save</button>
+        </div>
+      </div>
+
+      <div class="admin-card">
+        <div class="admin-card-title">📋 Share Bot with Team</div>
+        <p style="font-size:12px;color:var(--muted);margin-bottom:10px">Share this URL with your 70 team members</p>
+        <div style="display:flex;gap:8px;align-items:center">
+          <input class="admin-input" type="text" value="${window.location.origin}" readonly style="color:var(--accent3)"/>
+          <button class="admin-btn" onclick="navigator.clipboard.writeText('${window.location.origin}').then(()=>toast('✅ URL copied!'))">Copy</button>
+        </div>
+        <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
+          <a href="mailto:?subject=DriveBot - Team Document Search&body=Hi team,%0A%0AUse this link to search your Google Drive documents:%0A${window.location.origin}%0A%0ASign in with your Google account to get started!" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:7px 14px;font-size:11px;color:var(--text);text-decoration:none">📧 Email Team</a>
+          <a href="https://wa.me/?text=${encodeURIComponent('Hey team! Use DriveBot to search your Google Drive documents: '+window.location.origin)}" target="_blank" style="background:rgba(37,211,102,.1);border:1px solid rgba(37,211,102,.3);border-radius:8px;padding:7px 14px;font-size:11px;color:#25d366;text-decoration:none">💬 WhatsApp</a>
+          <a href="https://t.me/share/url?url=${encodeURIComponent(window.location.origin)}&text=${encodeURIComponent('Use DriveBot to search your Google Drive!')}" target="_blank" style="background:rgba(0,136,204,.1);border:1px solid rgba(0,136,204,.3);border-radius:8px;padding:7px 14px;font-size:11px;color:#0088cc;text-decoration:none">✈️ Telegram</a>
+        </div>
+      </div>`}`;
+  }
+  function toggleSetting(key,btn){adminSettings[key]=!adminSettings[key];btn.classList.toggle('on',adminSettings[key]);localStorage.setItem('drivebot_admin',JSON.stringify(adminSettings));toast(adminSettings[key]?'✅ Enabled':'⚫ Disabled');}
+  function blockUser(){const e=document.getElementById('block-email').value.trim();if(!e||!e.includes('@')){toast('⚠️ Enter a valid email');return;}if(!adminSettings.blockedEmails.includes(e)){adminSettings.blockedEmails.push(e);localStorage.setItem('drivebot_admin',JSON.stringify(adminSettings));toast('🚫 User blocked');renderAdmin();}}
+  function unblockUser(e){adminSettings.blockedEmails=adminSettings.blockedEmails.filter(x=>x!==e);localStorage.setItem('drivebot_admin',JSON.stringify(adminSettings));toast('✅ Unblocked');renderAdmin();}
+  function setAdminEmail(){const e=document.getElementById('admin-email').value.trim();if(!e){return;}localStorage.setItem('drivebot_admin_email',e);toast('✅ Admin email saved');renderAdmin();}
 
   /* SEARCH */
   function fillQ(t){document.getElementById('query').value=t;document.getElementById('query').focus();}
-  function addMsg(role,html){
-    const chat=document.getElementById('chat'),wrap=document.createElement('div');wrap.className='msg '+role;
-    const av=document.createElement('div');av.className='av '+(role==='bot'?'bot':'user-av');
-    if(role==='user'&&userProfile?.picture)av.innerHTML=`<img src="${userProfile.picture}" alt=""/>`;
-    else if(role==='bot')av.textContent='🤖';else av.textContent='👤';
-    const bub=document.createElement('div');bub.className='bubble';bub.innerHTML=html;
-    wrap.appendChild(av);wrap.appendChild(bub);chat.appendChild(wrap);chat.scrollTop=chat.scrollHeight;
-  }
-  function addThinking(){const chat=document.getElementById('chat'),wrap=document.createElement('div');wrap.className='msg bot';wrap.id='thinking';wrap.innerHTML=`<div class="av bot">🤖</div><div class="bubble"><div class="thinking"><span></span><span></span><span></span></div></div>`;chat.appendChild(wrap);chat.scrollTop=chat.scrollHeight;}
+  function addMsg(role,html){const chat=document.getElementById('chat');const wrap=document.createElement('div');wrap.className='msg '+role;const av=document.createElement('div');av.className='av '+(role==='bot'?'bot':'user-av');if(role==='user'&&userProfile?.picture)av.innerHTML=`<img src="${userProfile.picture}" alt=""/>`;else if(role==='bot')av.textContent='🤖';else av.textContent='👤';const bub=document.createElement('div');bub.className='bubble';bub.innerHTML=html;wrap.appendChild(av);wrap.appendChild(bub);chat.appendChild(wrap);chat.scrollTop=chat.scrollHeight;}
+  function addThinking(){const chat=document.getElementById('chat');const w=document.createElement('div');w.className='msg bot';w.id='thinking';w.innerHTML=`<div class="av bot">🤖</div><div class="bubble"><div class="thinking"><span></span><span></span><span></span></div></div>`;chat.appendChild(w);chat.scrollTop=chat.scrollHeight;}
   function removeThinking(){document.getElementById('thinking')?.remove();}
   async function send(){
     const input=document.getElementById('query'),btn=document.getElementById('send-btn');
     const q=input.value.trim();if(!q||btn.disabled)return;
-    document.getElementById('chips').style.display='none';
-    input.value='';btn.disabled=true;addMsg('user',q);addThinking();
+    document.getElementById('chips').style.display='none';input.value='';btn.disabled=true;
+    addMsg('user',q);addThinking();
     try{
       const files=await driveSearch(q);removeThinking();
       if(files.length){
-        addMsg('bot',`Found <strong>${files.length} file${files.length>1?'s':''}</strong> matching "<em>${q}</em>":`);
+        addMsg('bot',`Found <strong>${files.length} file${files.length>1?'s':''}</strong> for "<em>${q}</em>" — Chat, Tag, Bookmark or Share:`);
         const chat=document.getElementById('chat'),d=document.createElement('div');
-        d.innerHTML=`<div class="results-wrap">${files.map(f=>{
-          const{label,cls,icon}=mimeInfo(f.mimeType);const bm=isBookmarked(f.id);
-          return`<div class="rcard"><div class="rcard-top"><span class="fbadge ${cls}">${label}</span><div class="rcard-name" title="${f.name}">${icon} ${f.name}</div></div><div class="rcard-meta">📅 ${fmtDate(f.modifiedTime)}${f.size?' · '+fmtSize(f.size):''}</div><div class="rcard-actions"><button class="rcard-btn" onclick='openPreview(${JSON.stringify(f)})'>👁 Preview</button><button class="rcard-btn ${bm?'bm':''}" onclick='toggleBookmark(${JSON.stringify(f)});this.className="rcard-btn bm";this.textContent="${bm?'⭐':'📌'} Bookmark"'>${bm?'⭐':'📌'} Bookmark</button><button class="rcard-btn share" onclick='shareFile(${JSON.stringify(f)})'>📤 Share</button>${f.webViewLink?`<a class="rcard-btn" href="${f.webViewLink}" target="_blank" style="text-decoration:none">↗ Open</a>`:''}</div></div>`;
-        }).join('')}</div>`;
+        d.innerHTML=`<div class="results-wrap">${files.map(f=>{const{label,cls,icon}=mimeInfo(f.mimeType);const bm=isBookmarked(f.id);const tags=getFileTags(f.id);return`<div class="rcard"><div class="rcard-top"><span class="fbadge ${cls}">${label}</span><div class="rcard-name" title="${f.name}">${icon} ${f.name}</div></div><div class="rcard-meta">📅 ${fmtDate(f.modifiedTime)}${f.size?' · '+fmtSize(f.size):''}</div>${tags.length?`<div class="rcard-tags">${tags.map(t=>`<span class="tag tag-${t.color||'blue'}">${t.label}</span>`).join('')}</div>`:''}<div class="rcard-actions"><button class="rcard-btn chat" onclick='openCFP(${JSON.stringify(f)})'>🗣 Chat</button><button class="rcard-btn tag" onclick='openTagPanel(${JSON.stringify(f)})'>🏷 Tag</button><button class="rcard-btn bm" onclick='toggleBM(${JSON.stringify(f)});this.textContent="${bm?'📌 Save':'⭐ Saved"'}'>${bm?'⭐ Saved':'📌 Save'}</button><button class="rcard-btn share" onclick='navigator.clipboard.writeText("${f.webViewLink||''}").then(()=>toast("📤 Link copied!"))'>📤 Share</button>${f.webViewLink?`<a class="rcard-btn" href="${f.webViewLink}" target="_blank" style="text-decoration:none">↗ Open</a>`:''}</div></div>`;}).join('')}</div>`;
         chat.appendChild(d);chat.scrollTop=chat.scrollHeight;
       }else{addMsg('bot',`😕 No files found for "<em>${q}</em>". Try different keywords.`);}
-    }catch(e){
-      removeThinking();const chat=document.getElementById('chat'),d=document.createElement('div');
-      d.style.paddingLeft='40px';d.innerHTML=`<div class="err-box">⚠️ ${e.message}. Try signing out and back in.</div>`;
-      chat.appendChild(d);chat.scrollTop=chat.scrollHeight;
-    }
+    }catch(e){removeThinking();const chat=document.getElementById('chat'),d=document.createElement('div');d.style.paddingLeft='38px';d.innerHTML=`<div class="err-box">⚠️ ${e.message}</div>`;chat.appendChild(d);chat.scrollTop=chat.scrollHeight;}
     btn.disabled=false;input.focus();
   }
 </script>
