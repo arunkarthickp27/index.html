@@ -579,7 +579,28 @@
     const body=document.getElementById('modal-body');
     if(!f.length){body.innerHTML=`<p style="padding:1.5rem 0;color:var(--muted);font-size:12px;text-align:center">No files found.</p>`;document.getElementById('mc').textContent='0 files';return;}
     document.getElementById('mc').textContent=`${f.length} files${modalPageToken?' · more available':''}`;
-    body.innerHTML=f.map(x=>{const{label,cls,icon}=mimeInfo(x.mimeType);const bm=isBookmarked(x.id);const tags=getFileTags(x.id);return`<div class="mfile"><div class="mfile-icon">${icon}</div><div class="mfile-info"><div class="mfile-name">${x.name}</div><div class="mfile-meta">📅 ${fmtDate(x.modifiedTime)}${x.size?' · '+fmtSize(x.size):''}</div>${tags.length?`<div class="mfile-tags">${tags.map(t=>`<span class="tag tag-${t.color||'blue'}">${t.label}</span>`).join('')}</div>`:''}</div><span class="mfile-badge fbadge ${cls}">${label}</span><div class="mfile-actions"><button class="mfile-btn" onclick='openCFP(${JSON.stringify(x)})' title="Chat">🗣</button><button class="mfile-btn" onclick='openTagPanel(${JSON.stringify(x)})' title="Tag">🏷</button><button class="mfile-btn ${bm?'bm-active':''}" onclick='toggleBM(${JSON.stringify(x)});this.classList.toggle("bm-active");this.textContent="${bm?'📌':'⭐"}'>${bm?'⭐':'📌'}</button><a class="mfile-btn" href="${x.webViewLink||'#'}" target="_blank" style="text-decoration:none">↗</a></div></div>`;}).join('');
+    body.innerHTML=f.map(x=>{
+      const{label,cls,icon}=mimeInfo(x.mimeType);
+      const bm=isBookmarked(x.id);
+      const tags=getFileTags(x.id);
+      const tagHtml=tags.length?'<div class="mfile-tags">'+tags.map(t=>'<span class="tag tag-'+(t.color||'blue')+'">'+t.label+'</span>').join('')+'</div>':'';
+      const xj=JSON.stringify(x);
+      return '<div class="mfile">'
+        +'<div class="mfile-icon">'+icon+'</div>'
+        +'<div class="mfile-info">'
+          +'<div class="mfile-name">'+x.name+'</div>'
+          +'<div class="mfile-meta">📅 '+fmtDate(x.modifiedTime)+(x.size?' · '+fmtSize(x.size):'')+'</div>'
+          +tagHtml
+        +'</div>'
+        +'<span class="mfile-badge fbadge '+cls+'">'+label+'</span>'
+        +'<div class="mfile-actions">'
+          +'<button class="mfile-btn" onclick=\'openCFP('+xj+')\'  >🗣</button>'
+          +'<button class="mfile-btn" onclick=\'openTagPanel('+xj+')\'  >🏷</button>'
+          +'<button class="mfile-btn '+(bm?'bm-active':'')+'" onclick=\'toggleBM('+xj+')\'>'+(bm?'⭐':'📌')+'</button>'
+          +'<a class="mfile-btn" href="'+(x.webViewLink||'#')+'" target="_blank" style="text-decoration:none">↗</a>'
+        +'</div>'
+      +'</div>';
+    }).join('');
     const footer=document.getElementById('modal-footer');
     if(modalPageToken&&!filter&&!dateFrom&&!dateTo){footer.style.display='flex';document.getElementById('load-btn').disabled=false;}else footer.style.display='none';
   }
