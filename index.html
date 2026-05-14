@@ -389,16 +389,7 @@ function handleToken(resp){
   accessToken=resp.access_token;
   fetch('https://www.googleapis.com/oauth2/v3/userinfo',{headers:{Authorization:'Bearer '+accessToken}}).then(function(r){return r.json();}).then(function(d){
     userProfile=d;
-    // Access control — only allowed emails can use this bot
-    var ALLOWED_EMAILS=['arunkarthick.p@customerxps.com'];
-    var userEmail = d.email || '';
-    var allowed = ALLOWED_EMAILS.length === 0 || ALLOWED_EMAILS.some(function(e){ return e.toLowerCase() === userEmail.toLowerCase(); });
-    if(!allowed){
-      accessToken=null;
-      document.getElementById('login-screen').innerHTML='<div class="login-card" style="text-align:center"><div style="font-size:48px;margin-bottom:1rem">🔒</div><div class="brand-name" style="margin-bottom:1rem;font-family:Syne,sans-serif;font-size:22px;font-weight:800">Access Restricted</div><p style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:1.5rem">Hi <strong>'+(d.given_name||'there')+'</strong>, this DriveBot is private.<br>You are not authorized to access it.<br><br>Contact <strong>Arun</strong> if you need access.</p><p style="font-size:11px;color:var(--muted)">Signed in as: '+(userEmail||'unknown')+'</p></div>';
-      return;
-    }
-    document.getElementById('user-name').textContent=d.given_name||'You';
+        document.getElementById('user-name').textContent=d.given_name||'You';
     if(d.picture) document.getElementById('user-avatar').src=d.picture;
     document.getElementById('login-screen').style.display='none';
     document.getElementById('clientid-screen').style.display='none';
