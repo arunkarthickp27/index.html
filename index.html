@@ -360,6 +360,7 @@ function store(f){if(f&&f.id) STORE[f.id]=f;}
 
 // ── BOOKMARK ───────────────────────────────────────────
 function bmToggle(id){
+  id=typeof id==='object'?id.dataset.bmid:id;
   var f=STORE[id];
   if(!f){toast('Cannot bookmark – file not in cache');return;}
   if(isBM(id)){
@@ -378,7 +379,7 @@ function bmToggle(id){
 }
 function bmBtn(id){
   var on=isBM(id);
-  return '<button class="xbtn'+(on?' bm-on':'')+'" data-bmid="'+id+'" onclick="bmToggle(\''+id+'\')">'+(on?'⭐':'📌')+'</button>';
+  return '<button class="xbtn'+(on?' bm-on':'')+'" data-bmid="'+id+'" onclick="bmToggle(this.dataset.bmid)">'+(on?'⭐':'📌')+'</button>';
 }
 function dlBtn(id){
   return '<button class="xbtn" onclick="deepLink(\''+id+'\')">🔗</button>';
@@ -843,7 +844,7 @@ function send(){
           +'<div class="rmeta">'+fmtDate(f.modifiedTime)+(f.size?' · '+fmtSize(f.size):'')+'</div>'
           +'<div class="racts">'
           +'<button class="rbtn link" onclick="deepLink(\''+f.id+'\')">🔗 Deep Link</button>'
-          +'<button class="rbtn bm'+(isBM(f.id)?' bm-on':'')+'" data-bmid="'+f.id+'" onclick="bmToggle(\''+f.id+'\')">'+(isBM(f.id)?'⭐ Saved':'📌 Save')+'</button>'
+          +'<button class="rbtn bm'+(isBM(f.id)?' bm-on':'')+'" data-bmid="'+f.id+'" onclick="bmToggle(this.dataset.bmid)">'+(isBM(f.id)?'⭐ Saved':'📌 Save')+'</button>'
           +(f.webViewLink?'<a class="rbtn" href="'+f.webViewLink+'" target="_blank">↗ Open</a>':'')
           +'</div></div>';
       });
