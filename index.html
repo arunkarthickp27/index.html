@@ -730,7 +730,9 @@
     if(!localStorage.getItem('drivebot_admin_email') && userProfile?.email) {
       localStorage.setItem('drivebot_admin_email', userProfile.email);
     }
-    const isAdmin=userProfile?.email===localStorage.getItem('drivebot_admin_email');
+    const ADMIN_EMAIL='arunkarthick.p@customerxps.com';
+    if(!localStorage.getItem('drivebot_admin_email')){localStorage.setItem('drivebot_admin_email',ADMIN_EMAIL);}
+    const isAdmin=userProfile?.email===ADMIN_EMAIL||userProfile?.email===localStorage.getItem('drivebot_admin_email');
     const area=document.getElementById('admin-content');
     area.innerHTML=`
       <div class="dash-greeting" style="font-size:18px">🔐 Admin Panel</div>
