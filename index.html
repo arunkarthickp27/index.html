@@ -421,8 +421,23 @@ window.addEventListener('load',function(){
   var theme=localStorage.getItem('akbot_theme');
   if(theme==='light'){DARK=false;document.documentElement.setAttribute('data-theme','light');document.getElementById('theme-btn').textContent='☀️';}
   var cid=localStorage.getItem('akbot_cid');
-  if(cid) initGA(cid);
+  var email=localStorage.getItem('akbot_email');
+  if(cid){
+    if(email){
+      var ls=document.getElementById('login-screen');
+      ls.innerHTML='<div style="text-align:center;color:var(--muted)">'
+        +'<div style="width:40px;height:40px;border-radius:50%;border:3px solid var(--border);border-top-color:var(--accent);animation:spin .8s linear infinite;margin:0 auto 16px"></div>'
+        +'<div style="font-size:13px;margin-bottom:12px">Signing in as <strong>'+email+'</strong>...</div>'
+        '<button onclick="localStorage.removeItem(\'akbot_email\');location.reload()" style="font-size:11px;color:var(--muted);background:none;border:none;cursor:pointer;text-decoration:underline">Use a different account</button>'
+        +'</div>';
+    }
+    initGA(cid);
+  }
 });
+function manualSignIn(){
+  localStorage.removeItem('akbot_email');
+  location.reload();
+}
 function startSetup(){
   var cid=localStorage.getItem('akbot_cid');
   if(cid){signIn();return;}
@@ -437,6 +452,7 @@ function saveCid(){
   document.getElementById('login-screen').style.display='flex';
   initGA(cid);signIn();
 }
+function switchAccount(){localStorage.removeItem("akbot_email");location.reload();}
 function initGA(cid){
   function t(){
     if(typeof google==='undefined'){setTimeout(t,200);return;}
@@ -445,30 +461,16 @@ function initGA(cid){
       scope:'https://www.googleapis.com/auth/drive.readonly https://www.googleapis.com/auth/userinfo.profile',
       callback:handleTok
     });
-    // Try silent sign-in first (no account picker popup)
+    // Auto sign-in silently if we have email hint
     var hint=localStorage.getItem('akbot_email');
     if(hint){
-      google.accounts.id.initialize({
-        client_id:cid,
-        callback:function(){},
-        auto_select:true
-      });
+      TC.requestAccessToken({prompt:'',login_hint:hint});
     }
-    silentSignIn(cid);
   }
   t();
 }
-function silentSignIn(cid){
-  // Try to get token silently without user interaction
-  if(!TC){setTimeout(function(){silentSignIn(cid);},300);return;}
-  var hint=localStorage.getItem('akbot_email');
-  if(hint){
-    TC.requestAccessToken({prompt:'',login_hint:hint});
-  }
-}
 function signIn(){
   if(!TC){setTimeout(signIn,300);return;}
-  // Show account picker only on manual sign-in
   TC.requestAccessToken({prompt:'select_account'});
 }
 function handleTok(resp){
