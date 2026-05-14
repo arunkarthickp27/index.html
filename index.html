@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>DriveBot – My Drive Assistant</title>
+  <title>AK Bot – My Drive Assistant</title>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
   <style>
     [data-theme="dark"]{--bg:#08080f;--surface:#111118;--surface2:#18181f;--surface3:#1f1f28;--border:#252535;--border2:#2e2e42;--text:#e2e2f0;--muted:#65657a;--accent:#5b6af8;--accent2:#f85b8a;--accent3:#38e8a0;--accent4:#fbbf24;--shadow:rgba(0,0,0,0.5);--glow:rgba(91,106,248,0.12)}
@@ -225,7 +225,7 @@
 <body>
 <div id="login-screen">
   <div class="login-card">
-    <div class="brand"><div class="brand-icon">🤖</div><div class="brand-name">Drive<span>Bot</span></div></div>
+    <div class="brand"><div class="brand-icon">🤖</div><div class="brand-name">AK <span>Bot</span></div></div>
     <div class="login-headline">Your Personal Drive Assistant</div>
     <div class="login-sub"></div>
     <button class="btn-google" onclick="startSetup()">
@@ -267,7 +267,7 @@
 </div>
 <div id="app">
   <header class="app-header">
-    <div class="header-left"><div class="h-icon">🤖</div><div class="h-title">Drive<span>Bot</span></div></div>
+    <div class="header-left"><div class="h-icon">🤖</div><div class="h-title">AK <span>Bot</span></div></div>
     <div class="nav-tabs">
       <button class="nav-tab active" onclick="switchView('dashboard',this)">📊 Dashboard</button>
       <button class="nav-tab" onclick="switchView('search',this)">🔍 Search</button>
@@ -315,16 +315,25 @@ function goToFolderByLink(){
   var url=input.value.trim();
   if(!url){alert('Please paste a Google Drive folder link');return;}
   var folderId=null;
-  var m1=url.match(/\/folders\/([a-zA-Z0-9_-]+)/);
-  if(m1) folderId=m1[1];
-  if(!folderId){var m2=url.match(/[?&]id=([a-zA-Z0-9_-]+)/);if(m2)folderId=m2[1];}
-  if(!folderId&&url.match(/^[a-zA-Z0-9_-]{25,}$/)) folderId=url.trim();
+  // Try to extract folder ID from URL
+  var parts=url.split('/');
+  var idx=parts.indexOf('folders');
+  if(idx>=0 && parts[idx+1]){
+    folderId=parts[idx+1].split('?')[0];
+  }
+  if(!folderId){
+    var qIdx=url.indexOf('?id=');
+    if(qIdx>=0) folderId=url.substring(qIdx+4).split('&')[0];
+  }
+  if(!folderId && url.length>20 && !url.includes('/')){
+    folderId=url;
+  }
   if(!folderId){alert('Could not extract folder ID. Please check the URL.');return;}
   input.value='';
   folderStack=[{id:'root',name:'My Drive'},{id:folderId,name:'Shared Folder'}];
   renderBreadcrumb();
   loadFolder(folderId);
-  toast('Loading shared folder...');
+  toast('Loading folder...');
 }
   // Extract folder ID from various Drive URL formats
   var folderId = null;
@@ -550,11 +559,13 @@ function goToFolder(idx){folderStack=folderStack.slice(0,idx+1);loadFolder(folde
 function renderBreadcrumb(){
   var bc=document.getElementById('breadcrumb');
   var current=folderStack[folderStack.length-1];
+  var bm=isBookmarked(current.id);
   var bmObj={id:current.id,name:current.name,mimeType:'application/vnd.google-apps.folder',modifiedTime:new Date().toISOString(),webViewLink:'https://drive.google.com/drive/folders/'+current.id};
-  var bmBtn=current.id!=='root'?'<button onclick="toggleBM('+JSON.stringify(bmObj)+');renderBreadcrumb()" style="margin-left:8px;background:none;border:1px solid var(--border);border-radius:7px;padding:3px 8px;font-size:11px;cursor:pointer;color:'+(isBookmarked(current.id)?'var(--accent4)':'var(--muted)')+';">'+(isBookmarked(current.id)?'⭐ Saved':'📌 Bookmark this folder')+'</button>':'';
-  bc.innerHTML=folderStack.map(function(f,i){return'<span class="bc-item'+(i===folderStack.length-1?' active':'')+'" onclick="goToFolder('+i+')">'+f.name+'</span>'+(i<folderStack.length-1?'<span class="bc-sep">›</span>':'');}).join('')+bmBtn;
+  var bmBtnHTML=current.id!=='root'
+    ? '<button id="bm-folder-btn" onclick="toggleBM('+JSON.stringify(bmObj)+');renderBreadcrumb()" style="margin-left:8px;background:none;border:1px solid var(--border);border-radius:7px;padding:4px 10px;font-size:11px;cursor:pointer;color:'+(bm?'var(--accent4)':'var(--muted)')+';">'+( bm?'⭐ Bookmarked':'📌 Bookmark this folder')+'</button>'
+    : '';
+  bc.innerHTML=folderStack.map(function(f,i){return'<span class="bc-item'+(i===folderStack.length-1?' active':'')+'" onclick="goToFolder('+i+')">'+f.name+'</span>'+(i<folderStack.length-1?'<span class="bc-sep">›</span>':'');}).join('')+bmBtnHTML;
 }
-
 function renderCalendar(){
   var content=document.getElementById('cal-content');
   content.innerHTML='<div class="dash-loading"><div class="spinner"></div><p>Loading calendar...</p></div>';
