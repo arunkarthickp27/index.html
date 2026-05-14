@@ -445,10 +445,32 @@ function initGA(cid){
       scope:'https://www.googleapis.com/auth/drive.readonly https://www.googleapis.com/auth/userinfo.profile',
       callback:handleTok
     });
+    // Try silent sign-in first (no account picker popup)
+    var hint=localStorage.getItem('akbot_email');
+    if(hint){
+      google.accounts.id.initialize({
+        client_id:cid,
+        callback:function(){},
+        auto_select:true
+      });
+    }
+    silentSignIn(cid);
   }
   t();
 }
-function signIn(){if(!TC){setTimeout(signIn,300);return;}TC.requestAccessToken();}
+function silentSignIn(cid){
+  // Try to get token silently without user interaction
+  if(!TC){setTimeout(function(){silentSignIn(cid);},300);return;}
+  var hint=localStorage.getItem('akbot_email');
+  if(hint){
+    TC.requestAccessToken({prompt:'',login_hint:hint});
+  }
+}
+function signIn(){
+  if(!TC){setTimeout(signIn,300);return;}
+  // Show account picker only on manual sign-in
+  TC.requestAccessToken({prompt:'select_account'});
+}
 function handleTok(resp){
   if(!resp.access_token){alert('Sign-in failed.');return;}
   AT=resp.access_token;
@@ -456,6 +478,7 @@ function handleTok(resp){
     .then(function(r){return r.json();})
     .then(function(d){
       UP=d;
+      if(d&&d.email) localStorage.setItem('akbot_email',d.email);
       document.getElementById('uname').textContent=(d&&d.given_name)||'You';
       if(d&&d.picture) document.getElementById('uavatar').src=d.picture;
       document.getElementById('login-screen').style.display='none';
