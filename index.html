@@ -545,7 +545,10 @@ function enterFolder(id,name){folderStack.push({id:id,name:name});loadFolder(id)
 function goToFolder(idx){folderStack=folderStack.slice(0,idx+1);loadFolder(folderStack[folderStack.length-1].id);}
 function renderBreadcrumb(){
   var bc=document.getElementById('breadcrumb');
-  bc.innerHTML=folderStack.map(function(f,i){return'<span class="bc-item'+(i===folderStack.length-1?' active':'')+'" onclick="goToFolder('+i+')">'+f.name+'</span>'+(i<folderStack.length-1?'<span class="bc-sep">›</span>':'');}).join('');
+  var current=folderStack[folderStack.length-1];
+  var bmObj={id:current.id,name:current.name,mimeType:'application/vnd.google-apps.folder',modifiedTime:new Date().toISOString(),webViewLink:'https://drive.google.com/drive/folders/'+current.id};
+  var bmBtn=current.id!=='root'?'<button onclick="toggleBM('+JSON.stringify(bmObj)+');renderBreadcrumb()" style="margin-left:8px;background:none;border:1px solid var(--border);border-radius:7px;padding:3px 8px;font-size:11px;cursor:pointer;color:'+(isBookmarked(current.id)?'var(--accent4)':'var(--muted)')+';">'+(isBookmarked(current.id)?'⭐ Saved':'📌 Bookmark this folder')+'</button>':'';
+  bc.innerHTML=folderStack.map(function(f,i){return'<span class="bc-item'+(i===folderStack.length-1?' active':'')+'" onclick="goToFolder('+i+')">'+f.name+'</span>'+(i<folderStack.length-1?'<span class="bc-sep">›</span>':'');}).join('')+bmBtn;
 }
 
 function renderCalendar(){
